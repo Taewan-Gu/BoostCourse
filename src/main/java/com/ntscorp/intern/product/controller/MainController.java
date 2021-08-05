@@ -1,26 +1,25 @@
 package com.ntscorp.intern.product.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ntscorp.intern.product.controller.response.DefaultResponse;
+import com.ntscorp.intern.product.controller.response.CategoriesResponse;
+import com.ntscorp.intern.product.controller.response.ProductsResponse;
+import com.ntscorp.intern.product.controller.response.PromotionsResponse;
 import com.ntscorp.intern.product.model.Category;
 import com.ntscorp.intern.product.model.ProductSummary;
 import com.ntscorp.intern.product.model.PromotionImage;
 import com.ntscorp.intern.product.service.CategoryService;
 import com.ntscorp.intern.product.service.ProductService;
 import com.ntscorp.intern.product.service.PromotionService;
-import com.ntscorp.intern.product.type.CustomHttpStatus;
 
 @RestController
 @RequestMapping("/api")
@@ -41,66 +40,74 @@ public class MainController {
 	}
 
 	@GetMapping(path = "/promotions")
-	@Transactional(readOnly = true)
-	public ResponseEntity<DefaultResponse> promotions() {
+	public ResponseEntity<PromotionsResponse> promotions() {
 		List<PromotionImage> promotionImages = promotionService.findAllPromotionImages();
 
-		DefaultResponse response = new DefaultResponse();
-		response.setData(promotionImages);
-		response.setStatus(CustomHttpStatus.OK.getCode());
-		response.setMessage(CustomHttpStatus.OK.getMessage());
+		PromotionsResponse promotionsResponse = new PromotionsResponse();
+		promotionsResponse.setPromotions(promotionImages);
 
-		return new ResponseEntity<>(response, HttpStatus.OK);
+		return ResponseEntity.ok(promotionsResponse);
 	}
 
 	@GetMapping(path = "/categories")
-	@Transactional(readOnly = true)
-	public ResponseEntity<DefaultResponse> categories() {
+	public ResponseEntity<CategoriesResponse> categories() {
 		List<Category> categories = categoryService.findAllCategories();
 
-		DefaultResponse response = new DefaultResponse();
-		response.setData(categories);
-		response.setStatus(CustomHttpStatus.OK.getCode());
-		response.setMessage(CustomHttpStatus.OK.getMessage());
+		CategoriesResponse categoriesResponse = new CategoriesResponse();
+		categoriesResponse.setCategories(categories);
 
-		return new ResponseEntity<>(response, HttpStatus.OK);
+		return ResponseEntity.ok(categoriesResponse);
 	}
 
 	@GetMapping(path = "/products")
-	@Transactional(readOnly = true)
-	public ResponseEntity<DefaultResponse> products(
+	public ResponseEntity<ProductsResponse> products(
 		@RequestParam(required = false)
+		Integer start) {
+
+		if (isNotValidateproducts(start)) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+		List<ProductSummary> productSummaries = productService.findAllProductSummaries(start);
+		int totalCount = productService.countAllProductSummaries();
+
+		ProductsResponse productsResponse = new ProductsResponse();
+		productsResponse.setProducts(productSummaries);
+		productsResponse.setTotalCount(totalCount);
+
+		return new ResponseEntity<>(productsResponse, HttpStatus.OK);
+	}
+
+	@GetMapping(path = "/products/{categoryId}")
+	public ResponseEntity<ProductsResponse> productsByCategory(
+		@PathVariable
 		Integer categoryId,
 		@RequestParam(required = false)
 		Integer start) {
-		DefaultResponse response = new DefaultResponse();
 
 		if (isNotValidateproducts(categoryId, start)) {
-			response.setStatus(CustomHttpStatus.IS_NOT_VALIDATED.getCode());
-			response.setMessage(CustomHttpStatus.IS_NOT_VALIDATED.getMessage());
-			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
-		List<ProductSummary> productSummaries;
-		int totalCount;
+		List<ProductSummary> productSummaries = productService.findProductSummariesByCategoryId(categoryId, start);
+		int totalCount = productService.countProductSummariesByCategoryId(categoryId);
 
-		if (categoryId == null) {
-			productSummaries = productService.findAllProductSummaries(start);
-			totalCount = productService.countAllProductSummaries();
-		} else {
-			productSummaries = productService.findProductSummariesByCategoryId(categoryId, start);
-			totalCount = productService.countProductSummariesByCategoryId(categoryId);
+		ProductsResponse productsResponse = new ProductsResponse();
+		productsResponse.setProducts(productSummaries);
+		productsResponse.setTotalCount(totalCount);
+
+		return new ResponseEntity<>(productsResponse, HttpStatus.OK);
+	}
+
+	public Boolean isNotValidateproducts(Integer start) {
+		if (start == null) {
+			return VALID;
 		}
 
-		Map<String, Object> products = new HashMap<>();
-		products.put("totalCount", totalCount);
-		products.put("products", productSummaries);
-
-		response.setData(products);
-		response.setStatus(CustomHttpStatus.OK.getCode());
-		response.setMessage(CustomHttpStatus.OK.getMessage());
-
-		return new ResponseEntity<>(response, HttpStatus.OK);
+		if (start < 0) {
+			return INVALID;
+		}
+		return VALID;
 	}
 
 	public Boolean isNotValidateproducts(Integer categoryId, Integer start) {

@@ -27,28 +27,28 @@ public class ProductRepositoryImpl implements ProductRepository {
 	}
 
 	@Override
-	public List<ProductSummary> findAllSummaries(Integer start) {
+	public List<ProductSummary> findAllProductSummaries(Integer start) {
 		Map<String, ?> param = Collections.singletonMap("start", start);
-		return namedParameterJdbcTemplate.query(FIND_ALL_SUMMARIES, param, productSummaryRowMapper);
+		return namedParameterJdbcTemplate.query(FIND_ALL_PRODUCT_SUMMARIES, param, productSummaryRowMapper);
 	}
 
 	@Override
-	public int countAllSummaries() {
+	public int countAllProductSummaries() {
 		Map<String, ?> param = new HashMap<>();
-		return namedParameterJdbcTemplate.queryForObject(COUNT_ALL_SUMMARIES, param, Integer.class);
+		return namedParameterJdbcTemplate.queryForObject(COUNT_ALL_PRODUCT_SUMMARIES, param, Integer.class);
 	}
 
 	@Override
-	public List<ProductSummary> findSummariesByCategoryId(Integer categoryId, Integer start) {
+	public List<ProductSummary> findProductSummariesByCategoryId(Integer categoryId, Integer start) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("categoryId", categoryId);
 		params.put("start", start);
-		return namedParameterJdbcTemplate.query(FIND_SUMMARIES_BY_CATEGORY_ID, params, productSummaryRowMapper);
+		return namedParameterJdbcTemplate.query(FIND_PRODUCT_SUMMARIES_BY_CATEGORY_ID, params, productSummaryRowMapper);
 	}
 
 	@Override
-	public int countSummariesByCategoryId(Integer categoryId) {
+	public int countProductSummariesByCategoryId(Integer categoryId) {
 		Map<String, ?> param = Collections.singletonMap("categoryId", categoryId);
-		return namedParameterJdbcTemplate.queryForObject(COUNT_SUMMARIES_BY_CATEGORY_ID, param, Integer.class);
+		return namedParameterJdbcTemplate.queryForObject(COUNT_PRODUCT_SUMMARIES_BY_CATEGORY_ID, param, Integer.class);
 	}
 }

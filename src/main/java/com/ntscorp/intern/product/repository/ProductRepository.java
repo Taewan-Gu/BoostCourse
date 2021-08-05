@@ -5,11 +5,11 @@ import java.util.List;
 import com.ntscorp.intern.product.model.ProductSummary;
 
 public interface ProductRepository {
-	public List<ProductSummary> findAllSummaries(Integer start);
+	public List<ProductSummary> findAllProductSummaries(Integer start);
 
-	public List<ProductSummary> findSummariesByCategoryId(Integer categoryId, Integer start);
+	public List<ProductSummary> findProductSummariesByCategoryId(Integer categoryId, Integer start);
 
-	public int countAllSummaries();
+	public int countAllProductSummaries();
 
-	public int countSummariesByCategoryId(Integer categoryId);
+	public int countProductSummariesByCategoryId(Integer categoryId);
 }

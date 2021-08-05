@@ -8,6 +8,11 @@
     <title>네이버 예약</title>
     <link href="/css/style.css" rel="stylesheet">
     <link href="/css/mainpage.css" rel="stylesheet">
+    <script
+    	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"
+    	integrity="sha256-ngJY93C4H39YbmrWhnLzSyiepRuQDVKDNCWO2iyMzFw="
+    	crossorigin="anonymous">
+   	</script>
 </head>
 
 <body>
@@ -18,7 +23,7 @@
                     <a href="https://m.naver.com/" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
                     <p class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </p>
                 </h1>
-                <a href="./bookinglogin.html" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
+                <a href="/bookinglogin.html" class="btn_my"> <span class="viewReservation" title="예약확인">예약확인</span> </a>
             </header>
         </div>
         <hr>
@@ -50,7 +55,7 @@
             <div class="section_event_tab">
                 <ul class="event_tab_lst tab_lst_min">
                     <li class="item">
-                        <a categoryId="0" class="anchor active"> 전체리스트 </a>
+                        <a href="#" categoryId="0" class="anchor active"> 전체리스트 </a>
                     </li>
                 </ul>
             </div>
@@ -75,6 +80,32 @@
             <span class="copyright">© NAVER Corp.</span>
         </div>
     </footer>
+    <script type="rv-template" id="promotionItem">
+    	<li class="item" style="background-image: url(/{{productImageUrl}});">
+        	<a href="#"> <span class="img_btm_border"></span> <span class="img_right_border"></span> <span class="img_bg_gra"></span>
+            	<div class="event_txt">
+                	<h4 class="event_txt_tit"></h4>
+	                <p class="event_txt_adr"></p>
+    	            <p class="event_txt_dsc"></p>
+        	    </div>
+	        </a>
+    	</li>
+    </script>
+
+    <script type="rv-template" id="itemList">
+        <li class="item">
+            <a href="/detail.html" productId={{id}} class="item_book">
+                <div class="item_preview">
+                    <img alt="{{title}}" class="img_thumb" src=/{{productImageUrl}}>
+                    <span class="img_border"></span>
+                </div>
+                <div class="event_txt">
+                    <h4 class="event_txt_tit"> <span>{{title}}</span> <small class="sm">${{place}}</small> </h4>
+                    <p class="event_txt_dsc">{{content}}</p>
+                </div>
+            </a>
+        </li>
+    </script>
 </body>
 <script type="module" src="/js/mainpage.js"></script>
 </html>

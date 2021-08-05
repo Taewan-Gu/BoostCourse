@@ -23,9 +23,9 @@ public class ProductServiceImpl implements ProductService {
 		List<ProductSummary> productSummaries;
 
 		if (start == null) {
-			productSummaries = productRepository.findAllSummaries(0);
+			productSummaries = productRepository.findAllProductSummaries(0);
 		} else {
-			productSummaries = productRepository.findAllSummaries(start);
+			productSummaries = productRepository.findAllProductSummaries(start);
 		}
 
 		return productSummaries;
@@ -36,9 +36,9 @@ public class ProductServiceImpl implements ProductService {
 		List<ProductSummary> productSummaries;
 
 		if (start == null) {
-			productSummaries = productRepository.findSummariesByCategoryId(categoryId, 0);
+			productSummaries = productRepository.findProductSummariesByCategoryId(categoryId, 0);
 		} else {
-			productSummaries = productRepository.findSummariesByCategoryId(categoryId, start);
+			productSummaries = productRepository.findProductSummariesByCategoryId(categoryId, start);
 		}
 
 		return productSummaries;
@@ -46,11 +46,11 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public int countAllProductSummaries() {
-		return productRepository.countAllSummaries();
+		return productRepository.countAllProductSummaries();
 	}
 
 	@Override
 	public int countProductSummariesByCategoryId(Integer categoryId) {
-		return productRepository.countSummariesByCategoryId(categoryId);
+		return productRepository.countProductSummariesByCategoryId(categoryId);
 	}
 }

@@ -20,7 +20,6 @@ public class PromotionServiceImpl implements PromotionService {
 
 	@Override
 	public List<PromotionImage> findAllPromotionImages() {
-		List<PromotionImage> promotionImages = promotionRepository.findAllImages();
-		return promotionImages;
+		return promotionRepository.findAllPromotionImages();
 	}
 }

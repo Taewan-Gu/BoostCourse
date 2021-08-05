@@ -1,7 +1,7 @@
 package com.ntscorp.intern.product.repository.sql;
 
 public class ProductSql {
-	public static final String FIND_ALL_SUMMARIES = ""
+	public static final String FIND_ALL_PRODUCT_SUMMARIES = ""
 		+ "SELECT "
 		+ "pdt.id, "
 		+ "dpl.id AS display_info_id, "
@@ -15,7 +15,7 @@ public class ProductSql {
 		+ "JOIN file_info AS fl ON fl.id = pdt_img.file_id "
 		+ "LIMIT :start, 4";
 
-	public static final String FIND_SUMMARIES_BY_CATEGORY_ID = ""
+	public static final String FIND_PRODUCT_SUMMARIES_BY_CATEGORY_ID = ""
 		+ "SELECT "
 		+ "pdt.id, "
 		+ "dpl.id AS display_info_id, "
@@ -30,13 +30,13 @@ public class ProductSql {
 		+ "WHERE pdt.category_id = :categoryId "
 		+ "LIMIT :start, 4";
 
-	public static final String COUNT_SUMMARIES_BY_CATEGORY_ID = ""
+	public static final String COUNT_PRODUCT_SUMMARIES_BY_CATEGORY_ID = ""
 		+ "SELECT COUNT(*) AS total_count "
 		+ "FROM product AS pdt "
 		+ "JOIN display_info AS dpl ON pdt.id = dpl.product_id "
 		+ "WHERE category_id = :categoryId";
 
-	public static final String COUNT_ALL_SUMMARIES = ""
+	public static final String COUNT_ALL_PRODUCT_SUMMARIES = ""
 		+ "SELECT COUNT(*) AS total_count "
 		+ "FROM product AS pdt "
 		+ "JOIN display_info AS dpl ON pdt.id = dpl.product_id";
