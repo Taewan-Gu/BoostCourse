@@ -28,7 +28,9 @@ vsCode에서 JavaScript(이하 JS) 파일을 작성하고 Eclipse에서 HTML, CS
 
 인덴트는 기본설정이 4라서 4를 따랐고, CSS와 JS는 분리하여 사용하였습니다.
 
-기본적인 틀을 바탕으로 더미 데이터를 지우고 JS로 ajax 통신을 이용하여 데이터를 받아왔습니다.
+기본적인 틀을 바탕으로 템플릿팅을 사용하여 화면을 구성하였습니다.
+
+데이터는 JS로 ajax 통신을 이용하여 받아왔습니다.
 
 요구사항 확인 후, 트렐로에 반영시켰고 트렐로 일정대로 진행하였습니다.
 
@@ -57,6 +59,8 @@ vsCode에서 JavaScript(이하 JS) 파일을 작성하고 Eclipse에서 HTML, CS
 
 
 
+추가적으로 JS 자체를 분리하여 가독성을 높였고, 분리할 수 있는 함수들은 분리시켰습니다.
+
 
 
 ## BackEnd
@@ -78,7 +82,7 @@ Eclipse를 통해 작성하였고, 루트 패키지 명은 com.ntscorp.intern으
 
 PJT 3의 경우reservation 패키지는 사용하지 않습니다.
 
-각 패키지에서 레이어드 아키텍처에 따라 controller / model /  repository / service / type 패키지로 구분하였습니다.
+각 패키지에서 레이어드 아키텍처에 따라 controller / model /  repository / service 패키지로 구분하였습니다.
 
 
 
@@ -112,19 +116,13 @@ PJT 3의 경우reservation 패키지는 사용하지 않습니다.
 
 
 
-##### type
-
-Enum 클래스를 여기에 저장합니다.
-
-HttpStatus를 커스텀하여 저장하였습니다.
-
-
-
 이 외에도 DB properties를 application.properties로 따로 사용하였고,
 
-`@Transactional(readOnly=true)`를 통해 조회문을 최적화시켰으며,
-
 컴포넌트 스캔을 필터링하여 필요한 컴포넌트만 가져올 수 있도록 하였습니다.
+
+slf4j 로거를 사용하여 에러를 콘솔에 로깅하였고,
+
+컨트롤러 어드바이스를 사용하여 에러 핸들링을 하였습니다.
 
 
 
