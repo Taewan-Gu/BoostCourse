@@ -26,6 +26,8 @@ import com.ntscorp.intern.product.service.PromotionService;
 public class MainController {
 	private static final Boolean VALID = false;
 	private static final Boolean INVALID = true;
+	private static final int MIN_CATEGORY_ID = 1;
+	private static final int MIN_START = 0;
 
 	private final PromotionService promotionService;
 	private final CategoryService categoryService;
@@ -65,7 +67,7 @@ public class MainController {
 		Integer start) {
 
 		if (isNotValidateproducts(start)) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			throw new IllegalStateException("Error in products Controller");
 		}
 
 		List<ProductSummary> productSummaries = productService.findAllProductSummaries(start);
@@ -86,7 +88,7 @@ public class MainController {
 		Integer start) {
 
 		if (isNotValidateproducts(categoryId, start)) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			throw new IllegalStateException("Error in productsByCategory Controller");
 		}
 
 		List<ProductSummary> productSummaries = productService.findProductSummariesByCategoryId(categoryId, start);
@@ -104,7 +106,7 @@ public class MainController {
 			return VALID;
 		}
 
-		if (start < 0) {
+		if (start < MIN_START) {
 			return INVALID;
 		}
 		return VALID;
@@ -116,20 +118,20 @@ public class MainController {
 		}
 
 		if (categoryId == null) {
-			if (start < 0) {
+			if (start < MIN_START) {
 				return INVALID;
 			}
 			return VALID;
 		}
 
 		if (start == null) {
-			if (categoryId < 1) {
+			if (categoryId < MIN_CATEGORY_ID) {
 				return INVALID;
 			}
 			return VALID;
 		}
 
-		if (categoryId < 1 || start < 0) {
+		if (categoryId < MIN_CATEGORY_ID || start < MIN_START) {
 			return INVALID;
 		}
 		return VALID;
