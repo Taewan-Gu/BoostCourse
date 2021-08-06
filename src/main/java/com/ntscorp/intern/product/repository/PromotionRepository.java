@@ -2,8 +2,8 @@ package com.ntscorp.intern.product.repository;
 
 import java.util.List;
 
-import com.ntscorp.intern.product.model.PromotionImage;
+import com.ntscorp.intern.product.model.Promotion;
 
 public interface PromotionRepository {
-	public List<PromotionImage> findAllPromotionImages();
+	public List<Promotion> findAllPromotions();
 }

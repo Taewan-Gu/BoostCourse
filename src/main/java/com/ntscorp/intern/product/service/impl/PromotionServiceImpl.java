@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ntscorp.intern.product.model.PromotionImage;
+import com.ntscorp.intern.product.model.Promotion;
 import com.ntscorp.intern.product.repository.PromotionRepository;
 import com.ntscorp.intern.product.service.PromotionService;
 
@@ -19,7 +19,7 @@ public class PromotionServiceImpl implements PromotionService {
 	}
 
 	@Override
-	public List<PromotionImage> findAllPromotionImages() {
-		return promotionRepository.findAllPromotionImages();
+	public List<Promotion> findAllPromotions() {
+		return promotionRepository.findAllPromotions();
 	}
 }

@@ -16,7 +16,7 @@ import com.ntscorp.intern.product.controller.response.ProductsResponse;
 import com.ntscorp.intern.product.controller.response.PromotionsResponse;
 import com.ntscorp.intern.product.model.Category;
 import com.ntscorp.intern.product.model.ProductSummary;
-import com.ntscorp.intern.product.model.PromotionImage;
+import com.ntscorp.intern.product.model.Promotion;
 import com.ntscorp.intern.product.service.CategoryService;
 import com.ntscorp.intern.product.service.ProductService;
 import com.ntscorp.intern.product.service.PromotionService;
@@ -43,7 +43,7 @@ public class MainController {
 
 	@GetMapping(path = "/promotions")
 	public ResponseEntity<PromotionsResponse> promotions() {
-		List<PromotionImage> promotionImages = promotionService.findAllPromotionImages();
+		List<Promotion> promotionImages = promotionService.findAllPromotions();
 
 		PromotionsResponse promotionsResponse = new PromotionsResponse();
 		promotionsResponse.setPromotions(promotionImages);

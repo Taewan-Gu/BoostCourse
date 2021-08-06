@@ -2,16 +2,16 @@ package com.ntscorp.intern.product.controller.response;
 
 import java.util.List;
 
-import com.ntscorp.intern.product.model.PromotionImage;
+import com.ntscorp.intern.product.model.Promotion;
 
 public class PromotionsResponse {
-	private List<PromotionImage> promotions;
+	private List<Promotion> promotions;
 
-	public List<PromotionImage> getPromotions() {
+	public List<Promotion> getPromotions() {
 		return promotions;
 	}
 
-	public void setPromotions(List<PromotionImage> promotions) {
+	public void setPromotions(List<Promotion> promotions) {
 		this.promotions = promotions;
 	}
 
