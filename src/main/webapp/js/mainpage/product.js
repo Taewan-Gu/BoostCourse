@@ -14,6 +14,7 @@ function arrangeProducts(products) {
 	let rightProductHtml = "";
 
 	products.forEach(function (item, index) {
+		// index가 짝수일 경우, 왼쪽 배치. 홀수일 경우, 오른쪽 배치
 		if (index % 2 == 0) {
 			leftProductHtml += bindProductTemplate(item);
 		} else {
@@ -56,7 +57,7 @@ function changeCategory(target) {
 	const categoryId = target.getAttribute("categoryId");
 	
 	if (categoryId != 0) {
-		query = `/${categoryId}`;
+		query = `?categoryId=${categoryId}`;
 	}
 	
 	// 상품 가져오기
@@ -104,10 +105,10 @@ function initProducts() {
 		const selectedCategory = categoriesContainer.getElementsByClassName("active")[0];
 		const categoryId = selectedCategory.getAttribute("categoryId");
 		
-		let query = `?start=${productsCount}`;
+		let query = `&start=${productsCount}`;
 		
 		if (categoryId != 0) {
-			query = `/${categoryId}${query}`;
+			query = `?categoryId=${categoryId}${query}`;
 		}
 		
 		// 상품 가져오기

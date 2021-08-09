@@ -27,7 +27,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 	}
 
 	@Override
-	public List<ProductSummary> findAllProductSummaries(Integer start) {
+	public List<ProductSummary> selectAllProductSummaries(Integer start) {
 		Map<String, ?> param = Collections.singletonMap("start", start);
 		return namedParameterJdbcTemplate.query(FIND_ALL_PRODUCT_SUMMARIES, param, productSummaryRowMapper);
 	}
@@ -39,7 +39,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 	}
 
 	@Override
-	public List<ProductSummary> findProductSummariesByCategoryId(Integer categoryId, Integer start) {
+	public List<ProductSummary> selectProductSummariesByCategoryId(int categoryId, Integer start) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("categoryId", categoryId);
 		params.put("start", start);
@@ -47,7 +47,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 	}
 
 	@Override
-	public int countProductSummariesByCategoryId(Integer categoryId) {
+	public int countProductSummariesByCategoryId(int categoryId) {
 		Map<String, ?> param = Collections.singletonMap("categoryId", categoryId);
 		return namedParameterJdbcTemplate.queryForObject(COUNT_PRODUCT_SUMMARIES_BY_CATEGORY_ID, param, Integer.class);
 	}

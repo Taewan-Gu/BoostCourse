@@ -5,23 +5,20 @@ import java.util.List;
 import com.ntscorp.intern.product.model.ProductSummary;
 
 public class ProductsResponse {
-	private int totalCount;
-	private List<ProductSummary> products;
+	private final int totalCount;
+	private final List<ProductSummary> products;
+
+	public ProductsResponse(int totalCount, List<ProductSummary> products) {
+		this.totalCount = totalCount;
+		this.products = products;
+	}
 
 	public int getTotalCount() {
 		return totalCount;
 	}
 
-	public void setTotalCount(int totalCount) {
-		this.totalCount = totalCount;
-	}
-
 	public List<ProductSummary> getProducts() {
 		return products;
-	}
-
-	public void setProducts(List<ProductSummary> products) {
-		this.products = products;
 	}
 
 	@Override

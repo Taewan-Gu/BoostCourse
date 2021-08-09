@@ -19,26 +19,26 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<ProductSummary> findAllProductSummaries(Integer start) {
+	public List<ProductSummary> selectAllProductSummaries(Integer start) {
 		List<ProductSummary> productSummaries;
 
 		if (start == null) {
-			productSummaries = productRepository.findAllProductSummaries(0);
+			productSummaries = productRepository.selectAllProductSummaries(0);
 		} else {
-			productSummaries = productRepository.findAllProductSummaries(start);
+			productSummaries = productRepository.selectAllProductSummaries(start);
 		}
 
 		return productSummaries;
 	}
 
 	@Override
-	public List<ProductSummary> findProductSummariesByCategoryId(Integer categoryId, Integer start) {
+	public List<ProductSummary> selectProductSummariesByCategoryId(int categoryId, Integer start) {
 		List<ProductSummary> productSummaries;
 
 		if (start == null) {
-			productSummaries = productRepository.findProductSummariesByCategoryId(categoryId, 0);
+			productSummaries = productRepository.selectProductSummariesByCategoryId(categoryId, 0);
 		} else {
-			productSummaries = productRepository.findProductSummariesByCategoryId(categoryId, start);
+			productSummaries = productRepository.selectProductSummariesByCategoryId(categoryId, start);
 		}
 
 		return productSummaries;
@@ -50,7 +50,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public int countProductSummariesByCategoryId(Integer categoryId) {
+	public int countProductSummariesByCategoryId(int categoryId) {
 		return productRepository.countProductSummariesByCategoryId(categoryId);
 	}
 }

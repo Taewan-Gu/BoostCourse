@@ -5,18 +5,18 @@ import java.util.List;
 import com.ntscorp.intern.product.model.Category;
 
 public class CategoriesResponse {
-	private List<Category> Categories;
+	private final List<Category> categories;
 
-	public List<Category> getCategories() {
-		return Categories;
+	public CategoriesResponse(List<Category> categories) {
+		this.categories = categories;
 	}
 
-	public void setCategories(List<Category> categories) {
-		Categories = categories;
+	public List<Category> getCategories() {
+		return categories;
 	}
 
 	@Override
 	public String toString() {
-		return "CategoriesResponse [Categories=" + Categories + "]";
+		return "CategoriesResponse [categories=" + categories + "]";
 	}
 }

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,61 +41,55 @@ public class MainController {
 	}
 
 	@GetMapping(path = "/promotions")
-	public ResponseEntity<PromotionsResponse> promotions() {
-		List<Promotion> promotionImages = promotionService.findAllPromotions();
+	public ResponseEntity<PromotionsResponse> getPromotions() {
+		List<Promotion> promotions = promotionService.selectAllPromotions();
 
-		PromotionsResponse promotionsResponse = new PromotionsResponse();
-		promotionsResponse.setPromotions(promotionImages);
+		PromotionsResponse promotionsResponse = new PromotionsResponse(promotions);
 
 		return ResponseEntity.ok(promotionsResponse);
 	}
 
 	@GetMapping(path = "/categories")
-	public ResponseEntity<CategoriesResponse> categories() {
-		List<Category> categories = categoryService.findAllCategories();
+	public ResponseEntity<CategoriesResponse> getCategories() {
+		List<Category> categories = categoryService.selectAllCategories();
 
-		CategoriesResponse categoriesResponse = new CategoriesResponse();
-		categoriesResponse.setCategories(categories);
+		CategoriesResponse categoriesResponse = new CategoriesResponse(categories);
 
 		return ResponseEntity.ok(categoriesResponse);
 	}
 
-	@GetMapping(path = "/products")
-	public ResponseEntity<ProductsResponse> products(
-		@RequestParam(required = false)
-		Integer start) {
-
-		if (isNotValidateproducts(start)) {
-			throw new IllegalStateException("Error in products Controller");
-		}
-
-		List<ProductSummary> productSummaries = productService.findAllProductSummaries(start);
-		int totalCount = productService.countAllProductSummaries();
-
-		ProductsResponse productsResponse = new ProductsResponse();
-		productsResponse.setProducts(productSummaries);
-		productsResponse.setTotalCount(totalCount);
-
-		return new ResponseEntity<>(productsResponse, HttpStatus.OK);
-	}
-
-	@GetMapping(path = "/products/{categoryId}")
-	public ResponseEntity<ProductsResponse> productsByCategory(
-		@PathVariable
-		Integer categoryId,
+	@GetMapping(path = "/products", params = {"categoryId"})
+	public ResponseEntity<ProductsResponse> getProductsByCategory(
+		@RequestParam
+		int categoryId,
 		@RequestParam(required = false)
 		Integer start) {
 
 		if (isNotValidateproducts(categoryId, start)) {
-			throw new IllegalStateException("Error in productsByCategory Controller");
+			throw new IllegalArgumentException("arguments = [categoryId: " + categoryId + ", start: " + start + "]");
 		}
 
-		List<ProductSummary> productSummaries = productService.findProductSummariesByCategoryId(categoryId, start);
+		List<ProductSummary> productSummaries = productService.selectProductSummariesByCategoryId(categoryId, start);
 		int totalCount = productService.countProductSummariesByCategoryId(categoryId);
 
-		ProductsResponse productsResponse = new ProductsResponse();
-		productsResponse.setProducts(productSummaries);
-		productsResponse.setTotalCount(totalCount);
+		ProductsResponse productsResponse = new ProductsResponse(totalCount, productSummaries);
+
+		return new ResponseEntity<>(productsResponse, HttpStatus.OK);
+	}
+
+	@GetMapping(path = "/products")
+	public ResponseEntity<ProductsResponse> getProducts(
+		@RequestParam(required = false)
+		Integer start) {
+
+		if (isNotValidateproducts(start)) {
+			throw new IllegalArgumentException("arguments = [start: " + start + "]");
+		}
+
+		List<ProductSummary> productSummaries = productService.selectAllProductSummaries(start);
+		int totalCount = productService.countAllProductSummaries();
+
+		ProductsResponse productsResponse = new ProductsResponse(totalCount, productSummaries);
 
 		return new ResponseEntity<>(productsResponse, HttpStatus.OK);
 	}

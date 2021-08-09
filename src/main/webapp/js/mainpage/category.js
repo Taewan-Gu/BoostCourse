@@ -5,18 +5,14 @@ const categoriesContainer = document.getElementsByClassName("event_tab_lst")[0];
 
 // 카테고리 배치
 function arrangeCategories (categories) {
-	categories.forEach(category => {
-		const categoryBox = document.createElement("li");
-		const categoryLink = document.createElement("a");
-		
-		categoryBox.className = "item";
-		categoryLink.setAttribute("categoryId", category.id);
-		categoryLink.innerText = category.name;
-		categoryLink.className = "anchor";
-		
-        categoryBox.appendChild(categoryLink);
-		categoriesContainer.appendChild(categoryBox);
-	})
+	const categoryTemplate = document.querySelector("#categoryItem").innerText;
+	const bindCategoryTemplate = Handlebars.compile(categoryTemplate);
+	
+	let categoryHtml = categories.reduce(function(prev, next) {
+	  	return prev + bindCategoryTemplate(next);
+	}, "");
+	
+	categoriesContainer.innerHTML += categoryHtml;
 }
 
 // 초기 실행

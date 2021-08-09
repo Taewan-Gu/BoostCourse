@@ -13,4 +13,3 @@ document.addEventListener("DOMContentLoaded", () => {
 		location.href = BASE_URL + "myreservation.html"; 
 	})
 });
-

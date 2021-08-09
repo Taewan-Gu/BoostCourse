@@ -3169,7 +3169,7 @@ button {
 .event .section_event_tab .event_tab_lst>.item .anchor {
     display: inline-block;
     margin-right: 13px;
-    padding: 10px 4.5px 10px 4px;
+    padding: 10px 2px 10px 2px;
     color: #000;
     box-sizing: border-box;
     line-height: 20px

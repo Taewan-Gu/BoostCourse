@@ -11,5 +11,5 @@ document.addEventListener("DOMContentLoaded", () => {
 	initCategories();					// 카테고리
 	initProducts();						// 프로덕트
 	
-	initMoveTopButton();			// top 버튼
+	initMoveTopButton();				// top 버튼
 });

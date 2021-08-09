@@ -5,14 +5,14 @@ import java.util.List;
 import com.ntscorp.intern.product.model.Promotion;
 
 public class PromotionsResponse {
-	private List<Promotion> promotions;
+	private final List<Promotion> promotions;
+
+	public PromotionsResponse(List<Promotion> promotions) {
+		this.promotions = promotions;
+	}
 
 	public List<Promotion> getPromotions() {
 		return promotions;
-	}
-
-	public void setPromotions(List<Promotion> promotions) {
-		this.promotions = promotions;
 	}
 
 	@Override

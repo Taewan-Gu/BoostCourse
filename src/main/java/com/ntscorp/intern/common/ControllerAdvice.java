@@ -1,4 +1,4 @@
-package com.ntscorp.intern.product.controller;
+package com.ntscorp.intern.common;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,12 +15,12 @@ public class ControllerAdvice {
 	public ResponseEntity<?> exception(Exception exception) {
 		LOGGER.error("SERVER ERROR", exception);
 
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	@ExceptionHandler(IllegalStateException.class)
-	public ResponseEntity<?> exception(IllegalStateException illegalStateException) {
-		LOGGER.error("Parameters are not Validated", illegalStateException);
+	public ResponseEntity<?> exception(IllegalStateException illegalArgumentException) {
+		LOGGER.error("Parameters are not Validated", illegalArgumentException);
 
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}

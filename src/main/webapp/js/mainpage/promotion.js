@@ -4,7 +4,7 @@ import { URL } from "../common/urlMapper.js";
 const promotionsContainer = document.getElementsByClassName("visual_img")[0];
 
 function moveCarouselFirstToLast() {
-	const firstNode = promotionsContainer.firstChild;
+	const firstNode = promotionsContainer.firstElementChild;
 	const lastNode = promotionsContainer.removeChild(firstNode);
 	promotionsContainer.appendChild(lastNode);	
 }
@@ -17,7 +17,7 @@ function moveCarousel() {
 	promotionsContainer.ontransitionend = () => {
 		promotionsContainer.removeAttribute("style")
 		
-		moveCarouselFirstToLast();			// promotionNode 이동
+		moveCarouselFirstToLast();				// promotionNode 이동
 	}
 }
 
@@ -31,16 +31,11 @@ function arrangePromotions(promotions) {
 	}, "");
 	
 	promotionsContainer.innerHTML = promotionHtml;
-	
-	// textNode 삭제
-	for (let i = 0; i < promotions.length * 2 + 1; i++) {
-		if (i % 2 == 0) {
-			const textNode = promotionsContainer.firstChild;
-			promotionsContainer.removeChild(textNode);
-		} else {
-			moveCarouselFirstToLast();
-		}
-	}
+}
+
+// 캐러셀 움직이기 시작
+function startCarousel() {
+	setInterval(moveCarousel, 2000);
 }
 
 function initPromotionCarousel() {
@@ -51,7 +46,7 @@ function initPromotionCarousel() {
 	    })
 		.then(data => {
 			arrangePromotions(data.promotions);
-			setInterval(moveCarousel, 2000);
+			startCarousel();
 		})
 	    .catch(error => {
 	    	console.error(error);

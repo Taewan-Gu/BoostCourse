@@ -19,7 +19,7 @@ public class PromotionServiceImpl implements PromotionService {
 	}
 
 	@Override
-	public List<Promotion> findAllPromotions() {
-		return promotionRepository.findAllPromotions();
+	public List<Promotion> selectAllPromotions() {
+		return promotionRepository.selectAllPromotions();
 	}
 }
