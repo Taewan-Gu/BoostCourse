@@ -25,6 +25,6 @@ public class PromotionRepositoryImpl implements PromotionRepository {
 
 	@Override
 	public List<Promotion> selectAllPromotions() {
-		return namedParameterJdbcTemplate.query(FIND_ALL_PROMOTIONS, promotionImageRowMapper);
+		return namedParameterJdbcTemplate.query(SELECT_ALL_PROMOTIONS, promotionImageRowMapper);
 	}
 }

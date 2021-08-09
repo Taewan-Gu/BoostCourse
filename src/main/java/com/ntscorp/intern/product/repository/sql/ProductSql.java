@@ -1,7 +1,7 @@
 package com.ntscorp.intern.product.repository.sql;
 
 public class ProductSql {
-	public static final String FIND_ALL_PRODUCT_SUMMARIES = ""
+	public static final String SELECT_ALL_PRODUCT_SUMMARIES = ""
 		+ "SELECT "
 		+ "pdt.id, "
 		+ "dpl.id AS display_info_id, "
@@ -15,7 +15,7 @@ public class ProductSql {
 		+ "JOIN file_info AS fl ON fl.id = pdt_img.file_id "
 		+ "LIMIT :start, 4";
 
-	public static final String FIND_PRODUCT_SUMMARIES_BY_CATEGORY_ID = ""
+	public static final String SELECT_PRODUCT_SUMMARIES_BY_CATEGORY_ID = ""
 		+ "SELECT "
 		+ "pdt.id, "
 		+ "dpl.id AS display_info_id, "

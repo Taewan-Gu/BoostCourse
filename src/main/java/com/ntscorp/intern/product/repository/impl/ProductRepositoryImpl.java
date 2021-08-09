@@ -29,7 +29,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 	@Override
 	public List<ProductSummary> selectAllProductSummaries(Integer start) {
 		Map<String, ?> param = Collections.singletonMap("start", start);
-		return namedParameterJdbcTemplate.query(FIND_ALL_PRODUCT_SUMMARIES, param, productSummaryRowMapper);
+		return namedParameterJdbcTemplate.query(SELECT_ALL_PRODUCT_SUMMARIES, param, productSummaryRowMapper);
 	}
 
 	@Override
@@ -43,7 +43,8 @@ public class ProductRepositoryImpl implements ProductRepository {
 		Map<String, Object> params = new HashMap<>();
 		params.put("categoryId", categoryId);
 		params.put("start", start);
-		return namedParameterJdbcTemplate.query(FIND_PRODUCT_SUMMARIES_BY_CATEGORY_ID, params, productSummaryRowMapper);
+		return namedParameterJdbcTemplate.query(SELECT_PRODUCT_SUMMARIES_BY_CATEGORY_ID, params,
+			productSummaryRowMapper);
 	}
 
 	@Override

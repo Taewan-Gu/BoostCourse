@@ -1,7 +1,7 @@
 package com.ntscorp.intern.product.repository.sql;
 
 public class PromotionSql {
-	public static final String FIND_ALL_PROMOTIONS = ""
+	public static final String SELECT_ALL_PROMOTIONS = ""
 		+ "SELECT "
 		+ "pmt.id, "
 		+ "pmt.product_id, "

@@ -25,6 +25,6 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 
 	@Override
 	public List<Category> selectAllCategories() {
-		return namedParameterJdbcTemplate.query(FIND_ALL_CATEGORIES, categoryRowMapper);
+		return namedParameterJdbcTemplate.query(SELECT_ALL_CATEGORIES, categoryRowMapper);
 	}
 }
