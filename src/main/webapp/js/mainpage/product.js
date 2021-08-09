@@ -105,10 +105,10 @@ function initProducts() {
 		const selectedCategory = categoriesContainer.getElementsByClassName("active")[0];
 		const categoryId = selectedCategory.getAttribute("categoryId");
 		
-		let query = `&start=${productsCount}`;
+		let query = `?start=${productsCount}`;
 		
 		if (categoryId != 0) {
-			query = `?categoryId=${categoryId}${query}`;
+			query = `${query}&categoryId=${categoryId}`;
 		}
 		
 		// 상품 가져오기
