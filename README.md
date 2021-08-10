@@ -1,16 +1,67 @@
-# PJT3. 예약 시스템
+# 예약 시스템
 
 ## 일정 관리
 
-* 예제) 8.3 일정 상태 
+* PJT3 트렐로
 
 ![image-20210803133523574](README.assets/image-20210803133523574.png)
 
-<a href="https://trello.com/invite/b/s7hPrEzk/ea484303360596b468773c23f722e6a2/pjt3" style="font-size:24px; font-weight:550; color: #2DB400;">프로젝트 트렐로 보기</a>
+<a href="https://trello.com/invite/b/s7hPrEzk/ea484303360596b468773c23f722e6a2/pjt3" style="font-size:24px; font-weight:550; color: #2DB400;">PJT 3 트렐로 보기</a>
+
+* PJT4 트렐로
+
+![image-20210810113007889](README.assets/image-20210810113007889.png)
+
+<a href="https://trello.com/b/VSSTXIzi/pjt4" style="font-size:24px; font-weight:550; color: #2DB400;">PJT 4 트렐로 보기</a>
 
 
 
 
+
+# PJT4
+
+## FrontEnd
+
+### 스택
+
+* HMTL, CSS, JavaScript
+
+### 툴
+
+* IDE: vsCode, Eclipse
+
+### 개발
+
+진행 중
+
+
+
+## BackEnd
+
+### 스택
+
+* Spring mvc, JDBC, Mysql
+
+### 툴
+
+* IDE: Eclipse
+* Web Server: Apache Tomcat
+
+### 개발
+
+진행 중
+
+
+
+## Pages
+
+미 구현
+
+
+
+
+
+# PJT3
 
 ## FrontEnd
 
