@@ -16,8 +16,8 @@ import com.ntscorp.intern.product.repository.CategoryRepository;
 
 @Repository
 public class CategoryRepositoryImpl implements CategoryRepository {
-	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-	private RowMapper<Category> categoryRowMapper = BeanPropertyRowMapper.newInstance(Category.class);
+	private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+	private final RowMapper<Category> categoryRowMapper = BeanPropertyRowMapper.newInstance(Category.class);
 
 	public CategoryRepositoryImpl(DataSource dataSource) {
 		this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);

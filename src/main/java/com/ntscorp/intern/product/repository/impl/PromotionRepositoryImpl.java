@@ -16,8 +16,8 @@ import com.ntscorp.intern.product.repository.PromotionRepository;
 
 @Repository
 public class PromotionRepositoryImpl implements PromotionRepository {
-	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-	private RowMapper<Promotion> promotionImageRowMapper = BeanPropertyRowMapper.newInstance(Promotion.class);
+	private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+	private final RowMapper<Promotion> promotionImageRowMapper = BeanPropertyRowMapper.newInstance(Promotion.class);
 
 	public PromotionRepositoryImpl(DataSource dataSource) {
 		this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);

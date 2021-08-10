@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ntscorp.intern.product.model.ProductDescription;
+import com.ntscorp.intern.product.model.ProductImage;
 import com.ntscorp.intern.product.model.ProductSummary;
 import com.ntscorp.intern.product.repository.ProductRepository;
 import com.ntscorp.intern.product.service.ProductService;
@@ -52,5 +54,15 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int countProductSummariesByCategoryId(int categoryId) {
 		return productRepository.countProductSummariesByCategoryId(categoryId);
+	}
+
+	@Override
+	public ProductDescription selectProductDescriptionByDisplayInfoId(int displayInfoId) {
+		return productRepository.selectProductDescriptionByDisplayInfoId(displayInfoId);
+	}
+
+	@Override
+	public List<ProductImage> selectProductImagesByDisplayInfoId(int displayInfoId) {
+		return productRepository.selectProductImagesByDisplayInfoId(displayInfoId);
 	}
 }

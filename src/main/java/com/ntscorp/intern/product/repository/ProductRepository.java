@@ -2,6 +2,8 @@ package com.ntscorp.intern.product.repository;
 
 import java.util.List;
 
+import com.ntscorp.intern.product.model.ProductDescription;
+import com.ntscorp.intern.product.model.ProductImage;
 import com.ntscorp.intern.product.model.ProductSummary;
 
 public interface ProductRepository {
@@ -12,4 +14,8 @@ public interface ProductRepository {
 	public int countAllProductSummaries();
 
 	public int countProductSummariesByCategoryId(int categoryId);
+
+	public ProductDescription selectProductDescriptionByDisplayInfoId(int displayInfoId);
+
+	public List<ProductImage> selectProductImagesByDisplayInfoId(int displayInfoId);
 }
