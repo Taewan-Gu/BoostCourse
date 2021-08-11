@@ -31,4 +31,10 @@ public class CommentSql {
 		+ "LEFT JOIN file_info AS fl ON cmt_img.file_id = fl.id "
 		+ "WHERE dpl.id = :displayInfoId "
 		+ "LIMIT 3";
+
+	public static final String SELECT_COMMENTS_COUNT_AND_AVERAGE_SCORE = ""
+		+ "SELECT COUNT(*) AS total_count, AVG(cmt.score) AS average_score "
+		+ "FROM display_info AS dpl "
+		+ "JOIN reservation_user_comment AS cmt ON dpl.product_id = cmt.product_id "
+		+ "WHERE dpl.id = :displayInfoId";
 }

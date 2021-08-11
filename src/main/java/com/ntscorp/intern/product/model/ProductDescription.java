@@ -5,10 +5,10 @@ public class ProductDescription {
 	private int productId;
 	private String title;
 	private String content;
-	private String mapUrl;
-	private String place_street;
-	private String place_lot;
-	private String place_name;
+	private String mapImageUrl;
+	private String placeStreet;
+	private String placeLot;
+	private String placeName;
 	private String tel;
 
 	public int getId() {
@@ -43,36 +43,36 @@ public class ProductDescription {
 		this.content = content;
 	}
 
-	public String getMapUrl() {
-		return mapUrl;
+	public String getMapImageUrl() {
+		return mapImageUrl;
 	}
 
-	public void setMapUrl(String mapUrl) {
-		this.mapUrl = mapUrl;
+	public void setMapImageUrl(String mapImageUrl) {
+		this.mapImageUrl = mapImageUrl;
 	}
 
-	public String getPlace_street() {
-		return place_street;
+	public String getPlaceStreet() {
+		return placeStreet;
 	}
 
-	public void setPlace_street(String place_street) {
-		this.place_street = place_street;
+	public void setPlaceStreet(String placeStreet) {
+		this.placeStreet = placeStreet;
 	}
 
-	public String getPlace_lot() {
-		return place_lot;
+	public String getPlaceLot() {
+		return placeLot;
 	}
 
-	public void setPlace_lot(String place_lot) {
-		this.place_lot = place_lot;
+	public void setPlaceLot(String placeLot) {
+		this.placeLot = placeLot;
 	}
 
-	public String getPlace_name() {
-		return place_name;
+	public String getPlaceName() {
+		return placeName;
 	}
 
-	public void setPlace_name(String place_name) {
-		this.place_name = place_name;
+	public void setPlaceName(String placeName) {
+		this.placeName = placeName;
 	}
 
 	public String getTel() {
@@ -85,8 +85,9 @@ public class ProductDescription {
 
 	@Override
 	public String toString() {
-		return "DisplayDescription [id=" + id + ", productId=" + productId + ", title=" + title + ", content=" + content
-			+ ", mapUrl=" + mapUrl + ", place_street=" + place_street + ", place_lot=" + place_lot + ", place_name="
-			+ place_name + ", tel=" + tel + "]";
+		return "ProductDescription [id=" + id + ", productId=" + productId + ", title=" + title + ", content=" + content
+			+ ", mapImageUrl=" + mapImageUrl + ", placeStreet=" + placeStreet + ", placeLot=" + placeLot
+			+ ", placeName="
+			+ placeName + ", tel=" + tel + "]";
 	}
 }

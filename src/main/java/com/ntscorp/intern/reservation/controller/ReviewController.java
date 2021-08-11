@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ntscorp.intern.reservation.controller.response.CommentsResponse;
 import com.ntscorp.intern.reservation.model.Comment;
+import com.ntscorp.intern.reservation.model.CommentsCountAndAverageScore;
 import com.ntscorp.intern.reservation.service.CommentService;
 
 @RestController
@@ -27,8 +28,10 @@ public class ReviewController {
 	public ResponseEntity<CommentsResponse> getComments(@RequestParam
 	int displayInfoId) {
 		List<Comment> comments = commentService.selectAllComments(displayInfoId);
+		CommentsCountAndAverageScore commentsCountAndAverageScore = commentService
+			.selectCommentsCountAndAverageScore(displayInfoId);
 
-		CommentsResponse commentsResponse = new CommentsResponse(comments);
+		CommentsResponse commentsResponse = new CommentsResponse(comments, commentsCountAndAverageScore);
 
 		return ResponseEntity.ok(commentsResponse);
 	}
@@ -37,8 +40,10 @@ public class ReviewController {
 	public ResponseEntity<CommentsResponse> getThreeComments(@RequestParam
 	int displayInfoId) {
 		List<Comment> comments = commentService.selectCommentsLimitThree(displayInfoId);
+		CommentsCountAndAverageScore commentsCountAndAverageScore = commentService
+			.selectCommentsCountAndAverageScore(displayInfoId);
 
-		CommentsResponse commentsResponse = new CommentsResponse(comments);
+		CommentsResponse commentsResponse = new CommentsResponse(comments, commentsCountAndAverageScore);
 
 		return ResponseEntity.ok(commentsResponse);
 	}

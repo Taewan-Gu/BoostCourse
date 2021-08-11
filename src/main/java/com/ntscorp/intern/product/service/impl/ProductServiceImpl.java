@@ -1,5 +1,6 @@
 package com.ntscorp.intern.product.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +63,15 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<ProductImage> selectProductImagesByDisplayInfoId(int displayInfoId) {
-		return productRepository.selectProductImagesByDisplayInfoId(displayInfoId);
+	public List<String> selectProductImageUrlsByDisplayInfoId(int displayInfoId) {
+		List<ProductImage> productImages = productRepository.selectProductImagesByDisplayInfoId(displayInfoId);
+		List<String> productImageUrls = new ArrayList<>();
+
+		for (ProductImage productImage : productImages) {
+			productImageUrls.add(productImage.getProductImageUrl());
+		}
+		;
+
+		return productImageUrls;
 	}
 }

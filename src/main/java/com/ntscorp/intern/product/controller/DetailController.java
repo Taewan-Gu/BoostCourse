@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ntscorp.intern.product.controller.response.ProductDescriptionResponse;
 import com.ntscorp.intern.product.model.ProductDescription;
-import com.ntscorp.intern.product.model.ProductImage;
 import com.ntscorp.intern.product.service.ProductService;
 
 @RestController
@@ -30,10 +29,10 @@ public class DetailController {
 	int displayInfoId) {
 
 		ProductDescription productDescription = productService.selectProductDescriptionByDisplayInfoId(displayInfoId);
-		List<ProductImage> productImages = productService.selectProductImagesByDisplayInfoId(displayInfoId);
+		List<String> productImageUrls = productService.selectProductImageUrlsByDisplayInfoId(displayInfoId);
 
 		ProductDescriptionResponse productDescriptionResponse = new ProductDescriptionResponse(productDescription,
-			productImages);
+			productImageUrls);
 
 		return ResponseEntity.ok(productDescriptionResponse);
 	}
