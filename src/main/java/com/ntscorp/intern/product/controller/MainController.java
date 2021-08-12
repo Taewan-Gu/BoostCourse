@@ -42,7 +42,7 @@ public class MainController {
 
 	@GetMapping(path = "/promotions")
 	public ResponseEntity<PromotionsResponse> getPromotions() {
-		List<Promotion> promotions = promotionService.selectAllPromotions();
+		List<Promotion> promotions = promotionService.getAllPromotions();
 
 		PromotionsResponse promotionsResponse = new PromotionsResponse(promotions);
 
@@ -51,7 +51,7 @@ public class MainController {
 
 	@GetMapping(path = "/categories")
 	public ResponseEntity<CategoriesResponse> getCategories() {
-		List<Category> categories = categoryService.selectAllCategories();
+		List<Category> categories = categoryService.getAllCategories();
 
 		CategoriesResponse categoriesResponse = new CategoriesResponse(categories);
 
@@ -69,7 +69,7 @@ public class MainController {
 			throw new IllegalArgumentException("arguments = [categoryId: " + categoryId + ", start: " + start + "]");
 		}
 
-		List<ProductSummary> productSummaries = productService.selectProductSummariesByCategoryId(categoryId, start);
+		List<ProductSummary> productSummaries = productService.getProductSummariesByCategoryId(categoryId, start);
 		int totalCount = productService.countProductSummariesByCategoryId(categoryId);
 
 		ProductsResponse productsResponse = new ProductsResponse(totalCount, productSummaries);
@@ -86,7 +86,7 @@ public class MainController {
 			throw new IllegalArgumentException("arguments = [start: " + start + "]");
 		}
 
-		List<ProductSummary> productSummaries = productService.selectAllProductSummaries(start);
+		List<ProductSummary> productSummaries = productService.getAllProductSummaries(start);
 		int totalCount = productService.countAllProductSummaries();
 
 		ProductsResponse productsResponse = new ProductsResponse(totalCount, productSummaries);

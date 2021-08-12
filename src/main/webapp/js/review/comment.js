@@ -4,8 +4,9 @@ import { parser } from "../common/parser.js"
 export const comment = {
 	// 현재 detail 페이지의 displayInfoId 반환
 	getDisplayInfoId: () => {
-		const urlParameters = parser.urlParameterParsing();
-		return urlParameters.displayInfoId;
+		const parameters = new URLSearchParams(location.search);
+		
+		return parameters.get("displayInfoId");
 	},
 	
 	// Date 파싱
@@ -19,11 +20,12 @@ export const comment = {
 	
 	// 집계함수 배치 (totalCount, averageScore)
 	arrangeCommentsCountAndAverageScore(commentsCountAndAverageScore) {
-		const gradeContainer = document.getElementsByClassName('grade_area')[0];
+		// id 박아버리기.
+		const gradeContainer = document.querySelector('.grade_area');
 		
-		const graphAverageScoreContainer = gradeContainer.getElementsByClassName('graph_value')[0];
-		const averageScoreContainer = gradeContainer.getElementsByClassName('text_value')[0];
-		const averageScoreSpan = averageScoreContainer.getElementsByTagName('span')[0];
+		const graphAverageScoreContainer = gradeContainer.querySelector('.graph_value');
+		const averageScoreContainer = gradeContainer.querySelector('.text_value');
+		const averageScoreSpan = averageScoreContainer.querySelector('span');
 		
 		// 소수점 한자리까지만 출력
 		const averageScore = commentsCountAndAverageScore.averageScore.toString().substr(0, 3);
@@ -32,15 +34,15 @@ export const comment = {
 		// 100분위를 표현하기 위한 *20(최대가 5이므로)
 		graphAverageScoreContainer.style.width = `${averageScore * 20}%`;
 		
-		const countContainer = gradeContainer.getElementsByClassName('join_count')[0];
-		const countEm = countContainer.getElementsByTagName('em')[0];
+		const countContainer = gradeContainer.querySelector('.join_count');
+		const countEm = countContainer.querySelector('em');
 
 		countEm.innerText = `${commentsCountAndAverageScore.totalCount}건`;
 	},
 	
 	// 리뷰 배치
 	arrangeComments(comments) {
-		const commentsContainer = document.getElementsByClassName('list_short_review')[0];
+		const commentsContainer = document.querySelector('.list_short_review');
 	
 		const commentsTemplate = document.querySelector("#comment").innerText;
 		const bindCommentsTemplate = Handlebars.compile(commentsTemplate);
@@ -54,13 +56,13 @@ export const comment = {
 	
 	// 모든 리뷰 보기 시, displayInfoId Review.html로 넘겨주기.
 	setDisplayInfoIdForReview: (displayInfoId) => {
-		const allCommentsButton = document.getElementsByClassName('btn_review_more')[0];
+		const allCommentsButton = document.querySelector('.btn_review_more');
 		allCommentsButton.href = `./review.html?displayInfoId=${displayInfoId}`;
 	},
 	
 	// 뒤로 가기 시, displayInfoId detail.html로 넘겨주기.
 	setDisplayInfoIdForDetail: (displayInfoId) => {
-		const allCommentsButton = document.getElementsByClassName('btn_back')[0];
+		const allCommentsButton = document.querySelector('.btn_back');
 		allCommentsButton.href = `./detail.html?displayInfoId=${displayInfoId}`;
 	},
 	
@@ -89,6 +91,7 @@ export const comment = {
 		const displayInfoId = this.getDisplayInfoId();
 		const query = `?displayInfoId=${displayInfoId}`;
 		
+		// 모든 리뷰 보기 시, displayInfoId Review.html로 넘겨주기.
 		this.setDisplayInfoIdForReview(displayInfoId);
 		
 		// 리뷰 정보 가져오기

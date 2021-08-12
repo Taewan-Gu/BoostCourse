@@ -17,5 +17,5 @@ public interface ProductRepository {
 
 	public ProductDescription selectProductDescriptionByDisplayInfoId(int displayInfoId);
 
-	public List<ProductImage> selectProductImagesByDisplayInfoId(int displayInfoId);
+	public List<ProductImage> selectProductImagesByDisplayInfoId(int displayInfoId, int limit);
 }

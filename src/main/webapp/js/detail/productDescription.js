@@ -1,17 +1,17 @@
 import { URL } from "../common/urlMapper.js";
-import { parser } from "../common/parser.js";
-import { carousel } from "./carousel.js";
+import { carousel } from "../util/carousel.js";
 
 export const productDescription = {
 	// 현재 detail 페이지의 displayInfoId 반환
 	getDisplayInfoId: () => {
-		const urlParameters = parser.urlParameterParsing();
-		return urlParameters.displayInfoId;
+		const parameters = new URLSearchParams(location.search);
+		
+		return parameters.get("displayInfoId");
 	},
 	
 	// 상품 타이틀 및 이미지 배치
 	arrangeProductImagePannel: (productImageUrls, title) => {
-		const productImagePannelContainer = document.getElementsByClassName("visual_img")[0];
+		const productImagePannelContainer = document.querySelector(".visual_img");
 		
 		const productImagePannelTemplate = document.querySelector("#productImages").innerText;
 		const bindProductImagePannelTemplate = Handlebars.compile(productImagePannelTemplate);
@@ -33,13 +33,13 @@ export const productDescription = {
 	initProductCarousel: (productImageLength) => {
 		if (productImageLength < 2) {
 			// 버튼 삭제
-			const prevButtonContainer = document.getElementsByClassName("prev")[0];
-			const nextButtonContainer = document.getElementsByClassName("nxt")[0];
+			const prevButtonContainer = document.querySelector(".prev");
+			const nextButtonContainer = document.querySelector(".nxt");
 			prevButtonContainer.style.display = "none";
 			nextButtonContainer.style.display = "none";
 			
 			// 캐러셀 위치 초기화
-			const carouselContainer = document.getElementsByClassName("visual_img")[0];
+			const carouselContainer = document.querySelector(".visual_img");
 			carouselContainer.classList.remove("detail_swipe")
 		} else {
 			// 캐러셀 활성화
@@ -49,7 +49,7 @@ export const productDescription = {
 	
 	// 상품 내용 배치
 	arrangeProductContent: (content) => {
-		const productContentContainer = document.getElementsByClassName("dsc")[0];
+		const productContentContainer = document.querySelector(".dsc");
 		productContentContainer.innerText = content;
 	},
 	
@@ -57,7 +57,7 @@ export const productDescription = {
 	addEventMoreContentButton: () => {
 		// 펼쳐보기, 접기 버튼 토글
 		const moreContentButtons = document.getElementsByClassName("bk_more");
-		const productContent = document.getElementsByClassName("store_details")[0];
+		const productContent = document.querySelector(".store_details");
 		
 		// moreContentButtons[0]: 펼쳐보기, moreContentButtons[1]: 접기
 		moreContentButtons[0].addEventListener("click", () => {
@@ -74,27 +74,27 @@ export const productDescription = {
 	
 	// 하단 상품 내용 배치
 	arrangeBottomProductContent: (content) => {
-		const productBottomContainer = document.getElementsByClassName("detail_info")[0];
-		const productContentContainer = productBottomContainer.getElementsByClassName("in_dsc")[0];
+		const productBottomContainer = document.querySelector(".detail_info");
+		const productContentContainer = productBottomContainer.querySelector(".in_dsc");
 		productContentContainer.innerText = content;
 	},
 	
 	// 전시, 공연 장소 내용 배치
 	arrangeLocationContent: (mapImageUrl, placeStreet, placeLot, placeName, tel) => {
-		const locationContainer = document.getElementsByClassName("box_store_info")[0];
-		const mapContainer = locationContainer.getElementsByClassName("store_map")[0];
+		const locationContainer = document.querySelector(".box_store_info");
+		const mapContainer = locationContainer.querySelector(".store_map");
 		mapContainer.src = mapImageUrl;
 		
-		const placeStreetContainer = locationContainer.getElementsByClassName("store_addr_bold")[0];
+		const placeStreetContainer = locationContainer.querySelector(".store_addr_bold");
 		placeStreetContainer.innerText = placeStreet;
 		
-		const placeLotContainer = locationContainer.getElementsByClassName("addr_old_detail")[0];
+		const placeLotContainer = locationContainer.querySelector(".addr_old_detail");
 		placeLotContainer.innerText = placeLot;
 		
-		const placeNameContainer = locationContainer.getElementsByClassName("addr_detail")[0];
+		const placeNameContainer = locationContainer.querySelector(".addr_detail");
 		placeNameContainer.innerText = placeName;
 		
-		const telContainer = locationContainer.getElementsByClassName("store_tel")[0];
+		const telContainer = locationContainer.querySelector(".store_tel");
 		telContainer.innerText = tel;
 	},
 	
@@ -102,8 +102,8 @@ export const productDescription = {
 	addEventBottomTapButton: () => {
 		const bottomTapButtons = document.getElementsByClassName("anchor");
 		
-		const specificContentContainer = document.getElementsByClassName("detail_area_wrap")[0];
-		const locationContainer = document.getElementsByClassName("detail_location")[0];
+		const specificContentContainer = document.querySelector(".detail_area_wrap");
+		const locationContainer = document.querySelector(".detail_location");
 		
 		// bottomTapButtons[0]: 상세정보, bottomTapButtons[1]: 오시는길
 		bottomTapButtons[0].addEventListener("click", () => {

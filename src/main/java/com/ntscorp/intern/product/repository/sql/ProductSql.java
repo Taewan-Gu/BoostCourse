@@ -65,5 +65,6 @@ public class ProductSql {
 		+ "ON dpl.product_id = pdt_img.product_id AND (pdt_img.type = 'ma' OR pdt_img.`type` = 'et') "
 		+ "JOIN file_info AS fl ON pdt_img.file_id = fl.id "
 		+ "WHERE dpl.id = :displayInfoId "
-		+ "ORDER BY pdt_img.id";
+		+ "ORDER BY pdt_img.id "
+		+ "LIMIT :limit";
 }

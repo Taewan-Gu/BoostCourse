@@ -3,6 +3,7 @@ package com.ntscorp.intern.reservation.repository.impl;
 import static com.ntscorp.intern.reservation.repository.sql.CommentSql.*;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,15 +30,17 @@ public class CommentRepositoryImpl implements CommentRepository {
 	}
 
 	@Override
-	public List<Comment> selectAllComments(int displayInfoId) {
+	public List<Comment> selectAllCommentsByDisplayInfoId(int displayInfoId) {
 		Map<String, ?> param = Collections.singletonMap("displayInfoId", displayInfoId);
-		return namedParameterJdbcTemplate.query(SELECT_ALL_COMMENTS, param, commentRowMapper);
+		return namedParameterJdbcTemplate.query(SELECT_ALL_COMMENTS_BY_DISPLAY_INFO_ID, param, commentRowMapper);
 	}
 
 	@Override
-	public List<Comment> selectCommentsLimitThree(int displayInfoId) {
-		Map<String, ?> param = Collections.singletonMap("displayInfoId", displayInfoId);
-		return namedParameterJdbcTemplate.query(SELECT_COMMENTS_LIMIT_THREE, param, commentRowMapper);
+	public List<Comment> selectCommentsByDisplayInfoId(int displayInfoId, int limit) {
+		Map<String, Integer> params = new HashMap<>();
+		params.put("displayInfoId", displayInfoId);
+		params.put("limit", limit);
+		return namedParameterJdbcTemplate.query(SELECT_COMMENTS_BY_DISPLAY_INFO_ID, params, commentRowMapper);
 	}
 
 	@Override
@@ -46,5 +49,4 @@ public class CommentRepositoryImpl implements CommentRepository {
 		return namedParameterJdbcTemplate.queryForObject(SELECT_COMMENTS_COUNT_AND_AVERAGE_SCORE, param,
 			commentsCountAndAverageScoreRowMapper);
 	}
-
 }

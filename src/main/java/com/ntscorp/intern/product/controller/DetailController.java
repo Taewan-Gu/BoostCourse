@@ -28,8 +28,9 @@ public class DetailController {
 	public ResponseEntity<ProductDescriptionResponse> getDisplay(@PathVariable
 	int displayInfoId) {
 
-		ProductDescription productDescription = productService.selectProductDescriptionByDisplayInfoId(displayInfoId);
-		List<String> productImageUrls = productService.selectProductImageUrlsByDisplayInfoId(displayInfoId);
+		// refactor로 get 바꾸기.
+		ProductDescription productDescription = productService.getProductDescriptionByDisplayInfoId(displayInfoId);
+		List<String> productImageUrls = productService.getProductImageUrlsByDisplayInfoId(displayInfoId);
 
 		ProductDescriptionResponse productDescriptionResponse = new ProductDescriptionResponse(productDescription,
 			productImageUrls);

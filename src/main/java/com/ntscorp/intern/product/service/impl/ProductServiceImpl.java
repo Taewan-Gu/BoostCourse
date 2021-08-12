@@ -14,6 +14,8 @@ import com.ntscorp.intern.product.service.ProductService;
 
 @Service
 public class ProductServiceImpl implements ProductService {
+	private static final int PRODUCT_IMAGES_LIMIT = 2;
+
 	private final ProductRepository productRepository;
 
 	@Autowired
@@ -22,7 +24,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<ProductSummary> selectAllProductSummaries(Integer start) {
+	public List<ProductSummary> getAllProductSummaries(Integer start) {
 		List<ProductSummary> productSummaries;
 
 		if (start == null) {
@@ -35,7 +37,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<ProductSummary> selectProductSummariesByCategoryId(int categoryId, Integer start) {
+	public List<ProductSummary> getProductSummariesByCategoryId(int categoryId, Integer start) {
 		List<ProductSummary> productSummaries;
 
 		if (start == null) {
@@ -58,19 +60,17 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ProductDescription selectProductDescriptionByDisplayInfoId(int displayInfoId) {
+	public ProductDescription getProductDescriptionByDisplayInfoId(int displayInfoId) {
 		return productRepository.selectProductDescriptionByDisplayInfoId(displayInfoId);
 	}
 
 	@Override
-	public List<String> selectProductImageUrlsByDisplayInfoId(int displayInfoId) {
-		List<ProductImage> productImages = productRepository.selectProductImagesByDisplayInfoId(displayInfoId);
+	public List<String> getProductImageUrlsByDisplayInfoId(int displayInfoId) {
+		List<ProductImage> productImages = productRepository.selectProductImagesByDisplayInfoId(displayInfoId,
+			PRODUCT_IMAGES_LIMIT);
 		List<String> productImageUrls = new ArrayList<>();
 
-		for (ProductImage productImage : productImages) {
-			productImageUrls.add(productImage.getProductImageUrl());
-		}
-		;
+		productImages.stream().forEach(productImage -> productImageUrls.add(productImage.getProductImageUrl()));
 
 		return productImageUrls;
 	}

@@ -1,8 +1,8 @@
 import { comment } from "./review/comment.js";
-import { initMoveTopButton } from "./common/moveTop.js";
+import { moveTop } from "./common/moveTop.js";
 
 document.addEventListener("DOMContentLoaded", () => {
 	comment.initAllComments();
 	
-	initMoveTopButton();							// top 버튼
+	moveTop.initMoveTopButton();							// top 버튼
 });

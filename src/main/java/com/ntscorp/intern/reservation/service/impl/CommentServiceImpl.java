@@ -12,6 +12,8 @@ import com.ntscorp.intern.reservation.service.CommentService;
 
 @Service
 public class CommentServiceImpl implements CommentService {
+	private static final int COMMENTS_LIMIT = 3;
+	private static final String HIDED_EMAIL_PART = "****";
 
 	private final CommentRepository commentRepository;
 
@@ -21,36 +23,30 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public List<Comment> selectAllComments(int displayInfoId) {
-		List<Comment> comments = commentRepository.selectAllComments(displayInfoId);
-		for (Comment comment : comments) {
-			String commentReservationEmail = comment.getReservationEmail();
-			comment.setReservationEmail(commentReservationEmail.substring(0, 4));
-		}
+	public List<Comment> getAllCommentsByDisplayInfoId(int displayInfoId) {
+		List<Comment> comments = commentRepository.selectAllCommentsByDisplayInfoId(displayInfoId);
+		hideCommentEmails(comments);
 
 		return comments;
 	}
 
 	@Override
-	public List<Comment> selectCommentsLimitThree(int displayInfoId) {
-		List<Comment> comments = commentRepository.selectCommentsLimitThree(displayInfoId);
-		for (Comment comment : comments) {
-			String commentReservationEmail = comment.getReservationEmail();
-			comment.setReservationEmail(commentReservationEmail.substring(0, 4));
-		}
+	public List<Comment> getCommentsByDisplayInfoId(int displayInfoId) {
+		List<Comment> comments = commentRepository.selectCommentsByDisplayInfoId(displayInfoId, COMMENTS_LIMIT);
+		hideCommentEmails(comments);
 
 		return comments;
 	}
 
 	@Override
-	public CommentsCountAndAverageScore selectCommentsCountAndAverageScore(int displayInfoId) {
-		CommentsCountAndAverageScore commentsCountAndAverageScore = commentRepository
-			.selectCommentsCountAndAverageScore(displayInfoId);
+	public CommentsCountAndAverageScore getCommentsCountAndAverageScore(int displayInfoId) {
+		return commentRepository.selectCommentsCountAndAverageScore(displayInfoId);
+	}
 
-		if (commentsCountAndAverageScore.getAverageScore() == null) {
-			commentsCountAndAverageScore.setAverageScore(new Float(0));
-		}
-
-		return commentsCountAndAverageScore;
+	private void hideCommentEmails(List<Comment> comments) {
+		comments.stream().forEach(comment -> {
+			String commentReservationEmail = comment.getReservationEmail();
+			comment.setReservationEmail(commentReservationEmail.substring(0, 4) + HIDED_EMAIL_PART);
+		});
 	}
 }

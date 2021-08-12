@@ -2,7 +2,7 @@ package com.ntscorp.intern.reservation.model;
 
 public class CommentsCountAndAverageScore {
 	private int totalCount;
-	private Float averageScore;
+	private float averageScore;
 
 	public int getTotalCount() {
 		return totalCount;
@@ -12,11 +12,11 @@ public class CommentsCountAndAverageScore {
 		this.totalCount = totalCount;
 	}
 
-	public Float getAverageScore() {
+	public float getAverageScore() {
 		return averageScore;
 	}
 
-	public void setAverageScore(Float averageScore) {
+	public void setAverageScore(float averageScore) {
 		this.averageScore = averageScore;
 	}
 

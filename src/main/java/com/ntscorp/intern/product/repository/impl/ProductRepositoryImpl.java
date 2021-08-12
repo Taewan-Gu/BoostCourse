@@ -46,7 +46,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
 	@Override
 	public List<ProductSummary> selectProductSummariesByCategoryId(int categoryId, Integer start) {
-		Map<String, Object> params = new HashMap<>();
+		Map<String, Integer> params = new HashMap<>();
 		params.put("categoryId", categoryId);
 		params.put("start", start);
 		return namedParameterJdbcTemplate.query(SELECT_PRODUCT_SUMMARIES_BY_CATEGORY_ID, params,
@@ -67,8 +67,11 @@ public class ProductRepositoryImpl implements ProductRepository {
 	}
 
 	@Override
-	public List<ProductImage> selectProductImagesByDisplayInfoId(int displayInfoId) {
-		Map<String, ?> param = Collections.singletonMap("displayInfoId", displayInfoId);
-		return namedParameterJdbcTemplate.query(SELECT_PRODUCT_IMAGES_BY_DISPLAY_INFO_ID, param, productImageRowMapper);
+	public List<ProductImage> selectProductImagesByDisplayInfoId(int displayInfoId, int limit) {
+		Map<String, Integer> params = new HashMap<>();
+		params.put("displayInfoId", displayInfoId);
+		params.put("limit", limit);
+		return namedParameterJdbcTemplate.query(SELECT_PRODUCT_IMAGES_BY_DISPLAY_INFO_ID, params,
+			productImageRowMapper);
 	}
 }

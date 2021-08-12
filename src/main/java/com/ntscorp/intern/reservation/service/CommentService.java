@@ -6,9 +6,9 @@ import com.ntscorp.intern.reservation.model.Comment;
 import com.ntscorp.intern.reservation.model.CommentsCountAndAverageScore;
 
 public interface CommentService {
-	public List<Comment> selectAllComments(int displayInfoId);
+	public List<Comment> getAllCommentsByDisplayInfoId(int displayInfoId);
 
-	public List<Comment> selectCommentsLimitThree(int displayInfoId);
+	public List<Comment> getCommentsByDisplayInfoId(int displayInfoId);
 
-	public CommentsCountAndAverageScore selectCommentsCountAndAverageScore(int displayInfoId);
+	public CommentsCountAndAverageScore getCommentsCountAndAverageScore(int displayInfoId);
 }

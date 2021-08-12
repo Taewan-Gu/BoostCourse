@@ -25,11 +25,11 @@ public class ReviewController {
 	}
 
 	@GetMapping("/comments/all")
-	public ResponseEntity<CommentsResponse> getComments(@RequestParam
+	public ResponseEntity<CommentsResponse> getAllComments(@RequestParam
 	int displayInfoId) {
-		List<Comment> comments = commentService.selectAllComments(displayInfoId);
+		List<Comment> comments = commentService.getAllCommentsByDisplayInfoId(displayInfoId);
 		CommentsCountAndAverageScore commentsCountAndAverageScore = commentService
-			.selectCommentsCountAndAverageScore(displayInfoId);
+			.getCommentsCountAndAverageScore(displayInfoId);
 
 		CommentsResponse commentsResponse = new CommentsResponse(comments, commentsCountAndAverageScore);
 
@@ -37,11 +37,11 @@ public class ReviewController {
 	}
 
 	@GetMapping("/comments")
-	public ResponseEntity<CommentsResponse> getThreeComments(@RequestParam
+	public ResponseEntity<CommentsResponse> getComments(@RequestParam
 	int displayInfoId) {
-		List<Comment> comments = commentService.selectCommentsLimitThree(displayInfoId);
+		List<Comment> comments = commentService.getCommentsByDisplayInfoId(displayInfoId);
 		CommentsCountAndAverageScore commentsCountAndAverageScore = commentService
-			.selectCommentsCountAndAverageScore(displayInfoId);
+			.getCommentsCountAndAverageScore(displayInfoId);
 
 		CommentsResponse commentsResponse = new CommentsResponse(comments, commentsCountAndAverageScore);
 

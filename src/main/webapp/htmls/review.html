@@ -7,11 +7,6 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
     <title>네이버 예약</title>
     <link href="/css/style.css" rel="stylesheet">
-    <script
-    	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"
-    	integrity="sha256-ngJY93C4H39YbmrWhnLzSyiepRuQDVKDNCWO2iyMzFw="
-    	crossorigin="anonymous">
-   	</script>
 </head>
 
 <body>
@@ -69,11 +64,12 @@
                         <p class="review">{{comment}}</p>
                     </div>
                 	<div class="info_area">
-                 		<div class="review_info"> <span class="grade">{{score}}.0</span> <span class="name">{{reservationEmail}}****</span> <span class="date">{{reservationDate}} 방문</span> </div>
+                 		<div class="review_info"> <span class="grade">{{score}}.0</span> <span class="name">{{reservationEmail}}</span> <span class="date">{{reservationDate}} 방문</span> </div>
                 	</div>
             	</div>
            </li>
     	</script>
 </body>
+<script src="/js/library/handlebars.min.js"></script>
 <script type="module" src="/js/review.js"></script>
 </html>
