@@ -1,7 +1,7 @@
 package com.ntscorp.intern.product.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,9 +68,9 @@ public class ProductServiceImpl implements ProductService {
 	public List<String> getProductImageUrlsByDisplayInfoId(int displayInfoId) {
 		List<ProductImage> productImages = productRepository.selectProductImagesByDisplayInfoId(displayInfoId,
 			PRODUCT_IMAGES_LIMIT);
-		List<String> productImageUrls = new ArrayList<>();
 
-		productImages.stream().forEach(productImage -> productImageUrls.add(productImage.getProductImageUrl()));
+		List<String> productImageUrls = productImages.stream().map(productImage -> productImage.getProductImageUrl())
+			.collect(Collectors.toList());
 
 		return productImageUrls;
 	}

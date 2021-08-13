@@ -44,7 +44,7 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	private void hideCommentEmails(List<Comment> comments) {
-		comments.stream().forEach(comment -> {
+		comments.forEach(comment -> {
 			String commentReservationEmail = comment.getReservationEmail();
 			comment.setReservationEmail(commentReservationEmail.substring(0, 4) + HIDED_EMAIL_PART);
 		});

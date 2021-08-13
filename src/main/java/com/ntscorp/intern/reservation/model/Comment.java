@@ -1,6 +1,6 @@
 package com.ntscorp.intern.reservation.model;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -10,7 +10,7 @@ public class Comment {
 	private int score;
 	private String comment;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd.", timezone = "Asia/Seoul")
-	private Date reservationDate;
+	private LocalDateTime reservationDate;
 	private String reservationEmail;
 	private Optional<String> commentImageUrl;
 
@@ -38,11 +38,11 @@ public class Comment {
 		this.comment = comment;
 	}
 
-	public Date getReservationDate() {
+	public LocalDateTime getReservationDate() {
 		return reservationDate;
 	}
 
-	public void setReservationDate(Date reservationDate) {
+	public void setReservationDate(LocalDateTime reservationDate) {
 		this.reservationDate = reservationDate;
 	}
 

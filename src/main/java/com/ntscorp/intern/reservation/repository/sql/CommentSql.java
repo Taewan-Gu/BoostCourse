@@ -33,7 +33,7 @@ public class CommentSql {
 		+ "LIMIT :limit";
 
 	public static final String SELECT_COMMENTS_COUNT_AND_AVERAGE_SCORE = ""
-		+ "SELECT COUNT(*) AS total_count, ifnull(AVG(cmt.score), 0) AS average_score "
+		+ "SELECT COUNT(*) AS total_count, IFNULL(AVG(cmt.score), 0) AS average_score "
 		+ "FROM display_info AS dpl "
 		+ "JOIN reservation_user_comment AS cmt ON dpl.product_id = cmt.product_id "
 		+ "WHERE dpl.id = :displayInfoId";

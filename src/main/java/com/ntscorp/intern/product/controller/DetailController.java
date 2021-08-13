@@ -16,6 +16,9 @@ import com.ntscorp.intern.product.service.ProductService;
 @RestController
 @RequestMapping("/api")
 public class DetailController {
+	private static final boolean VALID = false;
+	private static final boolean INVALID = true;
+	private static final int MIN_DISPLAY_INFO_ID = 1;
 
 	private final ProductService productService;
 
@@ -28,13 +31,23 @@ public class DetailController {
 	public ResponseEntity<ProductDescriptionResponse> getDisplay(@PathVariable
 	int displayInfoId) {
 
-		// refactor로 get 바꾸기.
 		ProductDescription productDescription = productService.getProductDescriptionByDisplayInfoId(displayInfoId);
 		List<String> productImageUrls = productService.getProductImageUrlsByDisplayInfoId(displayInfoId);
+
+		if (isNotValidateDisplayInfoId(displayInfoId)) {
+			throw new IllegalArgumentException("arguments = [displayInfoId: " + displayInfoId + "]");
+		}
 
 		ProductDescriptionResponse productDescriptionResponse = new ProductDescriptionResponse(productDescription,
 			productImageUrls);
 
 		return ResponseEntity.ok(productDescriptionResponse);
+	}
+
+	private boolean isNotValidateDisplayInfoId(int displayInfoId) {
+		if (displayInfoId < MIN_DISPLAY_INFO_ID) {
+			return INVALID;
+		}
+		return VALID;
 	}
 }

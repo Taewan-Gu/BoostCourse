@@ -122,10 +122,10 @@ export const productDescription = {
 	
 	initProductDescription: function() {
 		const displayInfoId = this.getDisplayInfoId();
-		const query = `/${displayInfoId}`
+		const path = `/${displayInfoId}`
 		
 		// 상품 상세정보 가져오기
-		fetch(URL.products + query)
+		fetch(URL.products + path)
 		    .then(response => {
 		      	return response.json();
 		    })

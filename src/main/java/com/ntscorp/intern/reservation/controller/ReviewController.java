@@ -17,6 +17,10 @@ import com.ntscorp.intern.reservation.service.CommentService;
 @RestController
 @RequestMapping("/api")
 public class ReviewController {
+	private static final boolean VALID = false;
+	private static final boolean INVALID = true;
+	private static final int MIN_DISPLAY_INFO_ID = 1;
+
 	private final CommentService commentService;
 
 	@Autowired
@@ -31,6 +35,10 @@ public class ReviewController {
 		CommentsCountAndAverageScore commentsCountAndAverageScore = commentService
 			.getCommentsCountAndAverageScore(displayInfoId);
 
+		if (isNotValidateDisplayInfoId(displayInfoId)) {
+			throw new IllegalArgumentException("arguments = [displayInfoId: " + displayInfoId + "]");
+		}
+
 		CommentsResponse commentsResponse = new CommentsResponse(comments, commentsCountAndAverageScore);
 
 		return ResponseEntity.ok(commentsResponse);
@@ -43,8 +51,19 @@ public class ReviewController {
 		CommentsCountAndAverageScore commentsCountAndAverageScore = commentService
 			.getCommentsCountAndAverageScore(displayInfoId);
 
+		if (isNotValidateDisplayInfoId(displayInfoId)) {
+			throw new IllegalArgumentException("arguments = [displayInfoId: " + displayInfoId + "]");
+		}
+
 		CommentsResponse commentsResponse = new CommentsResponse(comments, commentsCountAndAverageScore);
 
 		return ResponseEntity.ok(commentsResponse);
+	}
+
+	private boolean isNotValidateDisplayInfoId(int displayInfoId) {
+		if (displayInfoId < MIN_DISPLAY_INFO_ID) {
+			return INVALID;
+		}
+		return VALID;
 	}
 }

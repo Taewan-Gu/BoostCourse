@@ -3,7 +3,6 @@ package com.ntscorp.intern.product.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,8 +22,8 @@ import com.ntscorp.intern.product.service.PromotionService;
 @RestController
 @RequestMapping("/api")
 public class MainController {
-	private static final Boolean VALID = false;
-	private static final Boolean INVALID = true;
+	private static final boolean VALID = false;
+	private static final boolean INVALID = true;
 	private static final int MIN_CATEGORY_ID = 1;
 	private static final int MIN_START = 0;
 
@@ -65,7 +64,7 @@ public class MainController {
 		@RequestParam(required = false)
 		Integer start) {
 
-		if (isNotValidateproducts(categoryId, start)) {
+		if (isNotValidateProducts(categoryId, start)) {
 			throw new IllegalArgumentException("arguments = [categoryId: " + categoryId + ", start: " + start + "]");
 		}
 
@@ -74,7 +73,7 @@ public class MainController {
 
 		ProductsResponse productsResponse = new ProductsResponse(totalCount, productSummaries);
 
-		return new ResponseEntity<>(productsResponse, HttpStatus.OK);
+		return ResponseEntity.ok(productsResponse);
 	}
 
 	@GetMapping(path = "/products")
@@ -82,7 +81,7 @@ public class MainController {
 		@RequestParam(required = false)
 		Integer start) {
 
-		if (isNotValidateproducts(start)) {
+		if (isNotValidateProducts(start)) {
 			throw new IllegalArgumentException("arguments = [start: " + start + "]");
 		}
 
@@ -91,10 +90,10 @@ public class MainController {
 
 		ProductsResponse productsResponse = new ProductsResponse(totalCount, productSummaries);
 
-		return new ResponseEntity<>(productsResponse, HttpStatus.OK);
+		return ResponseEntity.ok(productsResponse);
 	}
 
-	public Boolean isNotValidateproducts(Integer start) {
+	private boolean isNotValidateProducts(Integer start) {
 		if (start == null) {
 			return VALID;
 		}
@@ -105,7 +104,7 @@ public class MainController {
 		return VALID;
 	}
 
-	public Boolean isNotValidateproducts(Integer categoryId, Integer start) {
+	private boolean isNotValidateProducts(Integer categoryId, Integer start) {
 		if (categoryId == null && start == null) {
 			return VALID;
 		}

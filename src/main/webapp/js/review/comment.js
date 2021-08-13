@@ -56,22 +56,35 @@ export const comment = {
 		allCommentsButton.href = `./detail.html?displayInfoId=${displayInfoId}`;
 	},
 	
-	initComments: function(commentsUrl) {
+	initAllComments: function() {
 		const displayInfoId = this.getDisplayInfoId();
 		const query = `?displayInfoId=${displayInfoId}`;
 		
 		// 뒤로 가기 시, displayInfoId detail.html로 넘겨주기.
-		if (commentsUrl === URL.allComments) {
-			this.setDisplayInfoIdForDetail(displayInfoId);	
-		}
-		
-		// 모든 리뷰 보기 시, displayInfoId Review.html로 넘겨주기.
-		if (commentsUrl === URL.comments) {
-			this.setDisplayInfoIdForReview(displayInfoId);	
-		}
+		this.setDisplayInfoIdForDetail(displayInfoId);	
 		
 		// 리뷰 정보 가져오기
-		fetch(commentsUrl + query)
+		fetch(URL.allComments + query)
+		    .then(response => {
+		      	return response.json();
+		    })
+			.then(data => {
+				this.arrangeComments(data.comments);
+				this.arrangeCommentsCountAndAverageScore(data.commentsCountAndAverageScore);
+			})
+		    .catch(error => {
+		    	console.error(error);
+		    })
+	},
+	
+	initComments: function() {
+		const displayInfoId = this.getDisplayInfoId();
+		const query = `?displayInfoId=${displayInfoId}`;
+		
+		this.setDisplayInfoIdForReview(displayInfoId);	
+		
+		// 리뷰 정보 가져오기
+		fetch(URL.comments + query)
 		    .then(response => {
 		      	return response.json();
 		    })
