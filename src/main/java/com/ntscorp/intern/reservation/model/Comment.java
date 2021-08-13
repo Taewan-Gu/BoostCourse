@@ -3,10 +3,13 @@ package com.ntscorp.intern.reservation.model;
 import java.sql.Date;
 import java.util.Optional;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Comment {
 	private int id;
 	private int score;
 	private String comment;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd.", timezone = "Asia/Seoul")
 	private Date reservationDate;
 	private String reservationEmail;
 	private Optional<String> commentImageUrl;

@@ -5,7 +5,7 @@ import { product } from "./mainpage/product.js";
 import { moveTop } from "./common/moveTop.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-	loginCheck.initLoginCheck();					// 비회원 로그인 체크
+	loginCheck.initLoginCheck();				// 비회원 로그인 체크
 
 	promotion.initPromotionCarousel(); 			// 프로모션
 	category.initCategories();					// 카테고리

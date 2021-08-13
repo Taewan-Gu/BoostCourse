@@ -1,5 +1,4 @@
 import { URL } from "../common/urlMapper.js";
-import { parser } from "../common/parser.js"
 
 export const comment = {
 	// 현재 detail 페이지의 displayInfoId 반환
@@ -7,15 +6,6 @@ export const comment = {
 		const parameters = new URLSearchParams(location.search);
 		
 		return parameters.get("displayInfoId");
-	},
-	
-	// Date 파싱
-	replaceDateFormat: (comments) => {
-		comments.forEach(comment => {
-			const formattedReservationDate = parser.dateParsing(comment.reservationDate);
-			comment.reservationDate = formattedReservationDate;
-		})
-		return comments;
 	},
 	
 	// 집계함수 배치 (totalCount, averageScore)
@@ -66,42 +56,27 @@ export const comment = {
 		allCommentsButton.href = `./detail.html?displayInfoId=${displayInfoId}`;
 	},
 	
-	initAllComments: function() {
-		const displayInfoId = this.getDisplayInfoId();
-		const query = `?displayInfoId=${displayInfoId}`
-		
-		this.setDisplayInfoIdForDetail(displayInfoId);
-		
-		// 리뷰 정보 가져오기
-		fetch(URL.allComments + query)
-		    .then(response => {
-		      	return response.json();
-		    })
-			.then(data => {
-				const comments = this.replaceDateFormat(data.comments);
-				this.arrangeComments(comments);
-				this.arrangeCommentsCountAndAverageScore(data.commentsCountAndAverageScore);
-			})
-		    .catch(error => {
-		    	console.error(error);
-		    })
-	},
-	
-	initComments: function() {
+	initComments: function(commentsUrl) {
 		const displayInfoId = this.getDisplayInfoId();
 		const query = `?displayInfoId=${displayInfoId}`;
 		
+		// 뒤로 가기 시, displayInfoId detail.html로 넘겨주기.
+		if (commentsUrl === URL.allComments) {
+			this.setDisplayInfoIdForDetail(displayInfoId);	
+		}
+		
 		// 모든 리뷰 보기 시, displayInfoId Review.html로 넘겨주기.
-		this.setDisplayInfoIdForReview(displayInfoId);
+		if (commentsUrl === URL.comments) {
+			this.setDisplayInfoIdForReview(displayInfoId);	
+		}
 		
 		// 리뷰 정보 가져오기
-		fetch(URL.comments + query)
+		fetch(commentsUrl + query)
 		    .then(response => {
 		      	return response.json();
 		    })
 			.then(data => {
-				const comments = this.replaceDateFormat(data.comments);
-				this.arrangeComments(comments);
+				this.arrangeComments(data.comments);
 				this.arrangeCommentsCountAndAverageScore(data.commentsCountAndAverageScore);
 			})
 		    .catch(error => {
