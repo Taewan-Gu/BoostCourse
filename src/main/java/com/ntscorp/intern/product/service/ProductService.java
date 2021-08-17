@@ -6,9 +6,9 @@ import com.ntscorp.intern.product.model.ProductDescription;
 import com.ntscorp.intern.product.model.ProductSummary;
 
 public interface ProductService {
-	public List<ProductSummary> getAllProductSummaries(Integer start);
+	public List<ProductSummary> getAllProductSummaries(int start);
 
-	public List<ProductSummary> getProductSummariesByCategoryId(int categoryId, Integer start);
+	public List<ProductSummary> getProductSummariesByCategoryId(int categoryId, int start);
 
 	public int countAllProductSummaries();
 

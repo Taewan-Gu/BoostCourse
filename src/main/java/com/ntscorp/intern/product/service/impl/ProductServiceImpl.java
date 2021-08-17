@@ -24,27 +24,17 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<ProductSummary> getAllProductSummaries(Integer start) {
+	public List<ProductSummary> getAllProductSummaries(int start) {
 		List<ProductSummary> productSummaries;
-
-		if (start == null) {
-			productSummaries = productRepository.selectAllProductSummaries(0);
-		} else {
-			productSummaries = productRepository.selectAllProductSummaries(start);
-		}
+		productSummaries = productRepository.selectAllProductSummaries(start);
 
 		return productSummaries;
 	}
 
 	@Override
-	public List<ProductSummary> getProductSummariesByCategoryId(int categoryId, Integer start) {
+	public List<ProductSummary> getProductSummariesByCategoryId(int categoryId, int start) {
 		List<ProductSummary> productSummaries;
-
-		if (start == null) {
-			productSummaries = productRepository.selectProductSummariesByCategoryId(categoryId, 0);
-		} else {
-			productSummaries = productRepository.selectProductSummariesByCategoryId(categoryId, start);
-		}
+		productSummaries = productRepository.selectProductSummariesByCategoryId(categoryId, start);
 
 		return productSummaries;
 	}

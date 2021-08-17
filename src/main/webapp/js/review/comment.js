@@ -10,7 +10,6 @@ export const comment = {
 	
 	// 집계함수 배치 (totalCount, averageScore)
 	arrangeCommentsCountAndAverageScore(commentsCountAndAverageScore) {
-		// id 박아버리기.
 		const gradeContainer = document.querySelector('.grade_area');
 		
 		const graphAverageScoreContainer = gradeContainer.querySelector('.graph_value');
@@ -56,15 +55,9 @@ export const comment = {
 		allCommentsButton.href = `./detail.html?displayInfoId=${displayInfoId}`;
 	},
 	
-	initAllComments: function() {
-		const displayInfoId = this.getDisplayInfoId();
-		const query = `?displayInfoId=${displayInfoId}`;
-		
-		// 뒤로 가기 시, displayInfoId detail.html로 넘겨주기.
-		this.setDisplayInfoIdForDetail(displayInfoId);	
-		
-		// 리뷰 정보 가져오기
-		fetch(URL.allComments + query)
+	// 리뷰 정보 가져오기
+	getComments: function(url) {
+		fetch(url)
 		    .then(response => {
 		      	return response.json();
 		    })
@@ -77,23 +70,25 @@ export const comment = {
 		    })
 	},
 	
+	initAllComments: function() {
+		const displayInfoId = this.getDisplayInfoId();
+		const query = `?displayInfoId=${displayInfoId}`;
+		
+		// 뒤로 가기 시, displayInfoId detail.html로 넘겨주기.
+		this.setDisplayInfoIdForDetail(displayInfoId);	
+		
+		// 리뷰 정보 가져오기
+		this.getComments(URL.allComments + query)
+	},
+	
 	initComments: function() {
 		const displayInfoId = this.getDisplayInfoId();
 		const query = `?displayInfoId=${displayInfoId}`;
 		
+		// 모든 리뷰 보기 시, displayInfoId Review.html로 넘겨주기.
 		this.setDisplayInfoIdForReview(displayInfoId);	
 		
 		// 리뷰 정보 가져오기
-		fetch(URL.comments + query)
-		    .then(response => {
-		      	return response.json();
-		    })
-			.then(data => {
-				this.arrangeComments(data.comments);
-				this.arrangeCommentsCountAndAverageScore(data.commentsCountAndAverageScore);
-			})
-		    .catch(error => {
-		    	console.error(error);
-		    })
+		this.getComments(URL.comments + query)
 	}
 }

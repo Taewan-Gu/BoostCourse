@@ -43,6 +43,7 @@ public class CommentServiceImpl implements CommentService {
 		return commentRepository.selectCommentsCountAndAverageScore(displayInfoId);
 	}
 
+	// 스펙 상 이메일은 ID는 4자리 이상 보장됨.
 	private void hideCommentEmails(List<Comment> comments) {
 		comments.forEach(comment -> {
 			String commentReservationEmail = comment.getReservationEmail();

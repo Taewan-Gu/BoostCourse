@@ -61,8 +61,8 @@ public class MainController {
 	public ResponseEntity<ProductsResponse> getProductsByCategory(
 		@RequestParam
 		int categoryId,
-		@RequestParam(required = false)
-		Integer start) {
+		@RequestParam(defaultValue = "0")
+		int start) {
 
 		if (isNotValidateProducts(categoryId, start)) {
 			throw new IllegalArgumentException("arguments = [categoryId: " + categoryId + ", start: " + start + "]");
@@ -78,8 +78,8 @@ public class MainController {
 
 	@GetMapping(path = "/products")
 	public ResponseEntity<ProductsResponse> getProducts(
-		@RequestParam(required = false)
-		Integer start) {
+		@RequestParam(defaultValue = "0")
+		int start) {
 
 		if (isNotValidateProducts(start)) {
 			throw new IllegalArgumentException("arguments = [start: " + start + "]");
@@ -93,36 +93,14 @@ public class MainController {
 		return ResponseEntity.ok(productsResponse);
 	}
 
-	private boolean isNotValidateProducts(Integer start) {
-		if (start == null) {
-			return VALID;
-		}
-
+	private boolean isNotValidateProducts(int start) {
 		if (start < MIN_START) {
 			return INVALID;
 		}
 		return VALID;
 	}
 
-	private boolean isNotValidateProducts(Integer categoryId, Integer start) {
-		if (categoryId == null && start == null) {
-			return VALID;
-		}
-
-		if (categoryId == null) {
-			if (start < MIN_START) {
-				return INVALID;
-			}
-			return VALID;
-		}
-
-		if (start == null) {
-			if (categoryId < MIN_CATEGORY_ID) {
-				return INVALID;
-			}
-			return VALID;
-		}
-
+	private boolean isNotValidateProducts(int categoryId, int start) {
 		if (categoryId < MIN_CATEGORY_ID || start < MIN_START) {
 			return INVALID;
 		}
