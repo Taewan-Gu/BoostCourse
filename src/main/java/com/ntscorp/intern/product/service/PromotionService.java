@@ -5,5 +5,5 @@ import java.util.List;
 import com.ntscorp.intern.product.model.Promotion;
 
 public interface PromotionService {
-	public List<Promotion> selectAllPromotions();
+	public List<Promotion> getAllPromotions();
 }

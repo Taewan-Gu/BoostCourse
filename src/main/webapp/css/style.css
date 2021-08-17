@@ -336,7 +336,8 @@ hr {
 
 .bk_more {
     -webkit-box-sizing: border-box;
-    moz-box-sizing: border-box
+    moz-box-sizing: border-box;
+    cursor: pointer;
 }
 
 .in_tit {
@@ -1270,7 +1271,7 @@ button {
     position: relative;
     display: block;
     word-wrap: normal;
-    cursor: pointer;
+    cursor: default;
     -webkit-box-sizing: border-box;
     moz-box-sizing: border-box;
     box-sizing: border-box
@@ -1281,7 +1282,7 @@ button {
     min-height: 210px;
     font: 0/0 a;
     color: #fff;
-    white-space: nowrap
+    white-space: nowrap;
 }
 
 .group_visual .visual_img .item {
@@ -1297,7 +1298,8 @@ button {
     bottom: 0;
     top: 0;
     left: 0;
-    right: 0
+    right: 0;
+    height: 414px;
 }
 
 .group_visual .visual_img .item .img_bg {
@@ -1408,7 +1410,8 @@ button {
     top: 0;
     left: 0;
     width: 43px;
-    height: 100%
+    height: 100%;
+    cursor: pointer;
 }
 
 .group_visual .prev:before {
@@ -1439,7 +1442,8 @@ button {
     top: 0;
     right: 0;
     width: 46px;
-    height: 100%
+    height: 100%;
+    cursor: pointer;
 }
 
 .group_visual .nxt:before {
@@ -2153,7 +2157,8 @@ button {
 .section_info_tab .info_tab_lst .item>.anchor {
     display: inline-block;
     padding: 10px 6px;
-    white-space: nowrap
+    white-space: nowrap;
+    cursor: pointer;
 }
 
 .section_info_tab .info_tab_lst .item>.anchor.active {

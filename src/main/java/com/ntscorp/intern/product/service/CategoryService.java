@@ -5,5 +5,5 @@ import java.util.List;
 import com.ntscorp.intern.product.model.Category;
 
 public interface CategoryService {
-	public List<Category> selectAllCategories();
+	public List<Category> getAllCategories();
 }

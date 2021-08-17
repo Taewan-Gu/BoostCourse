@@ -1,16 +1,118 @@
-# PJT3. 예약 시스템
+# 예약 시스템
 
 ## 일정 관리
 
-* 예제) 8.3 일정 상태 
+* PJT3 트렐로
 
 ![image-20210803133523574](README.assets/image-20210803133523574.png)
 
-<a href="https://trello.com/invite/b/s7hPrEzk/ea484303360596b468773c23f722e6a2/pjt3" style="font-size:24px; font-weight:550; color: #2DB400;">프로젝트 트렐로 보기</a>
+<a href="https://trello.com/invite/b/s7hPrEzk/ea484303360596b468773c23f722e6a2/pjt3" style="font-size:24px; font-weight:550; color: #2DB400;">PJT 3 트렐로 보기</a>
+
+* PJT4 트렐로
+
+![image-20210810113007889](README.assets/image-20210810113007889.png)
+
+<a href="https://trello.com/b/VSSTXIzi/pjt4" style="font-size:24px; font-weight:550; color: #2DB400;">PJT 4 트렐로 보기</a>
 
 
 
 
+
+# PJT4
+
+## FrontEnd
+
+### 스택
+
+* HMTL, CSS, JavaScript
+
+### 툴
+
+* IDE: vsCode, Eclipse
+
+### 개발
+
+상품 상세내용 및 리뷰 관련해서 화면 개발을 진행하였습니다.
+
+* 상품 상세내용은 핸들바를 이용하여 API 데이터를 받아와 HTML에 배치하였습니다.
+* 캐러셀 구현
+  * 기존의 프로모션 캐러셀은 오른쪽으로만 이동하는 것에 초점을 두어 왼쪽으로 이동이 불가 했습니다.
+  * 따라서 상품 캐러셀은 왼쪽으로도 이동할 수 있게끔 캐러셀을 바꾸었고, 프로모션 캐러셀과 통합하여 util 폴더에 js파일로 저장하였습니다.
+  * 상품 캐러셀이 움직일 때, 트랜지션이 끝나기전에 이동버튼을 한번 더 누르면 상단에 표시되는 인덱스가 이미지의 인덱스와 불일치하는 경우가 발생했었고, 때문에 트랜지션이 끝난 후, 인덱스 표기를 변경하였습니다.
+* 리뷰 구현
+  * 리뷰의 경우 하나의 js 파일을 통해 detail 페이지와 review 페이지에서 사용합니다.
+  * 파라미터로 각 ajax 요청을 할 주소를 받고, 그 주소를 통해 전체 리뷰를 가져올 것인지, detail 페이지에 표시할 갯수만큼만 가져올 것인지 판단합니다.
+* 오시는 길과 상세 설명은 카테고리와 비슷하게 작성하였고, 괜히 이상한 곳으로 이동되는 a 태그들의 주소를 변경하였습니다.
+* 추가로 모든 페이지의 top 버튼 클릭 시, 화면 상단으로 이동하는 것을 구현하였습니다.
+
+
+
+## BackEnd
+
+### 스택
+
+* Spring mvc, JDBC, Mysql
+
+### 툴
+
+* IDE: Eclipse
+* Web Server: Apache Tomcat
+
+### 개발
+
+상품 상세내용 및 리뷰 관련해서 API 개발을 진행하였습니다.
+
+* 리뷰관련 API는 DB 스펙에 따라 reservation으로 따로 패키지를 구성하여 작성하였습니다.
+* 상품 상세내용 API는 product 패키지에 작성하였습니다.
+* 빈이 2개 생성되는 현상이 발생하여, web.xml부터  config까지 어떻게 빈에 등록되는지 확인하였고, `@configration` 어노테이션을 `excludeFilter`로 설정하여 해결하였습니다.
+
+```java
+// ApplicationConfiguration
+@ComponentScan(basePackages = {"com.ntscorp.intern"}, useDefaultFilters = true, excludeFilters = {
+	@Filter(type = FilterType.ANNOTATION, classes = {Controller.class, Configuration.class})
+})
+
+// WebMvcContextConfiguration
+@ComponentScan(basePackages = {"com.ntscorp.intern"}, useDefaultFilters = false, includeFilters = {
+	@Filter(type = FilterType.ANNOTATION, classes = {Controller.class})
+})
+```
+
+* Date는 `@JsonFormat`을 이용하여 시간대와 표시될 포맷을 맞췄습니다.
+* `ifnull`쿼리를 통해 평균을 구할 때, `null` 값을 `0`값으로 변경하였습니다.
+
+```sql
+SELECT COUNT(*) AS total_count, ifnull(AVG(cmt.score), 0) AS average_score
+FROM display_info AS dpl
+JOIN reservation_user_comment AS cmt ON dpl.product_id = cmt.product_id
+WHERE dpl.id = :displayInfoId;
+```
+
+* 최종적으로 ReviewController와 DetailController를 통해 FrontEnd와 통신합니다.
+
+
+
+## Pages
+
+* 상품 상세 내용 페이지 상단
+
+  ![image-20210813115859680](README.assets/image-20210813115859680.png)
+
+* 상품 상세 내용 페이지 하단
+
+  ![image-20210813115921316](README.assets/image-20210813115921316.png)
+
+  ![image-20210813115939542](README.assets/image-20210813115939542.png)
+
+* 리뷰 페이지
+
+  ![image-20210813115955201](README.assets/image-20210813115955201.png)
+
+
+
+
+
+# PJT3
 
 ## FrontEnd
 

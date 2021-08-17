@@ -3,7 +3,6 @@ package com.ntscorp.intern.product.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,8 +22,8 @@ import com.ntscorp.intern.product.service.PromotionService;
 @RestController
 @RequestMapping("/api")
 public class MainController {
-	private static final Boolean VALID = false;
-	private static final Boolean INVALID = true;
+	private static final boolean VALID = false;
+	private static final boolean INVALID = true;
 	private static final int MIN_CATEGORY_ID = 1;
 	private static final int MIN_START = 0;
 
@@ -42,7 +41,7 @@ public class MainController {
 
 	@GetMapping(path = "/promotions")
 	public ResponseEntity<PromotionsResponse> getPromotions() {
-		List<Promotion> promotions = promotionService.selectAllPromotions();
+		List<Promotion> promotions = promotionService.getAllPromotions();
 
 		PromotionsResponse promotionsResponse = new PromotionsResponse(promotions);
 
@@ -51,7 +50,7 @@ public class MainController {
 
 	@GetMapping(path = "/categories")
 	public ResponseEntity<CategoriesResponse> getCategories() {
-		List<Category> categories = categoryService.selectAllCategories();
+		List<Category> categories = categoryService.getAllCategories();
 
 		CategoriesResponse categoriesResponse = new CategoriesResponse(categories);
 
@@ -62,68 +61,46 @@ public class MainController {
 	public ResponseEntity<ProductsResponse> getProductsByCategory(
 		@RequestParam
 		int categoryId,
-		@RequestParam(required = false)
-		Integer start) {
+		@RequestParam(defaultValue = "0")
+		int start) {
 
-		if (isNotValidateproducts(categoryId, start)) {
+		if (isNotValidateProducts(categoryId, start)) {
 			throw new IllegalArgumentException("arguments = [categoryId: " + categoryId + ", start: " + start + "]");
 		}
 
-		List<ProductSummary> productSummaries = productService.selectProductSummariesByCategoryId(categoryId, start);
+		List<ProductSummary> productSummaries = productService.getProductSummariesByCategoryId(categoryId, start);
 		int totalCount = productService.countProductSummariesByCategoryId(categoryId);
 
 		ProductsResponse productsResponse = new ProductsResponse(totalCount, productSummaries);
 
-		return new ResponseEntity<>(productsResponse, HttpStatus.OK);
+		return ResponseEntity.ok(productsResponse);
 	}
 
 	@GetMapping(path = "/products")
 	public ResponseEntity<ProductsResponse> getProducts(
-		@RequestParam(required = false)
-		Integer start) {
+		@RequestParam(defaultValue = "0")
+		int start) {
 
-		if (isNotValidateproducts(start)) {
+		if (isNotValidateProducts(start)) {
 			throw new IllegalArgumentException("arguments = [start: " + start + "]");
 		}
 
-		List<ProductSummary> productSummaries = productService.selectAllProductSummaries(start);
+		List<ProductSummary> productSummaries = productService.getAllProductSummaries(start);
 		int totalCount = productService.countAllProductSummaries();
 
 		ProductsResponse productsResponse = new ProductsResponse(totalCount, productSummaries);
 
-		return new ResponseEntity<>(productsResponse, HttpStatus.OK);
+		return ResponseEntity.ok(productsResponse);
 	}
 
-	public Boolean isNotValidateproducts(Integer start) {
-		if (start == null) {
-			return VALID;
-		}
-
+	private boolean isNotValidateProducts(int start) {
 		if (start < MIN_START) {
 			return INVALID;
 		}
 		return VALID;
 	}
 
-	public Boolean isNotValidateproducts(Integer categoryId, Integer start) {
-		if (categoryId == null && start == null) {
-			return VALID;
-		}
-
-		if (categoryId == null) {
-			if (start < MIN_START) {
-				return INVALID;
-			}
-			return VALID;
-		}
-
-		if (start == null) {
-			if (categoryId < MIN_CATEGORY_ID) {
-				return INVALID;
-			}
-			return VALID;
-		}
-
+	private boolean isNotValidateProducts(int categoryId, int start) {
 		if (categoryId < MIN_CATEGORY_ID || start < MIN_START) {
 			return INVALID;
 		}

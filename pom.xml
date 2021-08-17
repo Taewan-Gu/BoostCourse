@@ -18,6 +18,7 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <spring.version>4.3.14.RELEASE</spring.version>
+    <jackson.version>2.9.4</jackson.version>
   </properties>
 
   <dependencies>
@@ -70,7 +71,7 @@
 	  <version>1.7.25</version>
 	</dependency>
     
-    <!-- DB Json -->
+    <!-- DB -->
     <dependency>
 	  <groupId>mysql</groupId>   
       <artifactId>mysql-connector-java</artifactId>
@@ -81,16 +82,24 @@
 	  <artifactId>commons-dbcp2</artifactId>
 	  <version>2.1.1</version>
 	</dependency>
+	
+	<!-- Json -->
 	<dependency>
 	  <groupId>com.fasterxml.jackson.core</groupId>
 	  <artifactId>jackson-databind</artifactId>
-	  <version>2.9.4</version>
+	  <version>${jackson.version}</version>
     </dependency>
     <dependency>
 	  <groupId>com.fasterxml.jackson.datatype</groupId>
 	  <artifactId>jackson-datatype-jdk8</artifactId>
-	  <version>2.9.4</version>
+	  <version>${jackson.version}</version>
     </dependency>
+    <dependency>
+	  <groupId>com.fasterxml.jackson.datatype</groupId>
+	  <artifactId>jackson-datatype-jsr310</artifactId>
+	  <version>${jackson.version}</version>
+	</dependency>
+	 
   </dependencies>
 
   <build>
