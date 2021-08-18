@@ -67,4 +67,10 @@ public class ProductSql {
 		+ "WHERE dpl.id = :displayInfoId "
 		+ "ORDER BY pdt_img.id "
 		+ "LIMIT :limit";
+
+	public static final String SELECT_PRODUCT_PRICES_BY_DISPLAY_INFO_ID = ""
+		+ "SELECT pdt_prc.id, pdt_prc.price_type_name, pdt_prc.price, pdt_prc.discount_rate "
+		+ "FROM display_info AS dpl "
+		+ "JOIN product_price AS pdt_prc ON dpl.product_id = pdt_prc.product_id "
+		+ "WHERE dpl.id = :displayInfoId";
 }

@@ -1,6 +1,8 @@
 package com.ntscorp.intern.reservation.repository.impl;
 
-import static com.ntscorp.intern.reservation.repository.sql.CommentSql.*;
+import static com.ntscorp.intern.reservation.repository.sql.CommentSql.SELECT_ALL_COMMENTS_BY_DISPLAY_INFO_ID;
+import static com.ntscorp.intern.reservation.repository.sql.CommentSql.SELECT_COMMENTS_BY_DISPLAY_INFO_ID;
+import static com.ntscorp.intern.reservation.repository.sql.CommentSql.SELECT_COMMENTS_COUNT_AND_AVERAGE_SCORE;
 
 import java.util.Collections;
 import java.util.HashMap;
