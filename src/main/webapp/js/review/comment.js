@@ -43,16 +43,10 @@ export const comment = {
 		commentsContainer.innerHTML += commentsHtml;
 	},
 	
-	// 모든 리뷰 보기 시, displayInfoId Review.html로 넘겨주기.
-	setDisplayInfoIdForReview: (displayInfoId) => {
-		const allCommentsButton = document.querySelector('.btn_review_more');
-		allCommentsButton.href = `./review.html?displayInfoId=${displayInfoId}`;
-	},
-	
 	// 뒤로 가기 시, displayInfoId detail.html로 넘겨주기.
 	setDisplayInfoIdForDetail: (displayInfoId) => {
 		const allCommentsButton = document.querySelector('.btn_back');
-		allCommentsButton.href = `./detail.html?displayInfoId=${displayInfoId}`;
+		allCommentsButton.href = `/detail.html?displayInfoId=${displayInfoId}`;
 	},
 	
 	// 리뷰 정보 가져오기
@@ -83,10 +77,7 @@ export const comment = {
 	
 	initComments: function() {
 		const displayInfoId = this.getDisplayInfoId();
-		const query = `?displayInfoId=${displayInfoId}`;
-		
-		// 모든 리뷰 보기 시, displayInfoId Review.html로 넘겨주기.
-		this.setDisplayInfoIdForReview(displayInfoId);	
+		const query = `?displayInfoId=${displayInfoId}`;	
 		
 		// 리뷰 정보 가져오기
 		this.getComments(URL.comments + query)

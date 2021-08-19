@@ -6,4 +6,5 @@ export const URL = {
 	products: BASE_URL + "api/products",
 	comments: BASE_URL + "api/comments",
 	allComments: BASE_URL + "api/comments/all",
+	reserve: BASE_URL + "api/reserve",
 }

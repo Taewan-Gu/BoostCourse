@@ -7,24 +7,25 @@ import com.ntscorp.intern.reservation.model.ProductReservation;
 
 public class ProductReservationResponse {
 	private final ProductReservation productReservation;
-	private final List<ProductPrice> productPrice;
+	private final List<ProductPrice> productPrices;
 
-	public ProductReservationResponse(ProductReservation productReservation, List<ProductPrice> productPrice) {
+	public ProductReservationResponse(ProductReservation productReservation, List<ProductPrice> productPrices) {
 		this.productReservation = productReservation;
-		this.productPrice = productPrice;
+		this.productPrices = productPrices;
 	}
 
 	public ProductReservation getProductReservation() {
 		return productReservation;
 	}
 
-	public List<ProductPrice> getProductPrice() {
-		return productPrice;
+	public List<ProductPrice> getProductPrices() {
+		return productPrices;
 	}
 
 	@Override
 	public String toString() {
-		return "ProductReservationResponse [productReservation=" + productReservation + ", productPrice=" + productPrice
+		return "ProductReservationResponse [productReservation=" + productReservation + ", productPrices="
+			+ productPrices
 			+ "]";
 	}
 }
