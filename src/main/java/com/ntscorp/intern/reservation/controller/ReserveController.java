@@ -5,12 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ntscorp.intern.product.model.ProductPrice;
 import com.ntscorp.intern.product.service.ProductService;
+import com.ntscorp.intern.reservation.controller.request.ReservationRequest;
 import com.ntscorp.intern.reservation.controller.response.ProductReservationResponse;
 import com.ntscorp.intern.reservation.model.ProductReservation;
 import com.ntscorp.intern.reservation.service.ReservationService;
@@ -45,6 +48,12 @@ public class ReserveController {
 			productPrices);
 
 		return ResponseEntity.ok(productReservationResponse);
+	}
+
+	@PostMapping("/reserve")
+	public void postReservation(@RequestBody
+	ReservationRequest reservationRequest) {
+		System.out.print(reservationRequest);
 	}
 
 	private boolean isNotValidateDisplayInfoId(int displayInfoId) {

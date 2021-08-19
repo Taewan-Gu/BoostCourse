@@ -1,5 +1,7 @@
 import { URL } from "../common/urlMapper.js";
-import ticketController from "./ticketController.js";
+
+import TicketController from "./ticketController.js";
+import ReservationConfirm from "./reservationConfirm.js";
 
 export default class ProductReservation {
 	
@@ -33,7 +35,9 @@ export default class ProductReservation {
 				// 상품가격 배치
 				this.arrangeProductPrices(data.productPrices);
 				// 티켓 갯수 컨트롤러 생성
-				new ticketController(data.productPrices);
+				new TicketController(data.productPrices);
+				// 예약 승인
+				new ReservationConfirm(data.productReservation);
 			})
 		    .catch(error => {
 		    	console.error(error);
