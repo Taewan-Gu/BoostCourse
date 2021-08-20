@@ -4,7 +4,6 @@ export default class Agreement {
 	}
 
     init() {
-		this.setReservationDate();
 		this.setAgreementFoldButtons();
 		this.setAgreementConfirmButton();
     }
@@ -37,23 +36,5 @@ export default class Agreement {
 				reservationConfirmButton.classList.add("disable")
 			}
 		})
-	}
-
-	setReservationDate() {
-		const reservationDate = document.querySelector(".inline_txt .date");
-		reservationDate.innerText = this.dateParsing(Date.now());
-	}
-
-	dateParsing(timeStamp) {
-		const rawDateTime = new Date(timeStamp);
-		const rawDate = rawDateTime.toISOString().split("T")[0];
-		const splitedRawDate = rawDate.split("-");
-		
-		let date = ""
-		splitedRawDate.forEach(dateElement => {
-			date += `${parseInt(dateElement)}.`;
-		})
-		
-		return date;
 	}
 }

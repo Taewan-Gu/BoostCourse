@@ -67,6 +67,7 @@ export default class Validation {
 	
 	isNotValidatedEmail() {
 		const emailInput = document.getElementById('email');
+		// email ID는 4~20자, @ 이후 도메인은 (1~100자).(2~10자)
 		const regexValidation = /^[0-9a-zA-Z]{4,20}@[0-9a-zA-Z]{1,100}[.][0-9a-zA-Z]{2,10}$/
 
 		if (regexValidation.test(emailInput.value)) {

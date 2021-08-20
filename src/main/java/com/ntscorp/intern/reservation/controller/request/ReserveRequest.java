@@ -1,15 +1,14 @@
 package com.ntscorp.intern.reservation.controller.request;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
-public class ReservationRequest {
+public class ReserveRequest {
 	private int productId;
 	private int displayInfoId;
 	private String reservationName;
 	private String reservationTel;
 	private String reservationEmail;
-	private LocalDateTime reservationDate;
+	private String reservationDate;
 	private List<ProductPriceRequest> productPrices;
 
 	public int getProductId() {
@@ -52,11 +51,11 @@ public class ReservationRequest {
 		this.reservationEmail = reservationEmail;
 	}
 
-	public LocalDateTime getReservationDate() {
+	public String getReservationDate() {
 		return reservationDate;
 	}
 
-	public void setReservationDate(LocalDateTime reservationDate) {
+	public void setReservationDate(String reservationDate) {
 		this.reservationDate = reservationDate;
 	}
 

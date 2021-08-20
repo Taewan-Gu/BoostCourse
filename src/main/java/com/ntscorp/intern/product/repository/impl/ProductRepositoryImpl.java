@@ -7,6 +7,7 @@ import static com.ntscorp.intern.product.repository.sql.ProductSql.SELECT_PRODUC
 import static com.ntscorp.intern.product.repository.sql.ProductSql.SELECT_PRODUCT_IMAGES_BY_DISPLAY_INFO_ID;
 import static com.ntscorp.intern.product.repository.sql.ProductSql.SELECT_PRODUCT_PRICES_BY_DISPLAY_INFO_ID;
 import static com.ntscorp.intern.product.repository.sql.ProductSql.SELECT_PRODUCT_SUMMARIES_BY_CATEGORY_ID;
+import static com.ntscorp.intern.product.repository.sql.ProductSql.SELECT_PRODUCT_SUMMARY_BY_DISPLAY_INFO_ID;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -49,7 +50,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
 	@Override
 	public int countAllProductSummaries() {
-		Map<String, ?> param = new HashMap<>();
+		Map<String, ?> param = Collections.emptyMap();
 		return namedParameterJdbcTemplate.queryForObject(COUNT_ALL_PRODUCT_SUMMARIES, param, Integer.class);
 	}
 
@@ -85,9 +86,16 @@ public class ProductRepositoryImpl implements ProductRepository {
 	}
 
 	@Override
-	public List<ProductPrice> selectProductPriceByDisplayInfoId(int displayInfoId) {
+	public List<ProductPrice> selectProductPricesByDisplayInfoId(int displayInfoId) {
 		Map<String, ?> param = Collections.singletonMap("displayInfoId", displayInfoId);
 		return namedParameterJdbcTemplate.query(SELECT_PRODUCT_PRICES_BY_DISPLAY_INFO_ID, param,
 			productPriceRowMapper);
+	}
+
+	@Override
+	public ProductSummary selectProductSummaryByDisplayInfoId(int displayInfoId) {
+		Map<String, ?> param = Collections.singletonMap("displayInfoId", displayInfoId);
+		return namedParameterJdbcTemplate.queryForObject(SELECT_PRODUCT_SUMMARY_BY_DISPLAY_INFO_ID, param,
+			productSummaryRowMapper);
 	}
 }

@@ -1,44 +1,38 @@
 export default class TicketController {
 	
-	totalTicketCount = 0;
-	
-    constructor(productPrices) {
-		this.initTicketCountControl(productPrices);
+    constructor() {
+		this.initTicketCountControl();
 	}
 	
-	initTicketCountControl(productPrices) {
-		const ticketContainers = document.getElementsByClassName("count_control");
+	initTicketCountControl() {
+		const ticketContainers = document.getElementsByClassName("qty");
 		
-		for (let i = 0; i < ticketContainers.length; i++) {
+		for (let ticketContainer of ticketContainers) {
 			// 가격 콤마 제거
-			const price = productPrices[i].price.replace(",", "");
-			
-			const ticketCount = ticketContainers[i].querySelector(".count_control_input");
-			const individualTotalPriceContainer = ticketContainers[i].querySelector(".individual_price");
+			const price = ticketContainer.querySelector(".price").innerText.replace(",", "");
+			const ticketCount = ticketContainer.querySelector(".count_control_input");
+			const individualTotalPriceContainer = ticketContainer.querySelector(".individual_price");
 			const individualTotalPrice = individualTotalPriceContainer.querySelector(".total_price");
 			
-			const minusButton = ticketContainers[i].querySelector(".ico_minus3");
+			const minusButton = ticketContainer.querySelector(".ico_minus3");
 			minusButton.addEventListener("click", () => {
-				// 0이 아닐경우 카운트 마이너스 가능.
-				if (ticketCount.value != 0) {
-					ticketCount.value = Number(ticketCount.value) - 1;
-					
-					// 예약 페이지 제일 하단의 총 티켓 갯수 세팅
-					this.totalTicketCount--;
-					this.setReservationTicketCount();
-				}
-				
-				// 0이 될 경우, 버튼과 티켓 수 disabled 및 가격 컬러 off
-				if (ticketCount.value == 0) {
+				// 0이하일 경우, 버튼과 티켓 수 disabled 및 가격 컬러 off
+				if (ticketCount.value <= 0) {
 					minusButton.classList.add("disabled");
 					ticketCount.classList.add("disabled");
 					individualTotalPriceContainer.classList.remove("on_color");
+					return
 				}
 				
+				ticketCount.value = Number(ticketCount.value) - 1;
+				
 				individualTotalPrice.innerText = (price * ticketCount.value).toLocaleString("Ko-KR");
+				
+				// 예약 페이지 제일 하단의 총 티켓 갯수 세팅
+				this.setReservationTicketCount();
 			})
 			
-			const plusButton = ticketContainers[i].querySelector(".ico_plus3");
+			const plusButton = ticketContainer.querySelector(".ico_plus3");
 			plusButton.addEventListener("click", () => {
 				// 플러스 버튼을 누를 경우 disabled 제거 및 가격 컬러 on
 				minusButton.classList.remove("disabled");
@@ -51,7 +45,6 @@ export default class TicketController {
 				this.setReservationTicketCount();
 				
 				// 예약 페이지 제일 하단의 총 티켓 갯수 세팅
-				this.totalTicketCount++;
 				this.setReservationTicketCount();
 			})
 		}
@@ -59,6 +52,14 @@ export default class TicketController {
 	
 	setReservationTicketCount() {
 		const totalTicketCountBox = document.getElementById("totalCount");
-		totalTicketCountBox.innerText = this.totalTicketCount;
+		const ticketContainers = document.getElementsByClassName("count_control");
+		
+		let totalTicketCount = 0;
+		for(let ticketContainer of ticketContainers) {
+			const ticketCount = ticketContainer.querySelector(".count_control_input");
+			totalTicketCount += Number(ticketCount.value);
+		}
+		
+		totalTicketCountBox.innerText = totalTicketCount;
 	}
 }

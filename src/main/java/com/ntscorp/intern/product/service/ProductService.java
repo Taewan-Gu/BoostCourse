@@ -20,4 +20,6 @@ public interface ProductService {
 	public List<String> getProductImageUrlsByDisplayInfoId(int displayInfoId);
 
 	public List<ProductPrice> getProducePriceByDisplayInfoId(int displayInfoId);
+
+	public ProductSummary getProductSummaryByDisplayInfoId(int displayInfoId);
 }

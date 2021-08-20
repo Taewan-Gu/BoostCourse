@@ -68,6 +68,11 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<ProductPrice> getProducePriceByDisplayInfoId(int displayInfoId) {
-		return productRepository.selectProductPriceByDisplayInfoId(displayInfoId);
+		return productRepository.selectProductPricesByDisplayInfoId(displayInfoId);
+	}
+
+	@Override
+	public ProductSummary getProductSummaryByDisplayInfoId(int displayInfoId) {
+		return productRepository.selectProductSummaryByDisplayInfoId(displayInfoId);
 	}
 }

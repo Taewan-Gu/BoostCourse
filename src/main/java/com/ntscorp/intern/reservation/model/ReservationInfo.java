@@ -1,6 +1,7 @@
 package com.ntscorp.intern.reservation.model;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 public class ReservationInfo {
 	private int productId;
@@ -12,6 +13,19 @@ public class ReservationInfo {
 	private boolean cancelFlag;
 	private LocalDateTime createDate;
 	private LocalDateTime modifyDate;
+
+	public ReservationInfo(int productId, int displayInfoId, String reservationName, String reservationTel,
+		String reservationEmail, LocalDateTime reservationDate) {
+		ZoneId zi = ZoneId.of("Asia/Seoul");
+		this.productId = productId;
+		this.displayInfoId = displayInfoId;
+		this.reservationName = reservationName;
+		this.reservationTel = reservationTel;
+		this.reservationEmail = reservationEmail;
+		this.reservationDate = reservationDate;
+		this.createDate = LocalDateTime.now(zi);
+		this.modifyDate = LocalDateTime.now(zi);
+	}
 
 	public int getProductId() {
 		return productId;
