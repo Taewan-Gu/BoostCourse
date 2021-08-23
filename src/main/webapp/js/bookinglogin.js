@@ -1,18 +1,15 @@
-import { BASE_URL } from "./common/urlMapper.js";
-import { cookie } from "./common/cookie.js";
 import { moveTop } from "./common/moveTop.js";
 
+import Validation from "./util/validation.js";
+import Login from "./bookinglogin/login.js";
+
 document.addEventListener("DOMContentLoaded", () => {
-	const loginButton = document.querySelector(".login_btn");
+	// 예약 폼 밸리데이션
+	const validation = new Validation();
+	validation.initBookinglogin();
 	
-	// 비회원 로그인 시, 쿠키 저장. 나중에 세션으로 바꿔야 할 것.
-	loginButton.addEventListener("click", () => {
-		const loginEmailInput = document.querySelector(".login_input");
-		const loginEmail = loginEmailInput.value;
-		
-		cookie.setCookie("email", loginEmail);
-		location.href = BASE_URL + "myreservation.html"; 
-	})
+	new Login(validation);				// 로그인 버튼
 	
-	moveTop.initMoveTopButton();				// top 버튼
+	
+	moveTop.initMoveTopButton();		// top 버튼
 });

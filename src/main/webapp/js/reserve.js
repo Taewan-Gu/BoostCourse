@@ -2,12 +2,12 @@ import { moveTop } from "./common/moveTop.js";
 import { parameter } from "./common/parameter.js";
 import { URL } from "./common/urlMapper.js";
 
+import Validation from "./util/validation.js";
 import ProductSummary from "./reserve/productSummary.js";
 import ProductPrices from "./reserve/productPrices.js";
 import TicketController from "./reserve/ticketController.js";
 import ReservationConfirm from "./reserve/reservationConfirm.js";
 import AnchorButtons from "./reserve/anchorButtons.js";
-import Validation from "./reserve/validation.js";
 import Agreement from "./reserve/agreement.js";
 import ReservationDate from "./reserve/reservationDate.js";
 
@@ -25,6 +25,7 @@ class Reserve {
 		const query = `?displayInfoId=${displayInfoId}`;
 		// 예약 폼 밸리데이션
 		const validation = new Validation();
+		validation.initReserve();
 		
 		// 상품 상세정보 가져오기
 		fetch(URL.reserve + query)

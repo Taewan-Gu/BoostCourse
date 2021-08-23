@@ -1,10 +1,13 @@
 export const BASE_URL = "/"
 
 export const URL = {
-	promotions: BASE_URL + "api/promotions",
-	categories: BASE_URL + "api/categories",
-	products: BASE_URL + "api/products",
-	comments: BASE_URL + "api/comments",
 	allComments: BASE_URL + "api/comments/all",
+	categories: BASE_URL + "api/categories",
+	comments: BASE_URL + "api/comments",
+	login: BASE_URL + "api/login",
+	logout: BASE_URL + "api/logout",
+	products: BASE_URL + "api/products",
+	promotions: BASE_URL + "api/promotions",
+	reservation: BASE_URL + "api/reservation",
 	reserve: BASE_URL + "api/reserve",
 }

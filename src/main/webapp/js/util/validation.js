@@ -1,18 +1,20 @@
 export default class Validation {
-    constructor() {
-		this.init();
-	}
+    constructor() {}
 
-    init() {
+    initReserve() {
 		this.setNameValidationButton();
 		this.setTelValidationButton();
 		this.setEmailValidationButton();
     }
+
+	initBookinglogin() {
+		this.setEmailValidationButton();
+	}
 	
 	setNameValidationButton() {
 		const nameInput = document.getElementById('name');
 		const warningText = nameInput.nextElementSibling;
-		nameInput.addEventListener("keyup", () => {
+		nameInput.addEventListener("keypress", () => {
 			if (this.isNotValidatedName()) {
 				warningText.style.display = "block";
 			} else {
@@ -24,7 +26,7 @@ export default class Validation {
 	setTelValidationButton() {
 		const telInput = document.getElementById('tel');
 		const warningText = telInput.nextElementSibling;
-		telInput.addEventListener("keyup", () => {
+		telInput.addEventListener("keypress", () => {
 			if (this.isNotValidatedTel()) {
 				warningText.style.display = "block";
 			} else {
@@ -36,7 +38,7 @@ export default class Validation {
 	setEmailValidationButton() {
 		const emailInput = document.getElementById('email');
 		const warningText = emailInput.nextElementSibling;
-		emailInput.addEventListener("keyup", () => {
+		emailInput.addEventListener("keypress", () => {
 			if (this.isNotValidatedEmail()) {
 				warningText.style.display = "block";
 			} else {

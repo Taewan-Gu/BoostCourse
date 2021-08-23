@@ -5,10 +5,10 @@
             <Pattern>%d{yyyy-MM-dd HH:mm:ss} [%-5level] [%thread] [%logger{36}] - %msg%n</Pattern>
         </encoder>
     </appender>
-	<logger name="com.ntscorp.intern.product"  level="warn" additivity="false">
+	<logger name="com.ntscorp.intern.product"  level="info" additivity="false">
         <appender-ref ref="CONSOLE" />
     </logger>
-    <logger name="com.ntscorp.intern.reservation"  level="warn" additivity="false">
+    <logger name="com.ntscorp.intern.reservation"  level="info" additivity="false">
         <appender-ref ref="CONSOLE" />
     </logger>
     <root level="info">

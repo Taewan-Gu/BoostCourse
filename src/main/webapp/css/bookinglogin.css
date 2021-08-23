@@ -14799,6 +14799,20 @@ body.en .subscribe_banner .subscribe_strapline {
 .michelin .deposit_text:before {
     background-position: -103px -273px!important
 }
+.warning_msg {
+    position: relative;
+    top: 0;
+    left: 0;
+    background: #ffffff;
+    height: 24px;
+    display: none;
+    line-height: 24px;
+    width: 98%;
+    color: red;
+    padding-left: 10px;
+    font-size: 10px;
+}
+
 @media only screen and (device-width: 320px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
     .michelin .tab_wrap {
         max-width: 308px
