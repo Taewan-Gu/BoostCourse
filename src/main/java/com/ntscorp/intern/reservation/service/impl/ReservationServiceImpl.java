@@ -17,6 +17,8 @@ import com.ntscorp.intern.product.service.ProductService;
 import com.ntscorp.intern.reservation.controller.request.ProductPriceRequest;
 import com.ntscorp.intern.reservation.controller.request.ReserveRequest;
 import com.ntscorp.intern.reservation.controller.response.ReserveResponse;
+import com.ntscorp.intern.reservation.model.Reservation;
+import com.ntscorp.intern.reservation.model.ReservationCount;
 import com.ntscorp.intern.reservation.model.ReservationInfo;
 import com.ntscorp.intern.reservation.model.ReservationInfoPrice;
 import com.ntscorp.intern.reservation.repository.ReservationRepository;
@@ -33,6 +35,16 @@ public class ReservationServiceImpl implements ReservationService {
 	public ReservationServiceImpl(ReservationRepository reservationRepository, ProductService productService) {
 		this.reservationRepository = reservationRepository;
 		this.productService = productService;
+	}
+
+	@Override
+	public List<Reservation> getAllReservationsByEmail(String reservationEmail) {
+		return reservationRepository.selectAllReservationsByEmail(reservationEmail);
+	}
+
+	@Override
+	public ReservationCount getReservationCountByEmail(String reservationEmail) {
+		return reservationRepository.selectReservationCountByEmail(reservationEmail);
 	}
 
 	@Override

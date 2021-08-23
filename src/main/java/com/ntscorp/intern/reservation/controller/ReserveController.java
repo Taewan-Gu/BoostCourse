@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ntscorp.intern.product.service.ProductService;
 import com.ntscorp.intern.reservation.controller.request.ReserveRequest;
 import com.ntscorp.intern.reservation.controller.response.ReserveResponse;
 import com.ntscorp.intern.reservation.service.ReservationService;
@@ -24,7 +23,7 @@ public class ReserveController {
 	private final ReservationService reservationService;
 
 	@Autowired
-	public ReserveController(ProductService productService, ReservationService reservationService) {
+	public ReserveController(ReservationService reservationService) {
 		this.reservationService = reservationService;
 	}
 
