@@ -8,6 +8,6 @@ export const URL = {
 	logout: BASE_URL + "api/logout",
 	products: BASE_URL + "api/products",
 	promotions: BASE_URL + "api/promotions",
-	reservation: BASE_URL + "api/reservation",
+	reservations: BASE_URL + "api/reservations",
 	reserve: BASE_URL + "api/reserve",
 }

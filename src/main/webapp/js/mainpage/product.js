@@ -93,7 +93,7 @@ export const product = {
 		
 		// event delegation: 클릭한 카테고리를 찾아서 상품 변경 함수 실행
 		this.categoriesContainer.onclick = function(event) {
-			let target = event.target;
+			const target = event.target;
 		
 			if (target.tagName === 'A') {
 				self.changeCategory(target);

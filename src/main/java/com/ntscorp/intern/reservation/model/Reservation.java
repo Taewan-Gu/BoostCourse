@@ -2,14 +2,17 @@ package com.ntscorp.intern.reservation.model;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Reservation {
 	private int id;
 	private int displayInfoId;
 	private String title;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
 	private LocalDateTime reservationDate;
 	private String placeStreet;
 	private int totalPrice;
-	private int cancel_flag;
+	private int cancelFlag;
 
 	public int getId() {
 		return id;
@@ -59,18 +62,18 @@ public class Reservation {
 		this.totalPrice = totalPrice;
 	}
 
-	public int getCancel_flag() {
-		return cancel_flag;
+	public int getCancelFlag() {
+		return cancelFlag;
 	}
 
-	public void setCancel_flag(int cancel_flag) {
-		this.cancel_flag = cancel_flag;
+	public void setCancelFlag(int cancelFlag) {
+		this.cancelFlag = cancelFlag;
 	}
 
 	@Override
 	public String toString() {
 		return "MyReservationInfo [id=" + id + ", displayInfoId=" + displayInfoId + ", title=" + title
 			+ ", reservationDate=" + reservationDate + ", placeStreet=" + placeStreet + ", totalPrice=" + totalPrice
-			+ ", cancel_flag=" + cancel_flag + "]";
+			+ ", cancelFlag=" + cancelFlag + "]";
 	}
 }
