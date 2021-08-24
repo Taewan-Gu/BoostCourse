@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,11 +27,17 @@ public class MyReservationController {
 	}
 
 	@GetMapping("/reservations")
-	public ResponseEntity<ReservationsResponse> getProductReservation(@RequestParam
+	public ResponseEntity<ReservationsResponse> getMyReservations(@RequestParam
 	String reservationEmail) {
 		List<Reservation> reservations = reservationService.getAllReservationsByEmail(reservationEmail);
 		ReservationCount reservationCount = reservationService.getReservationCountByEmail(reservationEmail);
 		ReservationsResponse reservationsResponse = new ReservationsResponse(reservations, reservationCount);
 		return ResponseEntity.ok(reservationsResponse);
+	}
+
+	@PutMapping("/reservations/{reservationInfoId}")
+	public ResponseEntity<Integer> changeReservationInfoId(@PathVariable
+	int reservationInfoId) {
+		return ResponseEntity.ok(reservationService.changeReservationInfoCancelFlag(reservationInfoId));
 	}
 }

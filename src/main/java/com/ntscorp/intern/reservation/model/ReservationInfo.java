@@ -16,15 +16,15 @@ public class ReservationInfo {
 
 	public ReservationInfo(int productId, int displayInfoId, String reservationName, String reservationTel,
 		String reservationEmail, LocalDateTime reservationDate) {
-		ZoneId zi = ZoneId.of("Asia/Seoul");
+		ZoneId zoneId = ZoneId.of("Asia/Seoul");
 		this.productId = productId;
 		this.displayInfoId = displayInfoId;
 		this.reservationName = reservationName;
 		this.reservationTel = reservationTel;
 		this.reservationEmail = reservationEmail;
 		this.reservationDate = reservationDate;
-		this.createDate = LocalDateTime.now(zi);
-		this.modifyDate = LocalDateTime.now(zi);
+		this.createDate = LocalDateTime.now(zoneId);
+		this.modifyDate = LocalDateTime.now(zoneId);
 	}
 
 	public int getProductId() {

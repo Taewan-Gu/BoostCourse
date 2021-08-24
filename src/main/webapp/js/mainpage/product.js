@@ -1,93 +1,14 @@
 import { URL } from "../common/urlMapper.js";
 
-export const product = {
-	categoriesContainer: document.getElementsByClassName("event_tab_lst")[0],
-	productsCount: 0,
+export default class Product {
+	categoriesContainer = document.getElementsByClassName("event_tab_lst")[0];
+	productsCount = 0;
 	
-	// 상품 추가하기.
-	arrangeProducts: function(products) {
-		const productsContainers = document.getElementsByClassName('lst_event_box');
-		
-		const productTemplate = document.querySelector("#itemList").innerText;
-		const bindProductTemplate = Handlebars.compile(productTemplate);
-		
-		let leftProductHtml = "";
-		let rightProductHtml = "";
-		
-		// forEach문 안에서 this를 사용하기 위한 구문
-		const self = this;
-		
-		products.forEach(function (item, index) {
-			// index가 짝수일 경우, 왼쪽 배치. 홀수일 경우, 오른쪽 배치
-			if (index % 2 == 0) {
-				leftProductHtml += bindProductTemplate(item);
-			} else {
-				rightProductHtml += bindProductTemplate(item);
-			}
-			self.productsCount++;
-		});
-		
-		productsContainers[0].innerHTML += leftProductHtml;
-		productsContainers[1].innerHTML += rightProductHtml;
-	},
+	constructor() {
+		this.init();
+	}
 	
-	// 상품 전시판 초기화.
-	initProductDisplay: function() {
-		const productsContainers = document.getElementsByClassName('lst_event_box');
-		
-		for (let i = 0; i < productsContainers.length; i++) {
-			productsContainers[i].innerHTML = "";
-		}
-		
-		this.productsCount = 0;
-	},
-	
-	// 전시 갯수 현황판 변경
-	changeTotalCount: function(totalCount) {
-		const totalCountBox = document.querySelector('.totalCount');
-		totalCountBox.innerText = totalCount;
-	},
-	
-	// 카테고리 변경 후, 상품 배치 함수, 전시 갯수 변경 함수 호출.
-	changeCategory: function(target) {
-		const categoryButtons = this.categoriesContainer.getElementsByTagName("a");
-		
-		for (let i = 0; i < categoryButtons.length; i++) {
-			categoryButtons[i].className = "anchor";
-		}
-		target.className = "anchor active";
-		
-		let query = "";
-		const categoryId = target.getAttribute("categoryId");
-		
-		if (categoryId != 0) {
-			query = `?categoryId=${categoryId}`;
-		}
-		
-		// 상품 가져오기
-		fetch(URL.products + query)
-		    .then(response => {
-		      	return response.json();
-		    })
-			.then(data => {
-				const moreButton = document.querySelector(".more");
-				if (data.products.length < 4) {
-					moreButton.style.display = "none";
-				} else {
-					moreButton.style.display = "block"
-				}
-				
-				this.changeTotalCount(data.totalCount);
-				this.initProductDisplay();
-				this.arrangeProducts(data.products);
-			})
-		    .catch(error => {
-		    	console.error(error);
-		    })
-	},
-	
-	// 초기 실행 함수
-	initProducts: function() {
+	init() {
 		// onclick 안에서 this를 사용하기 위한 구문
 		const self = this;
 		
@@ -133,5 +54,87 @@ export const product = {
 			    	console.error(error);
 			    })
 		})
+	}
+	
+	// 상품 추가하기.
+	arrangeProducts(products) {
+		const productsContainers = document.getElementsByClassName('lst_event_box');
+		
+		const productTemplate = document.querySelector("#itemList").innerText;
+		const bindProductTemplate = Handlebars.compile(productTemplate);
+		
+		let leftProductHtml = "";
+		let rightProductHtml = "";
+		
+		// forEach문 안에서 this를 사용하기 위한 구문
+		const self = this;
+		
+		products.forEach(function (item, index) {
+			// index가 짝수일 경우, 왼쪽 배치. 홀수일 경우, 오른쪽 배치
+			if (index % 2 == 0) {
+				leftProductHtml += bindProductTemplate(item);
+			} else {
+				rightProductHtml += bindProductTemplate(item);
+			}
+			self.productsCount++;
+		});
+		
+		productsContainers[0].innerHTML += leftProductHtml;
+		productsContainers[1].innerHTML += rightProductHtml;
+	}
+	
+	// 상품 전시판 초기화.
+	initProductDisplay() {
+		const productsContainers = document.getElementsByClassName('lst_event_box');
+		
+		for (let i = 0; i < productsContainers.length; i++) {
+			productsContainers[i].innerHTML = "";
+		}
+		
+		this.productsCount = 0;
+	}
+	
+	// 전시 갯수 현황판 변경
+	changeTotalCount(totalCount) {
+		const totalCountBox = document.querySelector('.totalCount');
+		totalCountBox.innerText = totalCount;
+	}
+	
+	// 카테고리 변경 후, 상품 배치 함수, 전시 갯수 변경 함수 호출.
+	changeCategory(target) {
+		const categoryButtons = this.categoriesContainer.getElementsByTagName("a");
+		
+		for (let i = 0; i < categoryButtons.length; i++) {
+			categoryButtons[i].className = "anchor";
+		}
+		target.className = "anchor active";
+		
+		let query = "";
+		const categoryId = target.getAttribute("categoryId");
+		
+		if (categoryId != 0) {
+			query = `?categoryId=${categoryId}`;
+		}
+		
+		// 상품 가져오기
+		fetch(URL.products + query)
+		    .then(response => {
+		      	return response.json();
+		    })
+			.then(data => {
+				const moreButton = document.querySelector(".more");
+				if (data.products.length < 4) {
+					moreButton.style.display = "none";
+				} else {
+					moreButton.style.display = "block"
+				}
+				
+				this.changeTotalCount(data.totalCount);
+				this.initProductDisplay();
+				this.arrangeProducts(data.products);
+			})
+		    .catch(error => {
+		    	console.error(error);
+		    })
 	}
 }

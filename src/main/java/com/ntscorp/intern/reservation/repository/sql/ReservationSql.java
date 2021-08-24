@@ -26,4 +26,8 @@ public class ReservationSql {
 		+ "COUNT(CASE WHEN cancel_flag=1 THEN 1 END) AS cancel_size "
 		+ "FROM reservation_info AS rsvt "
 		+ "WHERE rsvt.reservation_email = :reservationEmail";
+
+	public static final String UPDATE_RESERVATION_INFO_CANCEL_FLAG = ""
+		+ "UPDATE reservation_info "
+		+ "SET cancel_flag = :cancelFlag, modify_date = NOW() WHERE id = :reservationInfoId";
 }

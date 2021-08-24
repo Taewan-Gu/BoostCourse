@@ -15,4 +15,6 @@ public interface ReservationRepository {
 	public List<Reservation> selectAllReservationsByEmail(String reservationEmail);
 
 	public ReservationCount selectReservationCountByEmail(String reservationEmail);
+
+	public int updateReservationInfoCancelFlag(int cancelFlag, int reservationInfoId);
 }

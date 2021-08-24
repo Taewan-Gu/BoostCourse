@@ -1,5 +1,6 @@
-import { moveTop } from "./common/moveTop.js";
+import MoveTop from "./common/moveTop.js";
+
 
 document.addEventListener("DOMContentLoaded", () => {
-	moveTop.initMoveTopButton();				// top 버튼
+	new MoveTop();						// top 버튼
 });

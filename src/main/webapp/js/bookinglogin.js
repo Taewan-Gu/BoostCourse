@@ -1,4 +1,4 @@
-import { moveTop } from "./common/moveTop.js";
+import MoveTop from "./common/moveTop.js";
 
 import Validation from "./util/validation.js";
 import Login from "./bookinglogin/login.js";
@@ -10,6 +10,5 @@ document.addEventListener("DOMContentLoaded", () => {
 	
 	new Login(validation);				// 로그인 버튼
 	
-	
-	moveTop.initMoveTopButton();		// top 버튼
+	new MoveTop();						// top 버튼
 });

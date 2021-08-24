@@ -30,6 +30,7 @@ public class ReserveController {
 	@GetMapping("/reserve")
 	public ResponseEntity<ReserveResponse> getProductReservation(@RequestParam
 	int displayInfoId) {
+
 		if (isNotValidateDisplayInfoId(displayInfoId)) {
 			throw new IllegalArgumentException("arguments = [displayInfoId: " + displayInfoId + "]");
 		}

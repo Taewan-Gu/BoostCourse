@@ -1,13 +1,18 @@
-import { productDescription } from "./detail/productDescription.js";
+import MoveTop from "./common/moveTop.js";
+import LoginCheck from "./common/loginCheck.js";
+
+import Comment from "./review/comment.js";
+import ProductDescription from "./detail/productDescription.js";
 import AnchorButtons from "./detail/anchorButtons.js";
-import { comment } from "./review/comment.js";
-import { moveTop } from "./common/moveTop.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-	productDescription.initProductDescription();		// 상품 상세내용
-	comment.initComments();								// 리뷰 미리보기
+	new LoginCheck();						// 비회원 로그인 확인
 	
-	new AnchorButtons;									// 페이지 이동 버튼
+	new ProductDescription();				// 상품 상세내용
 	
-	moveTop.initMoveTopButton();						// top 버튼
+	const comment = new Comment();
+	comment.initComments();					// 리뷰 미리보기
+	
+	new AnchorButtons;						// 리뷰 페이지 이동 버튼
+	new MoveTop();							// top 버튼
 });

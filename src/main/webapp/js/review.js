@@ -1,8 +1,13 @@
-import { comment } from "./review/comment.js";
-import { moveTop } from "./common/moveTop.js";
+import MoveTop from "./common/moveTop.js";
+
+import Comment from "./review/comment.js";
+
 
 document.addEventListener("DOMContentLoaded", () => {
-	comment.initAllComments();					// 리뷰
+	// 리뷰
+	const comment = new Comment();
+	comment.initAllComments();				
 	
-	moveTop.initMoveTopButton();				// top 버튼
+	// top 버튼
+	new MoveTop();
 });

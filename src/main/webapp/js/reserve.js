@@ -1,6 +1,6 @@
-import { moveTop } from "./common/moveTop.js";
 import { parameter } from "./common/parameter.js";
 import { URL } from "./common/urlMapper.js";
+import MoveTop from "./common/moveTop.js";
 
 import Validation from "./util/validation.js";
 import ProductSummary from "./reserve/productSummary.js";
@@ -11,8 +11,10 @@ import AnchorButtons from "./reserve/anchorButtons.js";
 import Agreement from "./reserve/agreement.js";
 import ReservationDate from "./reserve/reservationDate.js";
 
+
 document.addEventListener("DOMContentLoaded", () => {
-	new Reserve();
+	new Reserve();							// 예약하기 페이지
+	new MoveTop();							// top 버튼
 });
 
 class Reserve {
@@ -50,6 +52,5 @@ class Reserve {
 		
 		new Agreement();						// 약관 펼쳐보기
 		new AnchorButtons(displayInfoId);		// 뒤로가기 버튼
-		moveTop.initMoveTopButton();			// top 버튼
 	}
 }

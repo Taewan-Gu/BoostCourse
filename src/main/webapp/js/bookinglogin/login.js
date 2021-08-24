@@ -11,6 +11,12 @@ export default class Login {
     }
 
 	setLoginButton(validation) {
+		// 이미 로그인되어 있다면 패스
+		if (cookie.getCookie("email")) {
+			location.href = BASE_URL + "myreservation.html";
+			return
+		}
+		
 		const loginButton = document.querySelector(".login_btn");
 		loginButton.addEventListener("click", () => {
 			this.setLoginButtonEvent(validation)
@@ -36,7 +42,6 @@ export default class Login {
 		// 로그인
 		fetch(URL.login, {
 				method: "POST",
-				body: JSON.stringify(loginForm),
 				body: JSON.stringify(loginForm),
 				headers: {
 		            'Content-Type': 'application/json',

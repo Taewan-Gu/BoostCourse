@@ -1,15 +1,17 @@
-import { loginCheck } from "./mainpage/loginCheck.js";
-import { promotion } from "./mainpage/promotion.js";
-import { category } from "./mainpage/category.js";
-import { product } from "./mainpage/product.js";
-import { moveTop } from "./common/moveTop.js";
+import LoginCheck from "./common/loginCheck.js";
+import MoveTop from "./common/moveTop.js";
+
+import Promotion from "./mainpage/promotion.js";
+import Category from "./mainpage/category.js";
+import Product from "./mainpage/product.js";
+
 
 document.addEventListener("DOMContentLoaded", () => {
-	loginCheck.initLoginCheck();				// 비회원 로그인 체크
+	new LoginCheck();					// 비회원 로그인 확인
 
-	promotion.initPromotionCarousel(); 			// 프로모션
-	category.initCategories();					// 카테고리
-	product.initProducts();						// 프로덕트
+	new Promotion();					// 프로모션
+	new Category();						// 카테고리
+	new Product();						// 프로덕트
 	
-	moveTop.initMoveTopButton();				// top 버튼
+	new MoveTop();						// top 버튼
 });

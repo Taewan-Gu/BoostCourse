@@ -2,8 +2,10 @@ package com.ntscorp.intern.reservation.repository.impl;
 
 import static com.ntscorp.intern.reservation.repository.sql.ReservationSql.SELECT_ALL_RESERVATIONS_BY_EMAIL;
 import static com.ntscorp.intern.reservation.repository.sql.ReservationSql.SELECT_RESERVATION_COUNT_BY_EMAIL;
+import static com.ntscorp.intern.reservation.repository.sql.ReservationSql.UPDATE_RESERVATION_INFO_CANCEL_FLAG;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -64,5 +66,13 @@ public class ReservationRepositoryImpl implements ReservationRepository {
 		Map<String, ?> param = Collections.singletonMap("reservationEmail", reservationEmail);
 		return namedParameterJdbcTemplate.queryForObject(SELECT_RESERVATION_COUNT_BY_EMAIL, param,
 			reservationCountRowMapper);
+	}
+
+	@Override
+	public int updateReservationInfoCancelFlag(int cancelFlag, int reservationInfoId) {
+		Map<String, Integer> params = new HashMap<>();
+		params.put("reservationInfoId", reservationInfoId);
+		params.put("cancelFlag", cancelFlag);
+		return namedParameterJdbcTemplate.update(UPDATE_RESERVATION_INFO_CANCEL_FLAG, params);
 	}
 }

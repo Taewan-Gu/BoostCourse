@@ -11,7 +11,7 @@ export const cookie = {
 	},
 	
 	getCookie: function(key) {
-		const cookies = document.cookie.split(", ");
+		const cookies = document.cookie.split("; ");
 		let cookieValue;
 		cookies.forEach(cookie => {
 			const keysAndValues = cookie.split("=");

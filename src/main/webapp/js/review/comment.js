@@ -1,12 +1,14 @@
 import { URL } from "../common/urlMapper.js";
 
-export const comment = {
+export default class Comment {
+	constructor() {}
+	
 	// 현재 detail 페이지의 displayInfoId 반환
-	getDisplayInfoId: () => {
+	getDisplayInfoId() {
 		const parameters = new URLSearchParams(location.search);
 		
 		return parameters.get("displayInfoId");
-	},
+	}
 	
 	// 집계함수 배치 (totalCount, averageScore)
 	arrangeCommentsCountAndAverageScore(commentsCountAndAverageScore) {
@@ -27,7 +29,7 @@ export const comment = {
 		const countEm = countContainer.querySelector('em');
 
 		countEm.innerText = `${commentsCountAndAverageScore.totalCount}건`;
-	},
+	}
 	
 	// 리뷰 배치
 	arrangeComments(comments) {
@@ -41,16 +43,16 @@ export const comment = {
 		}, "");
 		
 		commentsContainer.innerHTML += commentsHtml;
-	},
+	}
 	
 	// 뒤로 가기 시, displayInfoId detail.html로 넘겨주기.
-	setDisplayInfoIdForDetail: (displayInfoId) => {
+	setDisplayInfoIdForDetail(displayInfoId) {
 		const allCommentsButton = document.querySelector('.btn_back');
 		allCommentsButton.href = `/detail.html?displayInfoId=${displayInfoId}`;
-	},
+	}
 	
 	// 리뷰 정보 가져오기
-	getComments: function(url) {
+	getComments(url) {
 		fetch(url)
 		    .then(response => {
 		      	return response.json();
@@ -62,9 +64,9 @@ export const comment = {
 		    .catch(error => {
 		    	console.error(error);
 		    })
-	},
+	}
 	
-	initAllComments: function() {
+	initAllComments() {
 		const displayInfoId = this.getDisplayInfoId();
 		const query = `?displayInfoId=${displayInfoId}`;
 		
@@ -73,9 +75,9 @@ export const comment = {
 		
 		// 리뷰 정보 가져오기
 		this.getComments(URL.allComments + query)
-	},
+	}
 	
-	initComments: function() {
+	initComments() {
 		const displayInfoId = this.getDisplayInfoId();
 		const query = `?displayInfoId=${displayInfoId}`;	
 		

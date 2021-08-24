@@ -14,7 +14,7 @@ export default class Validation {
 	setNameValidationButton() {
 		const nameInput = document.getElementById('name');
 		const warningText = nameInput.nextElementSibling;
-		nameInput.addEventListener("keypress", () => {
+		nameInput.addEventListener("keyup", () => {
 			if (this.isNotValidatedName()) {
 				warningText.style.display = "block";
 			} else {
@@ -26,7 +26,7 @@ export default class Validation {
 	setTelValidationButton() {
 		const telInput = document.getElementById('tel');
 		const warningText = telInput.nextElementSibling;
-		telInput.addEventListener("keypress", () => {
+		telInput.addEventListener("keyup", () => {
 			if (this.isNotValidatedTel()) {
 				warningText.style.display = "block";
 			} else {
@@ -38,7 +38,7 @@ export default class Validation {
 	setEmailValidationButton() {
 		const emailInput = document.getElementById('email');
 		const warningText = emailInput.nextElementSibling;
-		emailInput.addEventListener("keypress", () => {
+		emailInput.addEventListener("keyup", () => {
 			if (this.isNotValidatedEmail()) {
 				warningText.style.display = "block";
 			} else {

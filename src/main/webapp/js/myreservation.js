@@ -1,15 +1,18 @@
 import { cookie } from "./common/cookie.js";
-import { moveTop } from "./common/moveTop.js";
 import { URL } from "./common/urlMapper.js";
+import MoveTop from "./common/moveTop.js";
+import LoginCheck from "./common/loginCheck.js";
 
 import ReservationCount from "./myreservation/reservationCount.js";
 import Reservations from "./myreservation/reservations.js";
 import Cancel from "./myreservation/cancel.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-	new MyReservation();
+	new LoginCheck();							// 비회원 로그인 확인
 	
-	moveTop.initMoveTopButton();				// top 버튼
+	new MyReservation();						// 나의 예약페이지
+	
+	new MoveTop();								// top 버튼
 });
 
 class MyReservation {
@@ -24,6 +27,9 @@ class MyReservation {
 		// 상품 상세정보 가져오기
 		fetch(URL.reservations + query)
 		    .then(response => {
+				if (response.redirected) {
+					location.href = response.url;
+				}
 		      	return response.json();
 		    })
 			.then(data => {
@@ -34,12 +40,5 @@ class MyReservation {
 		    .catch(error => {
 		    	console.error(error);
 		    })
-		
-		this.setReservationEmail(reservationEmail);
-	}
-	
-	setReservationEmail(reservationEmail) {
-		const topReservationEmail = document.querySelector(".viewReservation");
-		topReservationEmail.innerText = reservationEmail;
 	}
 }

@@ -27,6 +27,7 @@ import com.ntscorp.intern.reservation.service.ReservationService;
 @Service
 public class ReservationServiceImpl implements ReservationService {
 	private static final int TICKET_ZERO = 0;
+	private static final int CANCEL_FLAG = 1;
 
 	private final ReservationRepository reservationRepository;
 	private final ProductService productService;
@@ -64,6 +65,12 @@ public class ReservationServiceImpl implements ReservationService {
 		int reservationInfoKey = saveReservationInfo(reserveRequest);
 
 		saveReservationInfoPrices(reserveRequest, reservationInfoKey);
+	}
+
+	@Transactional
+	@Override
+	public int changeReservationInfoCancelFlag(int reservationInfoId) {
+		return reservationRepository.updateReservationInfoCancelFlag(CANCEL_FLAG, reservationInfoId);
 	}
 
 	private int saveReservationInfo(ReserveRequest reserveRequest) {

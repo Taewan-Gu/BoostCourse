@@ -15,4 +15,6 @@ public interface ReservationService {
 	public List<Reservation> getAllReservationsByEmail(String reservationEmail);
 
 	public ReservationCount getReservationCountByEmail(String reservationEmail);
+
+	public int changeReservationInfoCancelFlag(int reservationInfoId);
 }
