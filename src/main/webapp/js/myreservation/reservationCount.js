@@ -80,14 +80,14 @@ export default class ReservationCount {
 		
 		// 모든 예약
 		if (target.id === "all_reservations") {
-			for(let reservationStatusContainer of reservationList.children) {
+			for (let reservationStatusContainer of reservationList.children) {
 				 reservationStatusContainer.style.display = "block";
 			}
 			return
 		}
 		
 		// 각 예약 상태들마다 해당 건들 배치
-		for(let reservationStatusContainer of reservationList.children) {
+		for (let reservationStatusContainer of reservationList.children) {
 			console.log(reservationStatusContainer.classList)
 			if (reservationStatusContainer.classList.contains(target.id)) {
 				reservationStatusContainer.style.display = "block";

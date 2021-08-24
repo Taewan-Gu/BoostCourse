@@ -2,14 +2,15 @@ export default class ProductPrices {
 	
 	priceTypeNameTable = {
 		"A": "성인(만 19~64세)",
+		"ASeat": "A석",
 		"Y": "청소년(만 13~18세)",
 		"B": "어린이(만 4~12세)",
+		"Basic": "기본석",
 		"D": "장애인",
 		"E": "65세 이상",
 		"S": "S석",
 		"V": "VIP석",
 		"R": "R석",
-		"ASeat": "A석"
 	}
 	
     constructor(productPrices) {
@@ -46,6 +47,12 @@ export default class ProductPrices {
 		let ticketHtml = "";
 		
 		productPrices.forEach((productPrice, index) => {
+			if (productPrice.priceTypeName == "A") {
+				productPrice.priceTypeName = this.checkAseat(productPrices);
+			}
+			if (productPrice.priceTypeName == "B") {
+				productPrice.priceTypeName = this.checkBasic(productPrices);
+			}
 			const priceTypeName = this.priceTypeNameTable[productPrice.priceTypeName];
 			const price = productPrice.price.toLocaleString("ko-KR");
 			priceDescription.innerText += `${priceTypeName}: ${price}원 \n`;
@@ -59,5 +66,25 @@ export default class ProductPrices {
 		})
 		
 		ticketContainer.innerHTML += ticketHtml;
+	}
+	
+	checkAseat(productPrices) {
+		productPrices.forEach(productPrice => {
+			if (productPrice.priceTypeName === "R") {
+				return "Aseat";
+			}
+		})
+		
+		return "A";
+	}
+	
+	checkBasic(productPrices) {
+		productPrices.forEach(productPrice => {
+			if (productPrice.priceTypeName === "A") {
+				return "B";
+			}
+		})
+		
+		return "Basic";
 	}
 }

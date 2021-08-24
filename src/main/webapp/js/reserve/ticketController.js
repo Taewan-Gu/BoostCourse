@@ -55,7 +55,7 @@ export default class TicketController {
 		const ticketContainers = document.getElementsByClassName("count_control");
 		
 		let totalTicketCount = 0;
-		for(let ticketContainer of ticketContainers) {
+		for (let ticketContainer of ticketContainers) {
 			const ticketCount = ticketContainer.querySelector(".count_control_input");
 			totalTicketCount += Number(ticketCount.value);
 		}

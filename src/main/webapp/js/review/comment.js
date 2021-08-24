@@ -13,11 +13,11 @@ export default class Comment {
 	// 집계함수 배치 (totalCount, averageScore)
 	arrangeCommentsCountAndAverageScore(commentsCountAndAverageScore) {
 		const gradeContainer = document.querySelector('.grade_area');
-		
+
 		const graphAverageScoreContainer = gradeContainer.querySelector('.graph_value');
 		const averageScoreContainer = gradeContainer.querySelector('.text_value');
 		const averageScoreSpan = averageScoreContainer.querySelector('span');
-		
+
 		// 소수점 한자리까지만 출력
 		const averageScore = commentsCountAndAverageScore.averageScore.toString().substr(0, 3);
 		averageScoreSpan.innerText = averageScore;

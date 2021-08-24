@@ -15,7 +15,7 @@ import com.ntscorp.intern.product.model.ProductPrice;
 import com.ntscorp.intern.product.model.ProductSummary;
 import com.ntscorp.intern.product.service.ProductService;
 import com.ntscorp.intern.reservation.controller.request.ProductPriceRequest;
-import com.ntscorp.intern.reservation.controller.request.ReserveRequest;
+import com.ntscorp.intern.reservation.controller.request.ReservationRequest;
 import com.ntscorp.intern.reservation.controller.response.ReserveResponse;
 import com.ntscorp.intern.reservation.model.Reservation;
 import com.ntscorp.intern.reservation.model.ReservationCount;
@@ -61,7 +61,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Transactional
 	@Override
-	public void saveReservation(ReserveRequest reserveRequest) {
+	public void saveReservation(ReservationRequest reserveRequest) {
 		int reservationInfoKey = saveReservationInfo(reserveRequest);
 
 		saveReservationInfoPrices(reserveRequest, reservationInfoKey);
@@ -73,7 +73,7 @@ public class ReservationServiceImpl implements ReservationService {
 		return reservationRepository.updateReservationInfoCancelFlag(CANCEL_FLAG, reservationInfoId);
 	}
 
-	private int saveReservationInfo(ReserveRequest reserveRequest) {
+	private int saveReservationInfo(ReservationRequest reserveRequest) {
 		String rawReservationDate = reserveRequest.getReservationDate();
 		LocalDateTime reservationDate = LocalDate.parse(rawReservationDate).atTime(LocalTime.now());
 		ReservationInfo reservationInfo = new ReservationInfo(
@@ -87,7 +87,7 @@ public class ReservationServiceImpl implements ReservationService {
 		return reservationRepository.insertReservationInfo(reservationInfo);
 	}
 
-	private void saveReservationInfoPrices(ReserveRequest reserveRequest, int reservationInfoKey) {
+	private void saveReservationInfoPrices(ReservationRequest reserveRequest, int reservationInfoKey) {
 		List<ReservationInfoPrice> reservationInfoPrices = new ArrayList<>();
 
 		List<ProductPriceRequest> productPriceRequests = reserveRequest.getProductPrices();

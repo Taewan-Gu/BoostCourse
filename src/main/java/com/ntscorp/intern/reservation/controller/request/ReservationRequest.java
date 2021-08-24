@@ -2,7 +2,7 @@ package com.ntscorp.intern.reservation.controller.request;
 
 import java.util.List;
 
-public class ReserveRequest {
+public class ReservationRequest {
 	private int productId;
 	private int displayInfoId;
 	private String reservationName;

@@ -2,6 +2,7 @@ import { URL } from "../common/urlMapper.js";
 
 export default class Product {
 	categoriesContainer = document.getElementsByClassName("event_tab_lst")[0];
+	productsRequest = false;
 	productsCount = 0;
 	
 	constructor() {
@@ -30,6 +31,11 @@ export default class Product {
 		const moreButton = document.querySelector(".more");
 		
 		moreButton.addEventListener("click", () => {
+			// 이미 요청 보낸 상태
+			if (this.productsRequest) {
+				return;
+			}
+			
 			const selectedCategory = this.categoriesContainer.querySelector(".active");
 			const categoryId = selectedCategory.getAttribute("categoryId");
 			
@@ -53,6 +59,8 @@ export default class Product {
 			    .catch(error => {
 			    	console.error(error);
 			    })
+
+			this.productsRequest = true;
 		})
 	}
 	
@@ -81,14 +89,16 @@ export default class Product {
 		
 		productsContainers[0].innerHTML += leftProductHtml;
 		productsContainers[1].innerHTML += rightProductHtml;
+		
+		this.productsRequest = false;
 	}
 	
 	// 상품 전시판 초기화.
 	initProductDisplay() {
 		const productsContainers = document.getElementsByClassName('lst_event_box');
 		
-		for (let i = 0; i < productsContainers.length; i++) {
-			productsContainers[i].innerHTML = "";
+		for (let productsContainer of productsContainers) {
+			productsContainer.innerHTML = "";
 		}
 		
 		this.productsCount = 0;
@@ -104,8 +114,8 @@ export default class Product {
 	changeCategory(target) {
 		const categoryButtons = this.categoriesContainer.getElementsByTagName("a");
 		
-		for (let i = 0; i < categoryButtons.length; i++) {
-			categoryButtons[i].className = "anchor";
+		for (let categoryButton of categoryButtons) {
+			categoryButton.className = "anchor";
 		}
 		target.className = "anchor active";
 		

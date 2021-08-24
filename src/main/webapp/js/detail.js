@@ -5,6 +5,7 @@ import Comment from "./review/comment.js";
 import ProductDescription from "./detail/productDescription.js";
 import AnchorButtons from "./detail/anchorButtons.js";
 
+
 document.addEventListener("DOMContentLoaded", () => {
 	new LoginCheck();						// 비회원 로그인 확인
 	

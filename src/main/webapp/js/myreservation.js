@@ -7,6 +7,7 @@ import ReservationCount from "./myreservation/reservationCount.js";
 import Reservations from "./myreservation/reservations.js";
 import Cancel from "./myreservation/cancel.js";
 
+
 document.addEventListener("DOMContentLoaded", () => {
 	new LoginCheck();							// 비회원 로그인 확인
 	
@@ -14,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	
 	new MoveTop();								// top 버튼
 });
+
 
 class MyReservation {
 	constructor() {

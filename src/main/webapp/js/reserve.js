@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	new MoveTop();							// top 버튼
 });
 
+
 class Reserve {
 	constructor() {
 		this.init();

@@ -2,13 +2,13 @@ package com.ntscorp.intern.reservation.service;
 
 import java.util.List;
 
-import com.ntscorp.intern.reservation.controller.request.ReserveRequest;
+import com.ntscorp.intern.reservation.controller.request.ReservationRequest;
 import com.ntscorp.intern.reservation.controller.response.ReserveResponse;
 import com.ntscorp.intern.reservation.model.Reservation;
 import com.ntscorp.intern.reservation.model.ReservationCount;
 
 public interface ReservationService {
-	public void saveReservation(ReserveRequest reservationRequest);
+	public void saveReservation(ReservationRequest reservationRequest);
 
 	public ReserveResponse getReserveResponse(int displayInfoId);
 
