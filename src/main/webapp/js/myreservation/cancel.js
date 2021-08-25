@@ -1,5 +1,4 @@
 import { URL } from "../common/urlMapper.js";
-import { cookie } from "../common/cookie.js";
 
 export default class Cancel {
     constructor() {
@@ -21,7 +20,7 @@ export default class Cancel {
 				
 				// reservationInfoId 쿠키 저장
 				const reservationInfoId = event.target.id;
-				cookie.setCookie("reservationInfoId", reservationInfoId);
+				localStorage.setItem("reservationInfoId", reservationInfoId);
 				
 				this.setCancelSummary(reservationInfoId);
 			}
@@ -31,22 +30,19 @@ export default class Cancel {
 	initCancelPopup() {
 		const cancelPopup = document.querySelector(".popup_booking_wrapper");
 		
-		// 아니오 버튼
 		const rejectReservationCancelButton = document.querySelector(".btn_gray");
 		rejectReservationCancelButton.addEventListener("click", () => {
 			cancelPopup.style.display = "none";
 		})
 		
-		// 닫기 버튼
 		const closeReservationCancelButton = document.querySelector(".popup_btn_close");
 		closeReservationCancelButton.addEventListener("click", () => {
 			cancelPopup.style.display = "none";
 		})
 		
-		// 예 버튼
 		const confirmReservationCancelButton = document.querySelector(".btn_green");
 		confirmReservationCancelButton.addEventListener("click", () => {
-			const reservationInfoId = cookie.getCookie("reservationInfoId");
+			const reservationInfoId = localStorage.getItem("reservationInfoId");
 			const path = `/${reservationInfoId}`;
 			
 			fetch(URL.reservations + path, {

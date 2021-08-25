@@ -1,5 +1,4 @@
 import { BASE_URL, URL } from "../common/urlMapper.js";
-import { cookie } from "../common/cookie.js";
 
 export default class Login {
     constructor(validation) {
@@ -12,7 +11,7 @@ export default class Login {
 
 	setLoginButton(validation) {
 		// 이미 로그인되어 있다면 패스
-		if (cookie.getCookie("email")) {
+		if (sessionStorage.getItem("email")) {
 			location.href = BASE_URL + "myreservation.html";
 			return
 		}
@@ -48,7 +47,7 @@ export default class Login {
 		        },
 			})
 		    .then(() => {
-				cookie.setCookie("email", loginEmail);
+				sessionStorage.setItem("email", loginEmail);
 				location.href = BASE_URL + "myreservation.html"; 
 			})
 		    .catch(error => {

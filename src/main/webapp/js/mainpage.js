@@ -7,11 +7,11 @@ import Product from "./mainpage/product.js";
 
 
 document.addEventListener("DOMContentLoaded", () => {
-	new LoginCheck();					// 비회원 로그인 확인
+	new LoginCheck();
 
-	new Promotion();					// 프로모션
-	new Category();						// 카테고리
-	new Product();						// 프로덕트
+	new Promotion();
+	new Category();
+	new Product();
 	
-	new MoveTop();						// top 버튼
+	new MoveTop();
 });

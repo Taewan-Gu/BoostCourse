@@ -30,4 +30,7 @@ public class ReservationSql {
 	public static final String UPDATE_RESERVATION_INFO_CANCEL_FLAG = ""
 		+ "UPDATE reservation_info "
 		+ "SET cancel_flag = :cancelFlag, modify_date = NOW() WHERE id = :reservationInfoId";
+
+	public static final String SELECT_RESERVATION_INFO_BY_ID = ""
+		+ "SELECT reservation_email, reservation_date FROM reservation_info WHERE id = :reservationInfoId";
 }

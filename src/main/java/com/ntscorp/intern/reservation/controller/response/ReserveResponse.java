@@ -10,7 +10,7 @@ import com.ntscorp.intern.product.model.ProductSummary;
 public class ReserveResponse {
 	private final ProductSummary productSummary;
 	private final List<ProductPrice> productPrices;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
 	private final LocalDateTime reservationDate;
 
 	public ReserveResponse(ProductSummary productSummary, List<ProductPrice> productPrices,

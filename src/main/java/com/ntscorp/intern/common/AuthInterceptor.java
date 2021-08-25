@@ -21,8 +21,8 @@ public class AuthInterceptor implements HandlerInterceptor {
 		HttpSession session = httpServletRequest.getSession(false);
 		if (session != null) {
 			Object email = session.getAttribute("email");
-			LOGGER.info("현재 로그인 이메일: " + email.toString());
 			if (email != null) {
+				LOGGER.info("현재 로그인 이메일: " + email.toString());
 				return true;
 			}
 		}

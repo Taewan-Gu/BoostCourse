@@ -13,8 +13,8 @@ import ReservationDate from "./reserve/reservationDate.js";
 
 
 document.addEventListener("DOMContentLoaded", () => {
-	new Reserve();							// 예약하기 페이지
-	new MoveTop();							// top 버튼
+	new Reserve();
+	new MoveTop();
 });
 
 
@@ -36,22 +36,17 @@ class Reserve {
 		      	return response.json();
 		    })
 			.then(data => {
-				// 상품예약 설명 배치
 				new ProductSummary(data.productSummary);
-				// 상품가격 배치
 				new ProductPrices(data.productPrices);
-				// 티켓 갯수 컨트롤러 생성
 				new TicketController();
-				// 예매일 설정
 				new ReservationDate(data.reservationDate);
-				// 예약 승인
 				new ReservationConfirm(validation);
 			})
 		    .catch(error => {
 		    	console.error(error);
 		    })
 		
-		new Agreement();						// 약관 펼쳐보기
-		new AnchorButtons(displayInfoId);		// 뒤로가기 버튼
+		new Agreement();
+		new AnchorButtons(displayInfoId);
 	}
 }

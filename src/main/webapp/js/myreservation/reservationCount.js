@@ -88,7 +88,6 @@ export default class ReservationCount {
 		
 		// 각 예약 상태들마다 해당 건들 배치
 		for (let reservationStatusContainer of reservationList.children) {
-			console.log(reservationStatusContainer.classList)
 			if (reservationStatusContainer.classList.contains(target.id)) {
 				reservationStatusContainer.style.display = "block";
 				continue

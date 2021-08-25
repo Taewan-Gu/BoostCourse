@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ntscorp.intern.common.Validation;
 import com.ntscorp.intern.reservation.controller.response.CommentsResponse;
 import com.ntscorp.intern.reservation.model.Comment;
 import com.ntscorp.intern.reservation.model.CommentsCountAndAverageScore;
@@ -17,11 +18,8 @@ import com.ntscorp.intern.reservation.service.CommentService;
 @RestController
 @RequestMapping("/api")
 public class ReviewController {
-	private static final boolean VALID = false;
-	private static final boolean INVALID = true;
-	private static final int MIN_DISPLAY_INFO_ID = 1;
-
 	private final CommentService commentService;
+	private final Validation validation = new Validation();
 
 	@Autowired
 	public ReviewController(CommentService commentService) {
@@ -35,7 +33,7 @@ public class ReviewController {
 		CommentsCountAndAverageScore commentsCountAndAverageScore = commentService
 			.getCommentsCountAndAverageScore(displayInfoId);
 
-		if (isNotValidateDisplayInfoId(displayInfoId)) {
+		if (validation.isNotValidatedDisplayInfoId(displayInfoId)) {
 			throw new IllegalArgumentException("arguments = [displayInfoId: " + displayInfoId + "]");
 		}
 
@@ -51,19 +49,12 @@ public class ReviewController {
 		CommentsCountAndAverageScore commentsCountAndAverageScore = commentService
 			.getCommentsCountAndAverageScore(displayInfoId);
 
-		if (isNotValidateDisplayInfoId(displayInfoId)) {
+		if (validation.isNotValidatedDisplayInfoId(displayInfoId)) {
 			throw new IllegalArgumentException("arguments = [displayInfoId: " + displayInfoId + "]");
 		}
 
 		CommentsResponse commentsResponse = new CommentsResponse(comments, commentsCountAndAverageScore);
 
 		return ResponseEntity.ok(commentsResponse);
-	}
-
-	private boolean isNotValidateDisplayInfoId(int displayInfoId) {
-		if (displayInfoId < MIN_DISPLAY_INFO_ID) {
-			return INVALID;
-		}
-		return VALID;
 	}
 }

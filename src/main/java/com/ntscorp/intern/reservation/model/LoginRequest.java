@@ -1,4 +1,4 @@
-package com.ntscorp.intern.reservation.controller.request;
+package com.ntscorp.intern.reservation.model;
 
 public class LoginRequest {
 	private String email;

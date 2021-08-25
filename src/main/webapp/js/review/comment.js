@@ -1,16 +1,9 @@
 import { URL } from "../common/urlMapper.js";
+import { parameter } from "../common/parameter.js";
 
 export default class Comment {
 	constructor() {}
 	
-	// 현재 detail 페이지의 displayInfoId 반환
-	getDisplayInfoId() {
-		const parameters = new URLSearchParams(location.search);
-		
-		return parameters.get("displayInfoId");
-	}
-	
-	// 집계함수 배치 (totalCount, averageScore)
 	arrangeCommentsCountAndAverageScore(commentsCountAndAverageScore) {
 		const gradeContainer = document.querySelector('.grade_area');
 
@@ -31,7 +24,6 @@ export default class Comment {
 		countEm.innerText = `${commentsCountAndAverageScore.totalCount}건`;
 	}
 	
-	// 리뷰 배치
 	arrangeComments(comments) {
 		const commentsContainer = document.querySelector('.list_short_review');
 	
@@ -51,7 +43,6 @@ export default class Comment {
 		allCommentsButton.href = `/detail.html?displayInfoId=${displayInfoId}`;
 	}
 	
-	// 리뷰 정보 가져오기
 	getComments(url) {
 		fetch(url)
 		    .then(response => {
@@ -67,21 +58,18 @@ export default class Comment {
 	}
 	
 	initAllComments() {
-		const displayInfoId = this.getDisplayInfoId();
+		const displayInfoId = parameter.getDisplayInfoId();
 		const query = `?displayInfoId=${displayInfoId}`;
 		
-		// 뒤로 가기 시, displayInfoId detail.html로 넘겨주기.
 		this.setDisplayInfoIdForDetail(displayInfoId);	
 		
-		// 리뷰 정보 가져오기
 		this.getComments(URL.allComments + query)
 	}
 	
 	initComments() {
-		const displayInfoId = this.getDisplayInfoId();
+		const displayInfoId = parameter.getDisplayInfoId();
 		const query = `?displayInfoId=${displayInfoId}`;	
 		
-		// 리뷰 정보 가져오기
 		this.getComments(URL.comments + query)
 	}
 }

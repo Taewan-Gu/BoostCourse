@@ -1,5 +1,4 @@
 export const carousel = {
-	// 캐러셀 컨테이너 선택
 	carouselContainer: document.querySelector(".visual_img"),
 	
 	// 이미지 위치 표시 (0 ~ productImagesLength - 1)
@@ -14,19 +13,16 @@ export const carousel = {
 		this.carouselContainer.prepend(lastNode.cloneNode(true));
 	},
 	
-	// 맨 앞 자식 엘리먼트를 맨 뒤로 위치 변경
 	moveElementFirstToLast: function() {
 		const firstNode = this.carouselContainer.firstElementChild;
 		this.carouselContainer.appendChild(firstNode);	
 	},
 
-	// 맨 뒤 자식 엘리먼트를 맨 앞로 위치 변경
 	moveElementLastToFirst: function() {
 		const lastNode = this.carouselContainer.lastElementChild;
 		this.carouselContainer.prepend(lastNode);
 	},
 	
-	// 캐러셀(무한 슬라이드) 화면 오른쪽으로 자동 이동
 	moveCarouselToRightAuto: function() {
 		this.carouselContainer.style.transition = "0.5s";
 		this.carouselContainer.style.transform = "translateX(-100%)";
@@ -37,7 +33,6 @@ export const carousel = {
 		}
 	},
 	
-	// 캐러셀(무한 슬라이드) 화면 오른쪽으로 이동
 	moveCarouselToRight: function(productImagesLength) {
 		this.carouselContainer.style.transition = "0.5s";
 		this.carouselContainer.style.transform = "translateX(-200%)";
@@ -53,7 +48,6 @@ export const carousel = {
 		}
 	},
 	
-	// 캐러셀(무한 슬라이드) 화면 왼쪽으로 이동
 	moveCarouselToLeft: function(productImagesLength) {
 		this.carouselContainer.style.transition = "0.5s";
 		this.carouselContainer.style.transform = "translateX(0%)";
@@ -69,14 +63,12 @@ export const carousel = {
 		}
 	},
 	
-	// 캐러셀 이미지 토탈 인덱스 설정
 	initImageTotalIndex: function(productImagesLength) {
 		const imageTotalIndexContainer = document.querySelector(".off");
 		const imageTotalIndexSpan = imageTotalIndexContainer.querySelector("span");
 		imageTotalIndexSpan.innerText = productImagesLength;
 	},
 	
-	// 캐러셀 각 이미지 인덱스 업데이트
 	updateImageIndex: function(productImagesLength) {
 		const imageIndexContainer = document.querySelector(".num");
 		// 카운트 나머지 연산
@@ -98,19 +90,16 @@ export const carousel = {
 		})
 	},
 	
-	// 프로모션 캐러셀 자동으로 움직이기 시작(오른쪽)
 	startAutoCarousel: function() {
 		setInterval(this.moveCarouselToRightAuto.bind(this), 2000);
 	},
 	
-	// detail 페이지 상품 캐러셀
 	initProductCarousel: function(productImagesLength) {
 		this.initProductCarouselSettings();
 		this.initCarouselMovementButton(productImagesLength);
 		this.initImageTotalIndex(productImagesLength);
 	},
 	
-	// mainpage 페이지 프로모션 캐러셀
 	initPromotionCarousel: function() {
 		this.startAutoCarousel();
 	},

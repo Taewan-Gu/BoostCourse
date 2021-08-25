@@ -1,8 +1,6 @@
 package com.ntscorp.intern.reservation.service.impl;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -14,8 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ntscorp.intern.product.model.ProductPrice;
 import com.ntscorp.intern.product.model.ProductSummary;
 import com.ntscorp.intern.product.service.ProductService;
-import com.ntscorp.intern.reservation.controller.request.ProductPriceRequest;
-import com.ntscorp.intern.reservation.controller.request.ReservationRequest;
 import com.ntscorp.intern.reservation.controller.response.ReserveResponse;
 import com.ntscorp.intern.reservation.model.Reservation;
 import com.ntscorp.intern.reservation.model.ReservationCount;
@@ -59,51 +55,54 @@ public class ReservationServiceImpl implements ReservationService {
 		return reserveResponse;
 	}
 
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public void saveReservation(ReservationRequest reserveRequest) {
-		int reservationInfoKey = saveReservationInfo(reserveRequest);
+	public void saveReservation(Reservation reservation) {
+		int reservationInfoKey = saveReservationInfo(reservation);
 
-		saveReservationInfoPrices(reserveRequest, reservationInfoKey);
+		saveReservationInfoPrices(reservation, reservationInfoKey);
 	}
 
-	@Transactional
 	@Override
 	public int changeReservationInfoCancelFlag(int reservationInfoId) {
 		return reservationRepository.updateReservationInfoCancelFlag(CANCEL_FLAG, reservationInfoId);
 	}
 
-	private int saveReservationInfo(ReservationRequest reserveRequest) {
-		String rawReservationDate = reserveRequest.getReservationDate();
-		LocalDateTime reservationDate = LocalDate.parse(rawReservationDate).atTime(LocalTime.now());
+	@Override
+	public ReservationInfo getReservationInfoById(int reservationInfoId) {
+		return reservationRepository.selectReservationInfoById(reservationInfoId);
+	}
+
+	// 생성자에서 설정?
+	private int saveReservationInfo(Reservation reservation) {
 		ReservationInfo reservationInfo = new ReservationInfo(
-			reserveRequest.getProductId(),
-			reserveRequest.getDisplayInfoId(),
-			reserveRequest.getReservationName(),
-			reserveRequest.getReservationTel(),
-			reserveRequest.getReservationEmail(),
-			reservationDate);
+			reservation.getProductId(),
+			reservation.getDisplayInfoId(),
+			reservation.getReservationName(),
+			reservation.getReservationTel(),
+			reservation.getReservationEmail(),
+			reservation.getReservationDate());
 
 		return reservationRepository.insertReservationInfo(reservationInfo);
 	}
 
-	private void saveReservationInfoPrices(ReservationRequest reserveRequest, int reservationInfoKey) {
+	// 프라이스들만 보내기 명확하게!!
+	private void saveReservationInfoPrices(Reservation reservation, int reservationInfoKey) {
 		List<ReservationInfoPrice> reservationInfoPrices = new ArrayList<>();
 
-		List<ProductPriceRequest> productPriceRequests = reserveRequest.getProductPrices();
-		productPriceRequests.forEach(productPriceRequest -> {
-			ReservationInfoPrice reservationInfoPrice = new ReservationInfoPrice();
-			int ticketCount = productPriceRequest.getCount();
-			if (ticketCount == TICKET_ZERO) {
-				return;
-			}
+		// 리스트로 리턴해버리기. OR for문쓰기
+		reservation.getReservationInfoPrices()
+			.forEach(reservationInfoPrice -> {
+				int ticketCount = reservationInfoPrice.getCount();
+				if (ticketCount == TICKET_ZERO) {
+					return;
+				}
 
-			reservationInfoPrice.setReservationInfoId(reservationInfoKey);
-			reservationInfoPrice.setProductPriceId(productPriceRequest.getProductPriceId());
-			reservationInfoPrice.setCount(ticketCount);
-			reservationInfoPrices.add(reservationInfoPrice);
-		});
+				reservationInfoPrice.setReservationInfoId(reservationInfoKey);
+				reservationInfoPrices.add(reservationInfoPrice);
+			});
 
+		// 올리기
 		reservationInfoPrices.forEach(reservationInfoPrice -> {
 			reservationRepository.insertReservationInfoPrice(reservationInfoPrice);
 		});

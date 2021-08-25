@@ -14,6 +14,8 @@ public class ReservationInfo {
 	private LocalDateTime createDate;
 	private LocalDateTime modifyDate;
 
+	public ReservationInfo() {}
+
 	public ReservationInfo(int productId, int displayInfoId, String reservationName, String reservationTel,
 		String reservationEmail, LocalDateTime reservationDate) {
 		ZoneId zoneId = ZoneId.of("Asia/Seoul");
@@ -23,8 +25,9 @@ public class ReservationInfo {
 		this.reservationTel = reservationTel;
 		this.reservationEmail = reservationEmail;
 		this.reservationDate = reservationDate;
-		this.createDate = LocalDateTime.now(zoneId);
-		this.modifyDate = LocalDateTime.now(zoneId);
+		LocalDateTime currentDateTime = LocalDateTime.now(zoneId);
+		this.createDate = currentDateTime;
+		this.modifyDate = currentDateTime;
 	}
 
 	public int getProductId() {

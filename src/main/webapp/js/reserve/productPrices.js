@@ -22,10 +22,8 @@ export default class ProductPrices {
 	}
 	
 	arrangeProductPrices(productPrices) {
-		// 최소 가격 표시
 		this.arrangeMinPrice(productPrices);
 		
-		// 가격 설명
 		this.arrangePriceDescription(productPrices);
 	}
 	
@@ -58,7 +56,7 @@ export default class ProductPrices {
 			priceDescription.innerText += `${priceTypeName}: ${price}원 \n`;
 			
 			// hidden form 태그를 위한 index 설정
-			productPrice.productPricesIndex = index;
+			productPrice.reservationInfoPricesIndex = index;
 			
 			productPrice.priceTypeName = priceTypeName;
 			productPrice.price = price;

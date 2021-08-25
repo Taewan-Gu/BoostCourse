@@ -28,7 +28,6 @@ export default class TicketController {
 				
 				individualTotalPrice.innerText = (price * ticketCount.value).toLocaleString("Ko-KR");
 				
-				// 예약 페이지 제일 하단의 총 티켓 갯수 세팅
 				this.setReservationTicketCount();
 			})
 			

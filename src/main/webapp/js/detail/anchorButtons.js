@@ -1,14 +1,10 @@
+import { parameter } from "../common/parameter.js";
+
+
 export default class AnchorButtons {
     constructor() {
 		this.initAnchorButtons();
 	}
-
-    // 현재 detail 페이지의 displayInfoId 반환
-    getDisplayInfoId() {
-        const parameters = new URLSearchParams(location.search);
-
-        return parameters.get("displayInfoId");
-    }
 
     // 모든 리뷰 보기 시, displayInfoId review.html로 넘겨주기.
     setDisplayInfoIdForReview(displayInfoId) {
@@ -23,7 +19,7 @@ export default class AnchorButtons {
     }
 
     initAnchorButtons() {
-        const displayInfoId = this.getDisplayInfoId();
+        const displayInfoId = parameter.getDisplayInfoId();
 
         this.setDisplayInfoIdForReview(displayInfoId);
         this.setDisplayInfoIdForReserve(displayInfoId);

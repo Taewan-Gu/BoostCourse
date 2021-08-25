@@ -2,6 +2,7 @@ package com.ntscorp.intern.reservation.repository.impl;
 
 import static com.ntscorp.intern.reservation.repository.sql.ReservationSql.SELECT_ALL_RESERVATIONS_BY_EMAIL;
 import static com.ntscorp.intern.reservation.repository.sql.ReservationSql.SELECT_RESERVATION_COUNT_BY_EMAIL;
+import static com.ntscorp.intern.reservation.repository.sql.ReservationSql.SELECT_RESERVATION_INFO_BY_ID;
 import static com.ntscorp.intern.reservation.repository.sql.ReservationSql.UPDATE_RESERVATION_INFO_CANCEL_FLAG;
 
 import java.util.Collections;
@@ -34,6 +35,8 @@ public class ReservationRepositoryImpl implements ReservationRepository {
 		.newInstance(Reservation.class);
 	private final RowMapper<ReservationCount> reservationCountRowMapper = BeanPropertyRowMapper
 		.newInstance(ReservationCount.class);
+	private final RowMapper<ReservationInfo> reservationInfoRowMapper = BeanPropertyRowMapper
+		.newInstance(ReservationInfo.class);
 
 	public ReservationRepositoryImpl(DataSource dataSource) {
 		this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
@@ -74,5 +77,12 @@ public class ReservationRepositoryImpl implements ReservationRepository {
 		params.put("reservationInfoId", reservationInfoId);
 		params.put("cancelFlag", cancelFlag);
 		return namedParameterJdbcTemplate.update(UPDATE_RESERVATION_INFO_CANCEL_FLAG, params);
+	}
+
+	@Override
+	public ReservationInfo selectReservationInfoById(int reservationInfoId) {
+		Map<String, ?> param = Collections.singletonMap("reservationInfoId", reservationInfoId);
+		return namedParameterJdbcTemplate.queryForObject(SELECT_RESERVATION_INFO_BY_ID, param,
+			reservationInfoRowMapper);
 	}
 }
