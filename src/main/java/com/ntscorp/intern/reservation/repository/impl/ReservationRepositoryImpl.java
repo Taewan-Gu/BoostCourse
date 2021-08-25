@@ -1,5 +1,6 @@
 package com.ntscorp.intern.reservation.repository.impl;
 
+import static com.ntscorp.intern.reservation.repository.sql.ReservationSql.INSERT_RESERVATION_INFO_PRICE;
 import static com.ntscorp.intern.reservation.repository.sql.ReservationSql.SELECT_ALL_RESERVATIONS_BY_EMAIL;
 import static com.ntscorp.intern.reservation.repository.sql.ReservationSql.SELECT_RESERVATION_COUNT_BY_EMAIL;
 import static com.ntscorp.intern.reservation.repository.sql.ReservationSql.SELECT_RESERVATION_INFO_BY_ID;
@@ -17,6 +18,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
@@ -30,7 +32,6 @@ import com.ntscorp.intern.reservation.repository.ReservationRepository;
 public class ReservationRepositoryImpl implements ReservationRepository {
 	private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	private final SimpleJdbcInsert insertReservationInfoAction;
-	private final SimpleJdbcInsert insertReservationInfoPriceAction;
 	private final RowMapper<Reservation> reservationRowMapper = BeanPropertyRowMapper
 		.newInstance(Reservation.class);
 	private final RowMapper<ReservationCount> reservationCountRowMapper = BeanPropertyRowMapper
@@ -42,8 +43,6 @@ public class ReservationRepositoryImpl implements ReservationRepository {
 		this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 		this.insertReservationInfoAction = new SimpleJdbcInsert(dataSource)
 			.withTableName("reservation_info").usingGeneratedKeyColumns("id");
-		this.insertReservationInfoPriceAction = new SimpleJdbcInsert(dataSource)
-			.withTableName("reservation_info_price").usingGeneratedKeyColumns("id");
 	}
 
 	@Override
@@ -53,9 +52,9 @@ public class ReservationRepositoryImpl implements ReservationRepository {
 	}
 
 	@Override
-	public int insertReservationInfoPrice(ReservationInfoPrice reservationInfoPrice) {
-		SqlParameterSource params = new BeanPropertySqlParameterSource(reservationInfoPrice);
-		return insertReservationInfoPriceAction.execute(params);
+	public void insertReservationInfoPrice(List<ReservationInfoPrice> reservationInfoPrices) {
+		SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(reservationInfoPrices.toArray());
+		namedParameterJdbcTemplate.batchUpdate(INSERT_RESERVATION_INFO_PRICE, batch);
 	}
 
 	@Override

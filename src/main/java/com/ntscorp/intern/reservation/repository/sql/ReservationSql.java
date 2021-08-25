@@ -33,4 +33,8 @@ public class ReservationSql {
 
 	public static final String SELECT_RESERVATION_INFO_BY_ID = ""
 		+ "SELECT reservation_email, reservation_date FROM reservation_info WHERE id = :reservationInfoId";
+
+	public static final String INSERT_RESERVATION_INFO_PRICE = ""
+		+ "INSERT INTO reservation_info_price(reservation_info_id, product_price_id, count) "
+		+ "VALUE (:reservationInfoId, :productPriceId, :count)";
 }

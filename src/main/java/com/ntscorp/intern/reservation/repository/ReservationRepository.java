@@ -10,7 +10,7 @@ import com.ntscorp.intern.reservation.model.ReservationInfoPrice;
 public interface ReservationRepository {
 	public int insertReservationInfo(ReservationInfo reservationInfo);
 
-	public int insertReservationInfoPrice(ReservationInfoPrice reservationInfoPrice);
+	public void insertReservationInfoPrice(List<ReservationInfoPrice> reservationInfoPrices);
 
 	public List<Reservation> selectAllReservationsByEmail(String reservationEmail);
 

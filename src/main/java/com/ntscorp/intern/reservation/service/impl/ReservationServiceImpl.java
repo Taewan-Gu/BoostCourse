@@ -60,7 +60,7 @@ public class ReservationServiceImpl implements ReservationService {
 	public void saveReservation(Reservation reservation) {
 		int reservationInfoKey = saveReservationInfo(reservation);
 
-		saveReservationInfoPrices(reservation, reservationInfoKey);
+		saveReservationInfoPrices(reservation.getReservationInfoPrices(), reservationInfoKey);
 	}
 
 	@Override
@@ -73,44 +73,30 @@ public class ReservationServiceImpl implements ReservationService {
 		return reservationRepository.selectReservationInfoById(reservationInfoId);
 	}
 
-	// 생성자에서 설정?
 	private int saveReservationInfo(Reservation reservation) {
-		ReservationInfo reservationInfo = new ReservationInfo(
-			reservation.getProductId(),
-			reservation.getDisplayInfoId(),
-			reservation.getReservationName(),
-			reservation.getReservationTel(),
-			reservation.getReservationEmail(),
-			reservation.getReservationDate());
+		ReservationInfo reservationInfo = new ReservationInfo(reservation);
 
 		return reservationRepository.insertReservationInfo(reservationInfo);
 	}
 
-	// 프라이스들만 보내기 명확하게!!
-	private void saveReservationInfoPrices(Reservation reservation, int reservationInfoKey) {
+	private void saveReservationInfoPrices(List<ReservationInfoPrice> rawReservationInfoPrices,
+		int reservationInfoKey) {
 		List<ReservationInfoPrice> reservationInfoPrices = new ArrayList<>();
+		for (ReservationInfoPrice rawReservationInfoPrice : rawReservationInfoPrices) {
+			if (rawReservationInfoPrice.getCount() == TICKET_ZERO) {
+				continue;
+			}
+			rawReservationInfoPrice.setReservationInfoId(reservationInfoKey);
+			reservationInfoPrices.add(rawReservationInfoPrice);
+		}
 
-		// 리스트로 리턴해버리기. OR for문쓰기
-		reservation.getReservationInfoPrices()
-			.forEach(reservationInfoPrice -> {
-				int ticketCount = reservationInfoPrice.getCount();
-				if (ticketCount == TICKET_ZERO) {
-					return;
-				}
-
-				reservationInfoPrice.setReservationInfoId(reservationInfoKey);
-				reservationInfoPrices.add(reservationInfoPrice);
-			});
-
-		// 올리기
-		reservationInfoPrices.forEach(reservationInfoPrice -> {
-			reservationRepository.insertReservationInfoPrice(reservationInfoPrice);
-		});
+		reservationRepository.insertReservationInfoPrice(reservationInfoPrices);
 	}
 
 	private LocalDateTime getRandomReservationDate() {
+		// 무작위 숫자: 1 ~ 5
 		Random rawRandomNumber = new Random();
-		int randomNumber = 1 + rawRandomNumber.nextInt(4);
+		int randomNumber = 1 + rawRandomNumber.nextInt(5);
 
 		LocalDateTime reservationDate = LocalDateTime.now();
 		return reservationDate.plusDays(randomNumber);

@@ -10,21 +10,20 @@ public class ReservationInfo {
 	private String reservationTel;
 	private String reservationEmail;
 	private LocalDateTime reservationDate;
-	private boolean cancelFlag;
+	private int cancelFlag;
 	private LocalDateTime createDate;
 	private LocalDateTime modifyDate;
 
 	public ReservationInfo() {}
 
-	public ReservationInfo(int productId, int displayInfoId, String reservationName, String reservationTel,
-		String reservationEmail, LocalDateTime reservationDate) {
+	public ReservationInfo(Reservation reservation) {
 		ZoneId zoneId = ZoneId.of("Asia/Seoul");
-		this.productId = productId;
-		this.displayInfoId = displayInfoId;
-		this.reservationName = reservationName;
-		this.reservationTel = reservationTel;
-		this.reservationEmail = reservationEmail;
-		this.reservationDate = reservationDate;
+		this.productId = reservation.getProductId();
+		this.displayInfoId = reservation.getDisplayInfoId();
+		this.reservationName = reservation.getReservationName();
+		this.reservationTel = reservation.getReservationTel();
+		this.reservationEmail = reservation.getReservationEmail();
+		this.reservationDate = reservation.getReservationDate();
 		LocalDateTime currentDateTime = LocalDateTime.now(zoneId);
 		this.createDate = currentDateTime;
 		this.modifyDate = currentDateTime;
@@ -78,11 +77,11 @@ public class ReservationInfo {
 		this.reservationDate = reservationDate;
 	}
 
-	public boolean isCancelFlag() {
+	public int getCancelFlag() {
 		return cancelFlag;
 	}
 
-	public void setCancelFlag(boolean cancelFlag) {
+	public void setCancelFlag(int cancelFlag) {
 		this.cancelFlag = cancelFlag;
 	}
 
