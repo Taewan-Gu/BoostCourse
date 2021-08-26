@@ -93,5 +93,15 @@ export default class Cancel {
 		
 		const cancelReservationContainer = document.querySelector(".cancel");
 		cancelReservationContainer.appendChild(reservation);
+		
+		// 취소 후, 예약확정이 선택되어 있고 아무 예약확정 사항이 없으면 리스트가 없다는 문구 출력
+		if (confirmReservationCount.innerText != 0) {
+			return;
+		}
+		
+		if (confirmReservationCountContainer.classList.contains("on")) {
+			const emptyReservation = document.querySelector(".err");
+			emptyReservation.style.display = "block";
+		}
 	}
 }
