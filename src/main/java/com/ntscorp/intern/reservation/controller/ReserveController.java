@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ntscorp.intern.common.Validation;
+import com.ntscorp.intern.common.utils.ValidationUtils;
 import com.ntscorp.intern.reservation.controller.response.ReserveResponse;
 import com.ntscorp.intern.reservation.model.Reservation;
 import com.ntscorp.intern.reservation.service.ReservationService;
@@ -17,7 +17,6 @@ import com.ntscorp.intern.reservation.service.ReservationService;
 @RequestMapping("/api")
 public class ReserveController {
 	private final ReservationService reservationService;
-	private final Validation validation = new Validation();
 
 	@Autowired
 	public ReserveController(ReservationService reservationService) {
@@ -28,7 +27,7 @@ public class ReserveController {
 	public ResponseEntity<ReserveResponse> getProductReservation(@RequestParam
 	int displayInfoId) {
 
-		if (validation.isNotValidatedDisplayInfoId(displayInfoId)) {
+		if (ValidationUtils.isNotValidatedDisplayInfoId(displayInfoId)) {
 			throw new IllegalArgumentException("arguments = [displayInfoId: " + displayInfoId + "]");
 		}
 		return ResponseEntity.ok(reservationService.getReserveResponse(displayInfoId));
@@ -36,7 +35,7 @@ public class ReserveController {
 
 	@PostMapping(value = "/reserve")
 	public String postReservation(Reservation reservation) {
-		if (validation.isNotValidatedReserveRequest(reservation)) {
+		if (ValidationUtils.isNotValidatedReserveRequest(reservation)) {
 			throw new IllegalArgumentException("arguments = " + reservation);
 		}
 

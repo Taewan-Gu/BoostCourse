@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ntscorp.intern.common.Validation;
+import com.ntscorp.intern.common.utils.ValidationUtils;
 import com.ntscorp.intern.product.controller.response.CategoriesResponse;
 import com.ntscorp.intern.product.controller.response.ProductsResponse;
 import com.ntscorp.intern.product.controller.response.PromotionsResponse;
@@ -26,7 +26,6 @@ public class MainController {
 	private final PromotionService promotionService;
 	private final CategoryService categoryService;
 	private final ProductService productService;
-	private final Validation validation = new Validation();
 
 	@Autowired
 	public MainController(PromotionService promotionService, CategoryService categoryService,
@@ -61,7 +60,7 @@ public class MainController {
 		@RequestParam(defaultValue = "0")
 		int start) {
 
-		if (validation.isNotValidatedProducts(categoryId, start)) {
+		if (ValidationUtils.isNotValidatedProducts(categoryId, start)) {
 			throw new IllegalArgumentException("arguments = [categoryId: " + categoryId + ", start: " + start + "]");
 		}
 
@@ -78,7 +77,7 @@ public class MainController {
 		@RequestParam(defaultValue = "0")
 		int start) {
 
-		if (validation.isNotValidatedProducts(start)) {
+		if (ValidationUtils.isNotValidatedProducts(start)) {
 			throw new IllegalArgumentException("arguments = [start: " + start + "]");
 		}
 

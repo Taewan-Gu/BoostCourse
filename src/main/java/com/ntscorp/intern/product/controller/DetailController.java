@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ntscorp.intern.common.Validation;
+import com.ntscorp.intern.common.utils.ValidationUtils;
 import com.ntscorp.intern.product.controller.response.ProductDescriptionResponse;
 import com.ntscorp.intern.product.model.ProductDescription;
 import com.ntscorp.intern.product.service.ProductService;
@@ -18,7 +18,6 @@ import com.ntscorp.intern.product.service.ProductService;
 @RequestMapping("/api")
 public class DetailController {
 	private final ProductService productService;
-	private final Validation validation = new Validation();
 
 	@Autowired
 	public DetailController(ProductService productService) {
@@ -32,7 +31,7 @@ public class DetailController {
 		ProductDescription productDescription = productService.getProductDescriptionByDisplayInfoId(displayInfoId);
 		List<String> productImageUrls = productService.getProductImageUrlsByDisplayInfoId(displayInfoId);
 
-		if (validation.isNotValidatedDisplayInfoId(displayInfoId)) {
+		if (ValidationUtils.isNotValidatedDisplayInfoId(displayInfoId)) {
 			throw new IllegalArgumentException("arguments = [displayInfoId: " + displayInfoId + "]");
 		}
 

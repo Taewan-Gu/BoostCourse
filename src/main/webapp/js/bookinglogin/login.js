@@ -18,18 +18,18 @@ export default class Login {
 		
 		const loginButton = document.querySelector(".login_btn");
 		loginButton.addEventListener("click", () => {
-			this.setLoginButtonEvent(validation)
+			this.loginEvent(validation)
 		})
 		
 		const emailInput = document.getElementById('email');
 		emailInput.addEventListener("keypress", event => {
 			if (event.key == "Enter") {
-				this.setLoginButtonEvent(validation);
+				this.loginEvent(validation);
 			}
 		})
 	}
 	
-	setLoginButtonEvent(validation) {	
+	loginEvent(validation) {	
 		if (validation.isNotValidatedEmail()) {
 			return alert("이메일 형식을 맞춰주세요")
 		}

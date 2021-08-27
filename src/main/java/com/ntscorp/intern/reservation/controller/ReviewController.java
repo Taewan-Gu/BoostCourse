@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ntscorp.intern.common.Validation;
+import com.ntscorp.intern.common.utils.ValidationUtils;
 import com.ntscorp.intern.reservation.controller.response.CommentsResponse;
 import com.ntscorp.intern.reservation.model.Comment;
 import com.ntscorp.intern.reservation.model.CommentsCountAndAverageScore;
@@ -19,7 +19,6 @@ import com.ntscorp.intern.reservation.service.CommentService;
 @RequestMapping("/api")
 public class ReviewController {
 	private final CommentService commentService;
-	private final Validation validation = new Validation();
 
 	@Autowired
 	public ReviewController(CommentService commentService) {
@@ -33,7 +32,7 @@ public class ReviewController {
 		CommentsCountAndAverageScore commentsCountAndAverageScore = commentService
 			.getCommentsCountAndAverageScore(displayInfoId);
 
-		if (validation.isNotValidatedDisplayInfoId(displayInfoId)) {
+		if (ValidationUtils.isNotValidatedDisplayInfoId(displayInfoId)) {
 			throw new IllegalArgumentException("arguments = [displayInfoId: " + displayInfoId + "]");
 		}
 
@@ -49,7 +48,7 @@ public class ReviewController {
 		CommentsCountAndAverageScore commentsCountAndAverageScore = commentService
 			.getCommentsCountAndAverageScore(displayInfoId);
 
-		if (validation.isNotValidatedDisplayInfoId(displayInfoId)) {
+		if (ValidationUtils.isNotValidatedDisplayInfoId(displayInfoId)) {
 			throw new IllegalArgumentException("arguments = [displayInfoId: " + displayInfoId + "]");
 		}
 

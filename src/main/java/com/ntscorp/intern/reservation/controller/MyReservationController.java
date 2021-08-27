@@ -1,5 +1,7 @@
 package com.ntscorp.intern.reservation.controller;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -14,7 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ntscorp.intern.common.Validation;
+import com.ntscorp.intern.common.utils.ValidationUtils;
 import com.ntscorp.intern.reservation.controller.response.ReservationsResponse;
 import com.ntscorp.intern.reservation.model.Reservation;
 import com.ntscorp.intern.reservation.model.ReservationCount;
@@ -27,7 +29,6 @@ public class MyReservationController {
 	private static final int NO_CHANGE_CANCEL_FLAG = 0;
 
 	private final ReservationService reservationService;
-	private final Validation validation = new Validation();
 
 	@Autowired
 	public MyReservationController(ReservationService reservationService) {
@@ -37,11 +38,11 @@ public class MyReservationController {
 	@GetMapping("/reservations")
 	public ResponseEntity<?> getMyReservations(@RequestParam
 	String reservationEmail, HttpSession session) {
-		if (validation.isNotValidatedLoginEmail(reservationEmail, session.getAttribute("email").toString())) {
+		if (ValidationUtils.isNotValidatedLoginEmail(reservationEmail, session.getAttribute("email").toString())) {
 			return new ResponseEntity<>("Email Incorrect", HttpStatus.UNAUTHORIZED);
 		}
 
-		if (validation.isNotVaildatedEmail(reservationEmail)) {
+		if (ValidationUtils.isNotVaildatedEmail(reservationEmail)) {
 			throw new IllegalArgumentException("arguments = [reservationEmail: " + reservationEmail + "]");
 		}
 
@@ -54,21 +55,32 @@ public class MyReservationController {
 	@PutMapping("/reservations/{reservationInfoId}")
 	public ResponseEntity<Integer> changeReservationInfoId(@PathVariable
 	int reservationInfoId, HttpSession session) {
-		if (validation.isNotValidatedReservationInfoId(reservationInfoId)) {
+		if (ValidationUtils.isNotValidatedReservationInfoId(reservationInfoId)) {
 			throw new IllegalArgumentException("arguments = [reservationInfoId: " + reservationInfoId + "]");
 		}
 
 		ReservationInfo reservationInfo = reservationService.getReservationInfoById(reservationInfoId);
 
-		if (validation.isNotValidatedLoginEmail(reservationInfo.getReservationEmail(),
+		if (ValidationUtils.isNotValidatedLoginEmail(reservationInfo.getReservationEmail(),
 			session.getAttribute("email").toString())) {
 			return new ResponseEntity<>(NO_CHANGE_CANCEL_FLAG, HttpStatus.UNAUTHORIZED);
 		}
 
-		if (validation.isNotValidatedReservationDate(reservationInfo.getReservationDate())) {
+		if (isNotValidatedReservationDate(reservationInfo.getReservationDate())) {
 			return new ResponseEntity<>(NO_CHANGE_CANCEL_FLAG, HttpStatus.BAD_REQUEST);
 		}
 
 		return ResponseEntity.ok(reservationService.changeReservationInfoCancelFlag(reservationInfoId));
+	}
+
+	private boolean isNotValidatedReservationDate(LocalDateTime reservationDate) {
+		Timestamp reservationDateTimestamp = Timestamp.valueOf(reservationDate);
+		Timestamp nowTimestamp = Timestamp.valueOf(LocalDateTime.now());
+
+		if (reservationDateTimestamp.getTime() < nowTimestamp.getTime()) {
+			return true;
+		}
+
+		return false;
 	}
 }
