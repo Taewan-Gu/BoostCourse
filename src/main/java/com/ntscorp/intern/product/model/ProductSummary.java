@@ -5,6 +5,8 @@ public class ProductSummary {
 	private int displayInfoId;
 	private String title;
 	private String place;
+	private String placeStreet;
+	private String openingHours;
 	private String content;
 	private String productImageUrl;
 
@@ -40,6 +42,22 @@ public class ProductSummary {
 		this.place = place;
 	}
 
+	public String getPlaceStreet() {
+		return placeStreet;
+	}
+
+	public void setPlaceStreet(String placeStreet) {
+		this.placeStreet = placeStreet;
+	}
+
+	public String getOpeningHours() {
+		return openingHours;
+	}
+
+	public void setOpeningHours(String openingHours) {
+		this.openingHours = openingHours;
+	}
+
 	public String getContent() {
 		return content;
 	}
@@ -59,6 +77,7 @@ public class ProductSummary {
 	@Override
 	public String toString() {
 		return "ProductSummary [id=" + id + ", displayInfoId=" + displayInfoId + ", title=" + title + ", place=" + place
-			+ ", content=" + content + ", productImageUrl=" + productImageUrl + "]";
+			+ ", placeStreet=" + placeStreet + ", openingHours=" + openingHours + ", content=" + content
+			+ ", productImageUrl=" + productImageUrl + "]";
 	}
 }

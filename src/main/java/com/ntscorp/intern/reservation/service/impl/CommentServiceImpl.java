@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ntscorp.intern.reservation.model.Comment;
 import com.ntscorp.intern.reservation.model.CommentsCountAndAverageScore;
+import com.ntscorp.intern.reservation.model.FileInfo;
 import com.ntscorp.intern.reservation.repository.CommentRepository;
 import com.ntscorp.intern.reservation.service.CommentService;
 
@@ -43,11 +44,21 @@ public class CommentServiceImpl implements CommentService {
 		return commentRepository.selectCommentsCountAndAverageScore(displayInfoId);
 	}
 
+	@Override
+	public int saveCommentWithImage(Comment comment, FileInfo fileInfo) {
+		return commentRepository.insertComment(comment);
+	}
+
+	@Override
+	public int saveComment(Comment comment) {
+		return commentRepository.insertComment(comment);
+	}
+
 	// 스펙 상 이메일은 ID는 4자리 이상 보장됨.
 	private void hideCommentEmails(List<Comment> comments) {
-		comments.forEach(comment -> {
+		for (Comment comment : comments) {
 			String commentReservationEmail = comment.getReservationEmail();
 			comment.setReservationEmail(commentReservationEmail.substring(0, 4) + HIDED_EMAIL_PART);
-		});
+		}
 	}
 }

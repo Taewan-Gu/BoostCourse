@@ -1,6 +1,6 @@
 package com.ntscorp.intern.product.repository.impl;
 
-import static com.ntscorp.intern.product.repository.sql.PromotionSql.*;
+import static com.ntscorp.intern.product.repository.sql.PromotionSql.SELECT_ALL_PROMOTIONS;
 
 import java.util.List;
 

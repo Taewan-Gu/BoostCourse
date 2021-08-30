@@ -1,6 +1,6 @@
 package com.ntscorp.intern.product.repository.impl;
 
-import static com.ntscorp.intern.product.repository.sql.CategorySql.*;
+import static com.ntscorp.intern.product.repository.sql.CategorySql.SELECT_ALL_CATEGORIES;
 
 import java.util.List;
 

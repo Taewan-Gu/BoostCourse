@@ -1,10 +1,19 @@
-import { productDescription } from "./detail/productDescription.js";
-import { comment } from "./review/comment.js";
-import { moveTop } from "./common/moveTop.js";
+import MoveTop from "./common/moveTop.js";
+import LoginCheck from "./common/loginCheck.js";
+
+import Comment from "./review/comment.js";
+import ProductDescription from "./detail/productDescription.js";
+import AnchorButtons from "./detail/anchorButtons.js";
+
 
 document.addEventListener("DOMContentLoaded", () => {
-	productDescription.initProductDescription();		// 상품 상세내용
-	comment.initComments();							// 리뷰
-
-	moveTop.initMoveTopButton();						// top 버튼
+	new LoginCheck();
+	
+	new ProductDescription();
+	
+	const comment = new Comment();
+	comment.initComments();
+	
+	new AnchorButtons;
+	new MoveTop();
 });
