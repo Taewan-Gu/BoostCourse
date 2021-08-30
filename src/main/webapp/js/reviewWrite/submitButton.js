@@ -5,11 +5,11 @@ const FIRST_FILE = 0;
 const MIN_REVIEW_LENGTH = 5;
 
 export default class SubmitButton {
-	constructor(reservationInfoId) {
-		this.init(reservationInfoId);
+	constructor() {
+		this.init();
 	}
 	
-	init(reservationInfoId) {
+	init() {
 		const submitButton = document.querySelector(".bk_btn");
 		submitButton.addEventListener("click", () => {
 			const formData = new FormData()
@@ -37,7 +37,8 @@ export default class SubmitButton {
 			if (reviewImageContainer.files[FIRST_FILE]) {
 				formData.append("commentImage", reviewImageContainer.files[FIRST_FILE]);
 			}
-
+			
+			const reservationInfoId = localStorage.getItem("reservationInfoId");
 			const path = `/${reservationInfoId}/comments`
 			fetch(URL.reservations + path, {
 					method: "POST",
@@ -48,7 +49,7 @@ export default class SubmitButton {
 						alert("로그인이 필요합니다.");
 						location.href = "/bookinglogin.html";
 					}
-					// location.href = "/myreservation.html";
+					location.href = "/myreservation.html";
 				})
 			    .catch(error => {
 			    	console.error(error);

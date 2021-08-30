@@ -14,7 +14,8 @@ public class CommentSql {
 		+ "JOIN reservation_info AS rsvt ON cmt.reservation_info_id = rsvt.id "
 		+ "LEFT JOIN reservation_user_comment_image AS cmt_img ON cmt_img.reservation_user_comment_id = cmt.id "
 		+ "LEFT JOIN file_info AS fl ON cmt_img.file_id = fl.id "
-		+ "WHERE dpl.id = :displayInfoId";
+		+ "WHERE dpl.id = :displayInfoId "
+		+ "ORDER BY cmt.id";
 
 	public static final String SELECT_COMMENTS_BY_DISPLAY_INFO_ID = ""
 		+ "SELECT "
@@ -30,6 +31,7 @@ public class CommentSql {
 		+ "LEFT JOIN reservation_user_comment_image AS cmt_img ON cmt_img.reservation_user_comment_id = cmt.id "
 		+ "LEFT JOIN file_info AS fl ON cmt_img.file_id = fl.id "
 		+ "WHERE dpl.id = :displayInfoId "
+		+ "ORDER BY cmt.id "
 		+ "LIMIT :limit";
 
 	public static final String SELECT_COMMENTS_COUNT_AND_AVERAGE_SCORE = ""

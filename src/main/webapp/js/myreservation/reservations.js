@@ -39,5 +39,17 @@ export default class Reservations {
 		confirmReservationContainer.innerHTML += confirmReservationHtml;
 		completeReservationContainer.innerHTML += completeReservationHtml;
 		cancelReservationContainer.innerHTML += cancelReservationHtml;
+		
+		this.setWriteReviewButton();
+	}
+	
+	setWriteReviewButton() {
+		const writeReviewButtons = document.getElementsByClassName("writing_review");
+		for (const writeReviewButton of writeReviewButtons) {
+			writeReviewButton.addEventListener("click", () => {
+				localStorage.setItem("reservationInfoId", writeReviewButton.id);
+				location.href = "./reviewWrite.html";
+			})
+		}
 	}
 }
