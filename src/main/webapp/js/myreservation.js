@@ -22,14 +22,13 @@ class MyReservation {
 	}
 	
 	init() {
-		const reservationEmail = sessionStorage.getItem("email");
-		const query = `?reservationEmail=${reservationEmail}`
+		const reservationEmail = localStorage.getItem("email");
+		const query = `?reservationEmail=${reservationEmail}`;
 		
 		// 상품 상세정보 가져오기
 		fetch(URL.reservations + query)
 		    .then(response => {
 				if (response.redirected) {
-					sessionStorage.removeItem("email");
 					location.href = response.url;
 				}
 		      	return response.json();

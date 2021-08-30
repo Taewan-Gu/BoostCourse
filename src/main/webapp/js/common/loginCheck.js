@@ -1,4 +1,4 @@
-import { BASE_URL } from "../common/urlMapper.js";
+import { BASE_URL, URL } from "../common/urlMapper.js";
 
 export default class LoginCheck {
 	constructor() {
@@ -6,17 +6,32 @@ export default class LoginCheck {
 	}
 	
 	init() {
-		// 비회원 로그인 되어 있는지 확인 후, 링크 주소 변경 및 유지 & 기본 쿠키 지속시간 30분
 		const reservationCheckButton = document.querySelector(".btn_my");
 		const reservationEmailBox = reservationCheckButton.querySelector(".viewReservation");
-		const loginEmail = sessionStorage.getItem("email");
 		
-		if (loginEmail) {
-			reservationCheckButton.href = `${BASE_URL}myreservation.html`
-			reservationEmailBox.innerText = loginEmail;
-		} else {
-			reservationCheckButton.href = `${BASE_URL}bookinglogin.html`
-			reservationEmailBox.innerText = "예약확인";
-		}
+		// 로그인 체크
+		fetch(URL.loginCheck, {
+				method: "POST",
+			})
+		    .then(response => {
+				if (response.status == 204) {
+					if (location.pathname == "/myreservation.html") {
+						location.href = `${BASE_URL}bookinglogin.html`;
+					}
+					reservationCheckButton.href = `${BASE_URL}bookinglogin.html`;
+					reservationEmailBox.innerText = "예약확인";
+					return;
+				}
+				return response.json();
+			})
+			.then(data => {
+				if (data) {
+					reservationCheckButton.href = `${BASE_URL}myreservation.html`;
+					reservationEmailBox.innerText = data.email;	
+				}
+			})
+		    .catch(error => {
+		    	console.error(error);
+		    })
 	}
 }

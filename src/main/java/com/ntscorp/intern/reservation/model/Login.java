@@ -1,6 +1,6 @@
 package com.ntscorp.intern.reservation.model;
 
-public class LoginRequest {
+public class Login {
 	private String email;
 
 	public String getEmail() {
