@@ -11,10 +11,18 @@ export default class Login {
 
 	setLoginButton(validation) {
 		// 이미 로그인되어 있다면 패스
-		if (sessionStorage.getItem("email")) {
-			location.href = BASE_URL + "myreservation.html";
-			return
-		}
+		fetch(URL.loginCheck, {
+				method: "POST",
+			})
+		    .then(response => {
+				if (response.status == 204) {
+					return;
+				}
+				location.href = BASE_URL + "myreservation.html";
+			})
+		    .catch(error => {
+		    	console.error(error);
+		    })
 		
 		const loginButton = document.querySelector(".login_btn");
 		loginButton.addEventListener("click", () => {
@@ -47,7 +55,7 @@ export default class Login {
 		        },
 			})
 		    .then(() => {
-				sessionStorage.setItem("email", loginEmail);
+				localStorage.setItem("email", loginEmail);
 				location.href = BASE_URL + "myreservation.html"; 
 			})
 		    .catch(error => {

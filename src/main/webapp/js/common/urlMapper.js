@@ -6,6 +6,7 @@ export const URL = {
 	comments: BASE_URL + "api/comments",
 	login: BASE_URL + "api/login",
 	logout: BASE_URL + "api/logout",
+	loginCheck: BASE_URL + "api/logincheck",
 	products: BASE_URL + "api/products",
 	promotions: BASE_URL + "api/promotions",
 	reservations: BASE_URL + "api/reservations",

@@ -6,6 +6,7 @@ public class FileInfo {
 	private String fileName;
 	private String saveFileName;
 	private String contentType;
+	private int deleteFlag;
 	private LocalDateTime createDate;
 	private LocalDateTime modifyDate;
 
@@ -13,6 +14,7 @@ public class FileInfo {
 		this.fileName = fileName;
 		this.saveFileName = saveFileName;
 		this.contentType = contentType;
+		this.deleteFlag = 0;
 		LocalDateTime currentDateTime = LocalDateTime.now();
 		this.createDate = currentDateTime;
 		this.modifyDate = currentDateTime;
@@ -42,6 +44,14 @@ public class FileInfo {
 		this.contentType = contentType;
 	}
 
+	public int getDeleteFlag() {
+		return deleteFlag;
+	}
+
+	public void setDeleteFlag(int deleteFlag) {
+		this.deleteFlag = deleteFlag;
+	}
+
 	public LocalDateTime getCreateDate() {
 		return createDate;
 	}
@@ -61,6 +71,6 @@ public class FileInfo {
 	@Override
 	public String toString() {
 		return "FileInfo [fileName=" + fileName + ", saveFileName=" + saveFileName + ", contentType=" + contentType
-			+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + "]";
+			+ ", deleteFlag=" + deleteFlag + ", createDate=" + createDate + ", modifyDate=" + modifyDate + "]";
 	}
 }

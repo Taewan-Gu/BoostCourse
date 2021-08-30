@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	new StarScore();
 	new ReviewInput();
 	new FileInput();
-	new SubmitButton(25);
+	new SubmitButton();
 	
 	new MoveTop();
 });

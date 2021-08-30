@@ -5,6 +5,7 @@ import java.util.List;
 import com.ntscorp.intern.reservation.model.Comment;
 import com.ntscorp.intern.reservation.model.CommentsCountAndAverageScore;
 import com.ntscorp.intern.reservation.model.FileInfo;
+import com.ntscorp.intern.reservation.model.ReservationUserCommentImage;
 
 public interface CommentRepository {
 	public List<Comment> selectAllCommentsByDisplayInfoId(int displayInfoId);
@@ -16,4 +17,6 @@ public interface CommentRepository {
 	public int insertComment(Comment comment);
 
 	public int insertFileInfo(FileInfo fileInfo);
+
+	public int insertReservationUserCommentImage(ReservationUserCommentImage reservationUserCommentImage);
 }

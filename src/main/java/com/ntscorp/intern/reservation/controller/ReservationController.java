@@ -30,6 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ntscorp.intern.common.utils.ValidationUtils;
 import com.ntscorp.intern.reservation.controller.response.ReservationsResponse;
 import com.ntscorp.intern.reservation.model.Comment;
+import com.ntscorp.intern.reservation.model.FileInfo;
 import com.ntscorp.intern.reservation.model.Reservation;
 import com.ntscorp.intern.reservation.model.ReservationCount;
 import com.ntscorp.intern.reservation.model.ReservationInfo;
@@ -122,7 +123,9 @@ public class ReservationController {
 		Comment reservationUserComment = new Comment(reservationInfo.getProductId(), reservationInfoId, score, comment);
 
 		if (commentImage != null) {
-			LOGGER.info("업로드 파일 이름 : {}", commentImage.getOriginalFilename());
+			String fileName = commentImage.getOriginalFilename();
+
+			LOGGER.info("업로드 파일 이름 : {}", fileName);
 
 			// 폴더가 없다면 디렉토리 생성
 			File fileFolder = new File(FILE_PATH);
@@ -132,7 +135,7 @@ public class ReservationController {
 
 			try (
 				FileOutputStream fileOutputStream = new FileOutputStream(
-					FILE_PATH + commentImage.getOriginalFilename());
+					FILE_PATH + fileName);
 				InputStream inputStream = commentImage.getInputStream();) {
 				byte[] buffer = new byte[BUFFER_SIZE];
 				int readCount = inputStream.read(buffer);
@@ -144,7 +147,9 @@ public class ReservationController {
 				throw new FileSystemNotFoundException("파일 저장 실패: " + commentImage.getOriginalFilename());
 			}
 
-			return ResponseEntity.ok(commentService.saveCommentWithImage(reservationUserComment, null));
+			FileInfo fileInfo = new FileInfo(fileName, getSaveFileName(fileName), commentImage.getContentType());
+
+			return ResponseEntity.ok(commentService.saveCommentWithImage(reservationUserComment, fileInfo));
 		}
 
 		return ResponseEntity.ok(commentService.saveComment(reservationUserComment));
@@ -175,6 +180,10 @@ public class ReservationController {
 		} catch (Exception exception) {
 			throw new FileSystemNotFoundException("존재하지 않는 파일: " + commentImageUrl);
 		}
+	}
+
+	private String getSaveFileName(String fileName) {
+		return "/api/commentimage/" + fileName.replace(".", "/");
 	}
 
 	private boolean isNotValidatedReservationDate(LocalDateTime reservationDate) {

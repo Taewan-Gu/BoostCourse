@@ -61,7 +61,7 @@ public class ReservationRepositoryImpl implements ReservationRepository {
 	public List<Reservation> selectAllReservationsByEmail(String reservationEmail) {
 		Map<String, ?> param = Collections.singletonMap("reservationEmail", reservationEmail);
 		return namedParameterJdbcTemplate.query(SELECT_ALL_RESERVATIONS_BY_EMAIL, param, reservationRowMapper);
-	};
+	}
 
 	@Override
 	public ReservationCount selectReservationCountByEmail(String reservationEmail) {
