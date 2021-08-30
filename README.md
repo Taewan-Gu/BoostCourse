@@ -2,13 +2,9 @@
 
 ## 일정 관리
 
-* PJT3 트렐로
-
 ![image-20210803133523574](README.assets/image-20210803133523574.png)
 
 <a href="https://trello.com/invite/b/s7hPrEzk/ea484303360596b468773c23f722e6a2/pjt3" style="font-size:24px; font-weight:550; color: #2DB400;">PJT 3 트렐로 보기</a>
-
-* PJT4 트렐로
 
 ![image-20210810113007889](README.assets/image-20210810113007889.png)
 
@@ -18,7 +14,67 @@
 
 <a href="https://trello.com/b/myI6H2k7/pjt5" style="font-size:24px; font-weight:550; color: #2DB400;">PJT 5 트렐로 보기</a>
 
+![image-20210830162237321](README.assets/image-20210830162237321.png)
 
+<a href="https://trello.com/b/NAa1uDLS/pjt6" style="font-size:24px; font-weight:550; color: #2DB400;">PJT 6 트렐로 보기</a>
+
+
+
+
+
+# PJT6
+
+## FrontEnd
+
+### 스택
+
+* HMTL, CSS, JavaScript
+
+### 툴
+
+* IDE: vsCode, Eclipse
+
+### 개발
+
+리뷰 작성에 관련해서 화면 개발을 진행하였습니다.
+
+* 리뷰 작성 페이지
+  * 별점 관련해서 JS를 통해 checked가 있는 곳을 기준으로 앞의 엘리먼트들을 색칠하고 뒤의 엘리먼트들을 색없게 만들었습니다.
+  * 이미지 파일을 양 옆으로 맞추기 위해 display를 inline-block으로 지정하였습니다.
+  * 별점을 남기지 않거나 최소 글자 수를 못 채우고 리뷰 등록 시, 알림이 뜹니다.
+  * 처음 리뷰 작성 가이드는 0글자에서 다른 곳을 클릭할 시, 나타납니다.
+  * 이미지는 필수사항이 아니게끔 리뷰작성페이지를 구성하였습니다.
+
+
+
+## BackEnd
+
+### 스택
+
+* Spring mvc, JDBC, Mysql
+
+### 툴
+
+* IDE: Eclipse
+* Web Server: Apache Tomcat
+
+### 개발
+
+리뷰작성에 관련해서 API 개발을 진행하였습니다.
+
+* 리뷰 작성
+  * 리뷰 작성 후, 보낸 데이터를 바탕으로 이미지가 있다면 이미지와 함께 저장하고 없다면 코멘트만 저장하게 됩니다.
+  * 이미지와 함께 저장 시, 코멘트 저장과 이미지 저장을 먼저 진행한 후, 해당 키값들을 모아서 reservation_user_comment_image의 테이블에 저장하게 됩니다.
+* 인터셉터로 로그인의 세션시간이 갱신됩니다.
+* 이미지는 로컬에 c:/tmp 폴더에 저장되게 되며, 불러올 때는 다운로드를 통해 진행됩니다.
+* 따라서 기본 리뷰 img가 아닌 다른 사람이 작성한 리뷰 img는 현재 볼 수 없습니다. (프로젝트의 스펙으로 인한 오류)
+  * 자신이 저장한 리뷰의 이미지는 보기 가능합니다.
+
+### Pages
+
+* 리뷰 작성 페이지
+
+![image-20210830162415624](README.assets/image-20210830162415624.png)
 
 
 
