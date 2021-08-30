@@ -64,11 +64,4 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 	public AuthInterceptor authInterceptor() {
 		return new AuthInterceptor();
 	}
-
-	@Bean
-	public MultipartResolver multipartResolver() {
-		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-		multipartResolver.setMaxUploadSize(10485760);
-		return multipartResolver;
-	}
 }

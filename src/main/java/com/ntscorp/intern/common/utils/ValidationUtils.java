@@ -18,10 +18,6 @@ public class ValidationUtils {
 	private static final int MIN_PRODUCT_PRICE_TOTAL_COUNT = 1;
 	private static final int MIN_PRODUCT_PRICE_COUNT = 0;
 
-	private static final int MIN_SCORE = 1;
-	private static final int MAX_SCORE = 5;
-	private static final int MIN_COMMENT_LENGTH = 5;
-
 	private static final String EMAIL_REGEX_PATTERN = "^[0-9a-zA-Z]{4,20}@[0-9a-zA-Z]{1,100}[.][0-9a-zA-Z]{2,10}$";
 	private static final String TEL_REGEX_PATTERN = "^010-[0-9]{4}-[0-9]{4}$|^01[1789]-[0-9]{3}-[0-9]{4}$";
 
@@ -62,24 +58,6 @@ public class ValidationUtils {
 
 	public static boolean isNotValidatedProducts(int categoryId, int start) {
 		if (categoryId < MIN_CATEGORY_ID || start < MIN_START) {
-			return true;
-		}
-		return false;
-	}
-
-	public static boolean isNotValidatedCommentScore(int score) {
-		if (score > MAX_SCORE || score < MIN_SCORE) {
-			return true;
-		}
-		return false;
-	}
-
-	public static boolean isNotValidatedComment(String comment) {
-		if (StringUtils.isBlank(comment)) {
-			return true;
-		}
-
-		if (comment.length() < MIN_COMMENT_LENGTH) {
 			return true;
 		}
 		return false;
