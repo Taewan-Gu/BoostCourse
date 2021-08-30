@@ -45,9 +45,9 @@ public class CommentServiceImpl implements CommentService {
 
 	// 스펙 상 이메일은 ID는 4자리 이상 보장됨.
 	private void hideCommentEmails(List<Comment> comments) {
-		comments.forEach(comment -> {
+		for (Comment comment : comments) {
 			String commentReservationEmail = comment.getReservationEmail();
 			comment.setReservationEmail(commentReservationEmail.substring(0, 4) + HIDED_EMAIL_PART);
-		});
+		}
 	}
 }

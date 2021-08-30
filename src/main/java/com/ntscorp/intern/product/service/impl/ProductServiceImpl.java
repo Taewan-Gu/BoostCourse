@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ntscorp.intern.product.model.ProductDescription;
 import com.ntscorp.intern.product.model.ProductImage;
+import com.ntscorp.intern.product.model.ProductPrice;
 import com.ntscorp.intern.product.model.ProductSummary;
 import com.ntscorp.intern.product.repository.ProductRepository;
 import com.ntscorp.intern.product.service.ProductService;
@@ -63,5 +64,15 @@ public class ProductServiceImpl implements ProductService {
 			.collect(Collectors.toList());
 
 		return productImageUrls;
+	}
+
+	@Override
+	public List<ProductPrice> getProducePriceByDisplayInfoId(int displayInfoId) {
+		return productRepository.selectProductPricesByDisplayInfoId(displayInfoId);
+	}
+
+	@Override
+	public ProductSummary getProductSummaryByDisplayInfoId(int displayInfoId) {
+		return productRepository.selectProductSummaryByDisplayInfoId(displayInfoId);
 	}
 }

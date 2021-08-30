@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ntscorp.intern.common.utils.ValidationUtils;
 import com.ntscorp.intern.product.controller.response.CategoriesResponse;
 import com.ntscorp.intern.product.controller.response.ProductsResponse;
 import com.ntscorp.intern.product.controller.response.PromotionsResponse;
@@ -22,11 +23,6 @@ import com.ntscorp.intern.product.service.PromotionService;
 @RestController
 @RequestMapping("/api")
 public class MainController {
-	private static final boolean VALID = false;
-	private static final boolean INVALID = true;
-	private static final int MIN_CATEGORY_ID = 1;
-	private static final int MIN_START = 0;
-
 	private final PromotionService promotionService;
 	private final CategoryService categoryService;
 	private final ProductService productService;
@@ -64,7 +60,7 @@ public class MainController {
 		@RequestParam(defaultValue = "0")
 		int start) {
 
-		if (isNotValidateProducts(categoryId, start)) {
+		if (ValidationUtils.isNotValidatedProducts(categoryId, start)) {
 			throw new IllegalArgumentException("arguments = [categoryId: " + categoryId + ", start: " + start + "]");
 		}
 
@@ -81,7 +77,7 @@ public class MainController {
 		@RequestParam(defaultValue = "0")
 		int start) {
 
-		if (isNotValidateProducts(start)) {
+		if (ValidationUtils.isNotValidatedProducts(start)) {
 			throw new IllegalArgumentException("arguments = [start: " + start + "]");
 		}
 
@@ -91,19 +87,5 @@ public class MainController {
 		ProductsResponse productsResponse = new ProductsResponse(totalCount, productSummaries);
 
 		return ResponseEntity.ok(productsResponse);
-	}
-
-	private boolean isNotValidateProducts(int start) {
-		if (start < MIN_START) {
-			return INVALID;
-		}
-		return VALID;
-	}
-
-	private boolean isNotValidateProducts(int categoryId, int start) {
-		if (categoryId < MIN_CATEGORY_ID || start < MIN_START) {
-			return INVALID;
-		}
-		return VALID;
 	}
 }

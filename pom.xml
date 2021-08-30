@@ -27,6 +27,12 @@
 	    <groupId>org.springframework</groupId>
 	    <artifactId>spring-context</artifactId>
     	<version>${spring.version}</version>
+    	<exclusions>
+            <exclusion>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+            </exclusion>
+        </exclusions>
     </dependency>
     <dependency>
 	    <groupId>org.springframework</groupId>
@@ -99,7 +105,14 @@
 	  <artifactId>jackson-datatype-jsr310</artifactId>
 	  <version>${jackson.version}</version>
 	</dependency>
-	 
+	
+	<!-- Utils -->
+	<dependency>
+	    <groupId>org.apache.commons</groupId>
+	    <artifactId>commons-lang3</artifactId>
+	    <version>3.9</version>
+	</dependency>
+	
   </dependencies>
 
   <build>

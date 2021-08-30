@@ -1,6 +1,13 @@
 package com.ntscorp.intern.product.repository.impl;
 
-import static com.ntscorp.intern.product.repository.sql.ProductSql.*;
+import static com.ntscorp.intern.product.repository.sql.ProductSql.COUNT_ALL_PRODUCT_SUMMARIES;
+import static com.ntscorp.intern.product.repository.sql.ProductSql.COUNT_PRODUCT_SUMMARIES_BY_CATEGORY_ID;
+import static com.ntscorp.intern.product.repository.sql.ProductSql.SELECT_ALL_PRODUCT_SUMMARIES;
+import static com.ntscorp.intern.product.repository.sql.ProductSql.SELECT_PRODUCT_DESCRIPTION_BY_DISPLAY_INFO_ID;
+import static com.ntscorp.intern.product.repository.sql.ProductSql.SELECT_PRODUCT_IMAGES_BY_DISPLAY_INFO_ID;
+import static com.ntscorp.intern.product.repository.sql.ProductSql.SELECT_PRODUCT_PRICES_BY_DISPLAY_INFO_ID;
+import static com.ntscorp.intern.product.repository.sql.ProductSql.SELECT_PRODUCT_SUMMARIES_BY_CATEGORY_ID;
+import static com.ntscorp.intern.product.repository.sql.ProductSql.SELECT_PRODUCT_SUMMARY_BY_DISPLAY_INFO_ID;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -16,6 +23,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ntscorp.intern.product.model.ProductDescription;
 import com.ntscorp.intern.product.model.ProductImage;
+import com.ntscorp.intern.product.model.ProductPrice;
 import com.ntscorp.intern.product.model.ProductSummary;
 import com.ntscorp.intern.product.repository.ProductRepository;
 
@@ -27,6 +35,8 @@ public class ProductRepositoryImpl implements ProductRepository {
 	private final RowMapper<ProductImage> productImageRowMapper = BeanPropertyRowMapper.newInstance(ProductImage.class);
 	private final RowMapper<ProductDescription> productDescriptionRowMapper = BeanPropertyRowMapper
 		.newInstance(ProductDescription.class);
+	private final RowMapper<ProductPrice> productPriceRowMapper = BeanPropertyRowMapper
+		.newInstance(ProductPrice.class);
 
 	public ProductRepositoryImpl(DataSource dataSource) {
 		this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
@@ -40,7 +50,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
 	@Override
 	public int countAllProductSummaries() {
-		Map<String, ?> param = new HashMap<>();
+		Map<String, ?> param = Collections.emptyMap();
 		return namedParameterJdbcTemplate.queryForObject(COUNT_ALL_PRODUCT_SUMMARIES, param, Integer.class);
 	}
 
@@ -73,5 +83,19 @@ public class ProductRepositoryImpl implements ProductRepository {
 		params.put("limit", limit);
 		return namedParameterJdbcTemplate.query(SELECT_PRODUCT_IMAGES_BY_DISPLAY_INFO_ID, params,
 			productImageRowMapper);
+	}
+
+	@Override
+	public List<ProductPrice> selectProductPricesByDisplayInfoId(int displayInfoId) {
+		Map<String, ?> param = Collections.singletonMap("displayInfoId", displayInfoId);
+		return namedParameterJdbcTemplate.query(SELECT_PRODUCT_PRICES_BY_DISPLAY_INFO_ID, param,
+			productPriceRowMapper);
+	}
+
+	@Override
+	public ProductSummary selectProductSummaryByDisplayInfoId(int displayInfoId) {
+		Map<String, ?> param = Collections.singletonMap("displayInfoId", displayInfoId);
+		return namedParameterJdbcTemplate.queryForObject(SELECT_PRODUCT_SUMMARY_BY_DISPLAY_INFO_ID, param,
+			productSummaryRowMapper);
 	}
 }

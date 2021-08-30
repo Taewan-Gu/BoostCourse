@@ -468,7 +468,8 @@ hr {
 }
 
 .spr_book2.ico_minus3.disabled {
-    background-position: 0 -305px
+    background-position: 0 -305px;
+    background-color: #bbb;
 }
 
 .spr_book2.ico_plus3 {
@@ -1244,18 +1245,18 @@ button {
 }
     
 
-.form_horizontal .inline_form .inline_control.tel_wrap .warning_msg {
+.form_horizontal .inline_form .inline_control .warning_msg {
     position: relative;
-    position: absolute;
     top: 0;
     left: 0;
     background: #ffffff;
-    visibility: hidden;
-    height: 26px;
-    line-height: 26px;
+    height: 24px;
+    display: none;
+    line-height: 24px;
     width: 98%;
     color: red;
     padding-left: 10px;
+    font-size: 10px;
 }
 
 
@@ -1679,7 +1680,8 @@ button {
     float: left;
     width: 40px;
     height: 40px;
-    box-sizing: border-box
+    box-sizing: border-box;
+    background-color: white;
 }
 
 .count_control .btn_plus_minus.disabled+.count_control_input {
@@ -3734,8 +3736,8 @@ button {
   padding-left: 15px;
 }
 .review_photos .item_preview_thumbs .lst_thumb .item {
-  width: auto;
-  height: 160px;
+  max-width: auto;
+  max-height: 160px;
 }
 .review_photos .item_preview_thumbs .lst_thumb .item .item_thumb {
   width: auto;
@@ -3765,6 +3767,7 @@ button {
   color: #000;
   vertical-align: -1.5px;
 }
+::-webkit-file-upload-button { cursor:pointer; }
 .review_write_footer .hidden_input {
   position: absolute;
   top: 0;
