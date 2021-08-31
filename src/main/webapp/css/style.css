@@ -791,6 +791,18 @@ button {
     background-color: #0aba16
 }
 
+.logout_btn {
+	position: relative;
+    height: 48px;
+    left: 168px;
+    cursor: pointer;
+}
+
+.logout_btn:hover {
+	color: #999999;
+	transition: 0.5s;
+}
+
 .btn_my,.logo {
     position: absolute;
     height: 48px

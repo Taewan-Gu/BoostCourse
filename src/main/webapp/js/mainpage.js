@@ -1,5 +1,6 @@
 import LoginCheck from "./common/loginCheck.js";
 import MoveTop from "./common/moveTop.js";
+import Logout from "./common/logout.js";
 
 import Promotion from "./mainpage/promotion.js";
 import Category from "./mainpage/category.js";
@@ -14,4 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	new Product();
 	
 	new MoveTop();
+	
+	// 추가 사항
+	new Logout();
 });
