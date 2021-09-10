@@ -1,4 +1,44 @@
-# 예약 시스템
+[TOC]
+
+
+
+# 부스트 코스
+
+부스트코스 + 깃랩 + 코드리뷰를 통한 공통 프로젝트 8주간 진행
+
+부스트코스 URL: https://www.boostcourse.org/web316
+
+
+
+* 웹프로그래밍 기초 ✔
+* DB 연결 웹 앱 ✔
+* 웹 앱 개발: 예약서비스 ✔
+
+
+
+※ 🚢: 진행 중, ✔: 완료
+
+
+
+## 깃 플로우
+
+* 웹프로그래밍 기초 Branch
+  * PJT.1_dev - 개발 브랜치
+  * PJT.1_master - 마지막 MR 후, 태깅
+
+<br>
+
+* DB 연결 웹 앱  Branch
+  * PJT.2_dev - 개발 브랜치
+  * PJT.2_master - 마지막 MR 후, 태깅
+
+<br>
+
+* 웹 앱 개발: 예약서비스  Branch
+  * PJT.3_dev, PJT.4_dev, PJT.5_dev, PJT.6_dev - 개발 브랜치
+  * master - 마지막 MR 끝
+
+
 
 ## 일정 관리
 
@@ -71,7 +111,9 @@
   * 자신이 저장한 리뷰의 이미지는 보기 가능합니다.
 * ValidationUtils로 Validation들을 관리하고 주석을 통해 입력 값에 따른 예시 결과 확인 가능합니다.
 
-### Pages
+
+
+## Pages
 
 * 리뷰 작성 페이지
 
@@ -144,7 +186,7 @@
 
 
 
-### Pages
+## Pages
 
 * 로그인 페이지
 
@@ -340,7 +382,7 @@ PJT 3의 경우reservation 패키지는 사용하지 않습니다.
 
 
 
-##### controller 
+**controller** 
 
 `@RestController`를 통해 API 형식을 지원합니다.
 
@@ -348,7 +390,7 @@ PJT 3의 경우reservation 패키지는 사용하지 않습니다.
 
 
 
-##### model 
+**model** 
 
 데이터베이스의 테이블 모델입니다.
 
@@ -356,7 +398,7 @@ PJT 3의 경우reservation 패키지는 사용하지 않습니다.
 
 
 
-##### repository 
+**repository** 
 
 해당 패키지에서 레파지토리가 사용할 쿼리를 저장합니다.
 
@@ -364,7 +406,7 @@ PJT 3의 경우reservation 패키지는 사용하지 않습니다.
 
 
 
-##### service 
+**service** 
 
 서비스는 레파지토리에서 받은 데이터를 가공하거나 기능 구현에 대한 여러 작업을 거쳐 컨트롤러에 전달합니다.
 
@@ -384,64 +426,12 @@ slf4j 로거를 사용하여 에러를 콘솔에 로깅하였고,
 
 ## Pages
 
-### 메인화면
+* 메인화면
 
 ![메인](README.assets/메인.PNG)
 
 
 
-### 비회원로그인
+* 비회원로그인
 
 ![비회원로그인](README.assets/비회원로그인.PNG)
-
-
-
-
-
-# 2021 NTS 인턴쉽 Project
-
-부스트코스 + 깃랩 + 코드리뷰를 통한 공통 프로젝트 8주간 진행
-
-부스트코스 URL: https://www.boostcourse.org/web316
-
-
-
-## 부스트 코스
-
-* 웹프로그래밍 기초 ✔
-
-* DB 연결 웹 앱 ✔
-
-* 웹 앱 개발: 예약서비스 🚢
-
-
-
-※ 🚢: 진행 중, ✔: 완료
-
-
-
-## 깃 플로우
-
-* 웹프로그래밍 기초 Branch
-  * PJT.1_dev - 개발 브랜치
-  * PJT.1_master - 마지막 MR 후, 태깅해서 제출
-
-<br>
-
-* DB 연결 웹 앱  Branch
-  * PJT.2_dev - 개발 브랜치
-  * PJT.2_master - 마지막 MR 후, 태깅해서 제출
-
-<br>
-
-* 웹 앱 개발: 예약서비스  Branch
-  * PJT.3_dev, PJT.4_dev, PJT.5_dev, PJT.6_dev - 개발 브랜치
-  * master - 마지막 MR 후, 제출
-
-
-
-## 기타 사항
-
-* 1일 1커밋
-* 주 2회 미팅
-* 코드리뷰 후,  WIKI 작성
